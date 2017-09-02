@@ -1,0 +1,30 @@
+{
+  "name": "adjam",
+  "version": "1.0.0",
+  "description": "electron and aframe game for the Adventure Jam Challenge. Click adventure VR game project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ripter/adventureJam.git"
+  },
+  "keywords": [
+    "Aframe",
+    "Adventure",
+    "Time",
+    "Jam",
+    "Video",
+    "Game",
+    "javascript",
+    "cross",
+    "compatible"
+  ],
+  "author": "Chris Richards (ripter)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ripter/adventureJam/issues"
+  },
+  "homepage": "https://github.com/ripter/adventureJam#readme"
+}
