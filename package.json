@@ -26,5 +26,14 @@
   "bugs": {
     "url": "https://github.com/ripter/adventureJam/issues"
   },
-  "homepage": "https://github.com/ripter/adventureJam#readme"
+  "homepage": "https://github.com/ripter/adventureJam#readme",
+  "dependencies": {
+    "babel-loader": "^7.1.2",
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0"
+  }
 }
