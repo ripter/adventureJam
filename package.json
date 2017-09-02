@@ -2,9 +2,9 @@
   "name": "adjam",
   "version": "1.0.0",
   "description": "electron and aframe game for the Adventure Jam Challenge. Click adventure VR game project.",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "mocha"
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -29,11 +29,11 @@
   "homepage": "https://github.com/ripter/adventureJam#readme",
   "dependencies": {
     "babel-loader": "^7.1.2",
-    "webpack": "^3.5.5",
-    "webpack-dev-server": "^2.7.1"
+    "webpack": "^3.5.5"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.0"
+    "babel-preset-env": "^1.6.0",
+    "electron": "~1.6.2"
   }
 }
