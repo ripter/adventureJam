@@ -25,9 +25,9 @@ AFRAME.registerComponent('minecraft-controls', {
       KeyW: false,
       KeyS: false,
       KeyD: false,
-      KeyS: false,
+      KeyA: false,
       Space: false,
-      Shift: false,
+      ShiftLeft: false,
     };
 
     // Create a vector to handle the movement details.
@@ -54,6 +54,13 @@ AFRAME.registerComponent('minecraft-controls', {
   updateVelocity: function(delta) {
     const { velocity, isDown } = this;
     const acceleration = .25 * delta;
+    const hasKeyDown = Object.keys(isDown).find((keyCode) =>  isDown[keyCode]);
+
+    // Stop moving when the user stops pressing the button.
+    if (!hasKeyDown) {
+      this.velocity = velocity.set(0, 0, 0);
+      return this.velocity;
+    }
 
     // left
     if (isDown.KeyD) {
@@ -71,23 +78,19 @@ AFRAME.registerComponent('minecraft-controls', {
     if (isDown.KeyS) {
       velocity.z += acceleration;
     }
+    // jump up
+    if (isDown.Space) {
+      velocity.y += acceleration;
+    }
+    // drop down
+    if (isDown.ShiftLeft) {
+      velocity.y -= acceleration;
+    }
 
     this.velocity = velocity;
     return velocity;
   },
 
-  getMovementVector: function(delta) {
-    const { el, velocity, rotationEuler } = this;
-    const rotation = el.getAttribute('rotation');
-    let directionVector = velocity.clone();
-
-    directionVector.multiplyScalar(delta);
-
-    // Transform direction relative to heading.
-    rotationEuler.set(THREE.Math.degToRad(rotation.x), THREE.Math.degToRad(rotation.y), 0);
-    directionVector.applyEuler(rotationEuler);
-    return directionVector;
-  },
 
   update: function () {},
   /**
@@ -97,11 +100,18 @@ AFRAME.registerComponent('minecraft-controls', {
    * @param  {Number} delta The time difference in milliseconds since the last frame.
    */
   tick: function (time, delta) {
-    const { el } = this;
-    const velocity = this.updateVelocity(delta/1000);
-    const movementVector = this.getMovementVector(delta/1000);
+    const { el, rotationEuler } = this;
+    const velocity = this.updateVelocity(delta/100);
+    const rotation = el.getAttribute('rotation');
     let position = el.getAttribute('position');
-    position = movementVector.add(position);
+    let movement = velocity.clone().multiplyScalar(delta/100);
+
+    // Transform direction relative to heading.
+    rotationEuler.set(0, THREE.Math.degToRad(rotation.y), 0);
+    movement.applyEuler(rotationEuler);
+
+    // Add the movement to the current position
+    position = movement.add(position);
     el.setAttribute('position', position);
   },
   pause: function () {},
@@ -109,12 +119,19 @@ AFRAME.registerComponent('minecraft-controls', {
 
   onKeyup: function(event) {
     const { code } = event;
-    this.isDown[code] = false;
+    // Check for a value so we can ignore keys not in the isDown object.
+    if (this.isDown[code] === true) {
+      this.isDown[code] = false;
+    }
   },
 
   onKeydown: function(event) {
     const { code } = event;
-    this.isDown[code] = true;
+    console.log(code);
+    // Check for a value so we can ignore keys not in the isDown object.
+    if (this.isDown[code] === false) {
+      this.isDown[code] = true;
+    }
   },
 
   /**

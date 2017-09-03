@@ -81242,8 +81242,6 @@ process.umask = function() { return 0; };
 "use strict";
 
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var KEYCODE_TO_CODE = {
   '38': 'ArrowUp',
   '37': 'ArrowLeft',
@@ -81267,13 +81265,14 @@ AFRAME.registerComponent('minecraft-controls', {
    * reference: https://aframe.io/docs/0.6.0/core/component.html#init
    */
   init: function init() {
-    var _isDown;
-
-    this.isDown = (_isDown = {
+    this.isDown = {
       KeyW: false,
       KeyS: false,
-      KeyD: false
-    }, _defineProperty(_isDown, 'KeyS', false), _defineProperty(_isDown, 'Space', false), _defineProperty(_isDown, 'Shift', false), _isDown);
+      KeyD: false,
+      KeyA: false,
+      Space: false,
+      ShiftLeft: false
+    };
 
     // Create a vector to handle the movement details.
     this.velocity = new THREE.Vector3();
@@ -81301,6 +81300,15 @@ AFRAME.registerComponent('minecraft-controls', {
         isDown = this.isDown;
 
     var acceleration = .25 * delta;
+    var hasKeyDown = Object.keys(isDown).find(function (keyCode) {
+      return isDown[keyCode];
+    });
+
+    // Stop moving when the user stops pressing the button.
+    if (!hasKeyDown) {
+      this.velocity = velocity.set(0, 0, 0);
+      return this.velocity;
+    }
 
     // left
     if (isDown.KeyD) {
@@ -81318,25 +81326,17 @@ AFRAME.registerComponent('minecraft-controls', {
     if (isDown.KeyS) {
       velocity.z += acceleration;
     }
+    // jump up
+    if (isDown.Space) {
+      velocity.y += acceleration;
+    }
+    // drop down
+    if (isDown.ShiftLeft) {
+      velocity.y -= acceleration;
+    }
 
     this.velocity = velocity;
     return velocity;
-  },
-
-  getMovementVector: function getMovementVector(delta) {
-    var el = this.el,
-        velocity = this.velocity,
-        rotationEuler = this.rotationEuler;
-
-    var rotation = el.getAttribute('rotation');
-    var directionVector = velocity.clone();
-
-    directionVector.multiplyScalar(delta);
-
-    // Transform direction relative to heading.
-    rotationEuler.set(THREE.Math.degToRad(rotation.x), THREE.Math.degToRad(rotation.y), 0);
-    directionVector.applyEuler(rotationEuler);
-    return directionVector;
   },
 
   update: function update() {},
@@ -81347,12 +81347,20 @@ AFRAME.registerComponent('minecraft-controls', {
    * @param  {Number} delta The time difference in milliseconds since the last frame.
    */
   tick: function tick(time, delta) {
-    var el = this.el;
+    var el = this.el,
+        rotationEuler = this.rotationEuler;
 
-    var velocity = this.updateVelocity(delta / 1000);
-    var movementVector = this.getMovementVector(delta / 1000);
+    var velocity = this.updateVelocity(delta / 100);
+    var rotation = el.getAttribute('rotation');
     var position = el.getAttribute('position');
-    position = movementVector.add(position);
+    var movement = velocity.clone().multiplyScalar(delta / 100);
+
+    // Transform direction relative to heading.
+    rotationEuler.set( /*THREE.Math.degToRad(rotation.x)*/0, THREE.Math.degToRad(rotation.y), /*THREE.Math.degToRad(rotation.z)*/0);
+    movement.applyEuler(rotationEuler);
+
+    // Add the movement to the current position
+    position = movement.add(position);
     el.setAttribute('position', position);
   },
   pause: function pause() {},
@@ -81360,14 +81368,21 @@ AFRAME.registerComponent('minecraft-controls', {
 
   onKeyup: function onKeyup(event) {
     var code = event.code;
+    // Check for a value so we can ignore keys not in the isDown object.
 
-    this.isDown[code] = false;
+    if (this.isDown[code] === true) {
+      this.isDown[code] = false;
+    }
   },
 
   onKeydown: function onKeydown(event) {
     var code = event.code;
 
-    this.isDown[code] = true;
+    console.log(code);
+    // Check for a value so we can ignore keys not in the isDown object.
+    if (this.isDown[code] === false) {
+      this.isDown[code] = true;
+    }
   },
 
   /**
