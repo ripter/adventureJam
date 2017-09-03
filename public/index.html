@@ -13,6 +13,7 @@
     <a-scene physics="debug: true">
       <a-assets>
         <img id="skyTexture" src="textures/washington-ruby-beach-olympic-np-dark-sky-360.jpg">
+        <img id="grassTexture" src="textures/grass.png">
         <a-asset-item id="chest" src="models/chest.dae"></a-asset-item>
       </a-assets>
 
@@ -25,16 +26,15 @@
          <a-cursor position="0 0 -1" opacity=".5" color="#fff;">
          </a-cursor>
       </a-camera>
-      <a-plane static-body position="0 0 0" rotation="-90 0 0" width="10" height="10" color="#7BC8A4"></a-plane>
+      <a-plane static-body position="0 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
       <a-sky src="#skyTexture"></a-sky>
 
       <a-box dynamic-body="mass: 1" position="-2 0.5 -3" width="1" height="1" depth="1" color="#0074D9"></a-box>
 
-      <a-box static-body position="0 0.5 -3" width="1" height="1" depth="1" rotation="0 45 0" color="#4CC3D9"></a-box>
       <a-sphere dynamic-body position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
 
 
-      <a-collada-model src="#chest" position="0 0 7" rotate="0 90 0"></a-collada-model>
+      <a-collada-model src="#chest" position="0 0 -3" scale=".5 .5 .5"></a-collada-model>
 
     </a-scene>
   </body>
