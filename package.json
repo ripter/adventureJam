@@ -29,6 +29,7 @@
   "homepage": "https://github.com/ripter/adventureJam#readme",
   "dependencies": {
     "aframe": "^0.6.1",
+    "aframe-physics-system": "^2.0.0",
     "babel-loader": "^7.1.2",
     "webpack": "^3.5.5"
   },

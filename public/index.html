@@ -10,18 +10,27 @@
     <script src="bundle.js"></script>
   </head>
   <body>
-    <a-scene>
+    <a-scene physics="debug: true">
       <a-assets>
         <img id="skyTexture" src="textures/washington-ruby-beach-olympic-np-dark-sky-360.jpg" src2="textures/tuba-city-sky-360.jpg">
       </a-assets>
 
-      <a-entity camera="userHeight: 1.6" look-controls minecraft-controls="fly: true"></a-entity>
-
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      <a-camera
+        user-height="1.6"
+        positin="0 5 0"
+        geometry="primitive: box;"
+        static-body 
+        look-controls minecraft-controls>
+         <a-cursor position="0 0 -1" opacity=".5" color="#fff;">
+         </a-cursor>
+      </a-camera>
+      <a-plane static-body position="0 0 0" rotation="-90 0 0" width="10" height="10" color="#7BC8A4"></a-plane>
       <a-sky src="#skyTexture"></a-sky>
+
+      <a-box dynamic-body="mass: 1" position="-2 0.5 -3" width="1" height="1" depth="1" color="#0074D9"></a-box>
+
+      <a-box static-body position="0 0.5 -3" width="1" height="1" depth="1" rotation="0 45 0" color="#4CC3D9"></a-box>
+      <a-sphere dynamic-body position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
     </a-scene>
   </body>
 </html>

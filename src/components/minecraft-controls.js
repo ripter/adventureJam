@@ -127,7 +127,6 @@ AFRAME.registerComponent('minecraft-controls', {
 
   onKeydown: function(event) {
     const { code } = event;
-    console.log(code);
     // Check for a value so we can ignore keys not in the isDown object.
     if (this.isDown[code] === false) {
       this.isDown[code] = true;
