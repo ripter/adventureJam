@@ -81356,7 +81356,7 @@ AFRAME.registerComponent('minecraft-controls', {
     var movement = velocity.clone().multiplyScalar(delta / 100);
 
     // Transform direction relative to heading.
-    rotationEuler.set( /*THREE.Math.degToRad(rotation.x)*/0, THREE.Math.degToRad(rotation.y), /*THREE.Math.degToRad(rotation.z)*/0);
+    rotationEuler.set(0, THREE.Math.degToRad(rotation.y), 0);
     movement.applyEuler(rotationEuler);
 
     // Add the movement to the current position
