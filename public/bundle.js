@@ -99,6 +99,8 @@ module.exports = g;
 
 __webpack_require__(2);
 
+__webpack_require__(6);
+
 document.addEventListener("DOMContentLoaded", function () {
   console.log('Game Ready!');
 });
@@ -81232,6 +81234,157 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var KEYCODE_TO_CODE = {
+  '38': 'ArrowUp',
+  '37': 'ArrowLeft',
+  '40': 'ArrowDown',
+  '39': 'ArrowRight',
+  '87': 'W',
+  '65': 'A',
+  '83': 'S',
+  '68': 'D'
+};
+// https://github.com/aframevr/aframe/blob/master/src/utils/index.js#L213-L221
+var canCaptureKey = AFRAME.utils.shouldCaptureKeyEvent;
+
+AFRAME.registerComponent('minecraft-controls', {
+  schema: {
+    fly: { default: false }
+  },
+
+  /**
+   * Called once at the beginning of the component’s lifecycle
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#init
+   */
+  init: function init() {
+    var _isDown;
+
+    this.isDown = (_isDown = {
+      KeyW: false,
+      KeyS: false,
+      KeyD: false
+    }, _defineProperty(_isDown, 'KeyS', false), _defineProperty(_isDown, 'Space', false), _defineProperty(_isDown, 'Shift', false), _isDown);
+
+    // Create a vector to handle the movement details.
+    this.velocity = new THREE.Vector3();
+    this.rotationEuler = new THREE.Euler(0, 0, 0, 'YXZ');
+    // bind event listeners
+    window.addEventListener('keydown', this);
+    window.addEventListener('keyup', this);
+  },
+  /**
+   * Called whenever the component is detached from the entity
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#remove
+   */
+  remove: function remove() {
+    // unbind event listeners
+    window.removeEventListener('keydown', this);
+    window.removeEventListener('keyup', this);
+  },
+
+  /**
+   * Updates this.velocity
+   * @return {[type]} [description]
+   */
+  updateVelocity: function updateVelocity(delta) {
+    var velocity = this.velocity,
+        isDown = this.isDown;
+
+    var acceleration = .25 * delta;
+
+    // left
+    if (isDown.KeyD) {
+      velocity.x += acceleration;
+    }
+    // right
+    if (isDown.KeyA) {
+      velocity.x -= acceleration;
+    }
+    // forward
+    if (isDown.KeyW) {
+      velocity.z -= acceleration;
+    }
+    // backword
+    if (isDown.KeyS) {
+      velocity.z += acceleration;
+    }
+
+    this.velocity = velocity;
+    return velocity;
+  },
+
+  getMovementVector: function getMovementVector(delta) {
+    var el = this.el,
+        velocity = this.velocity,
+        rotationEuler = this.rotationEuler;
+
+    var rotation = el.getAttribute('rotation');
+    var directionVector = velocity.clone();
+
+    directionVector.multiplyScalar(delta);
+
+    // Transform direction relative to heading.
+    rotationEuler.set(THREE.Math.degToRad(rotation.x), THREE.Math.degToRad(rotation.y), 0);
+    directionVector.applyEuler(rotationEuler);
+    return directionVector;
+  },
+
+  update: function update() {},
+  /**
+   * Called on each tick or frame of the scene’s render loop (60 to 120 times per second).
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#tick-time-timedelta
+   * @param  {Number} time  Global uptime of the scene in milliseconds.
+   * @param  {Number} delta The time difference in milliseconds since the last frame.
+   */
+  tick: function tick(time, delta) {
+    var el = this.el;
+
+    var velocity = this.updateVelocity(delta / 1000);
+    var movementVector = this.getMovementVector(delta / 1000);
+    var position = el.getAttribute('position');
+    position = movementVector.add(position);
+    el.setAttribute('position', position);
+  },
+  pause: function pause() {},
+  play: function play() {},
+
+  onKeyup: function onKeyup(event) {
+    var code = event.code;
+
+    this.isDown[code] = false;
+  },
+
+  onKeydown: function onKeydown(event) {
+    var code = event.code;
+
+    this.isDown[code] = true;
+  },
+
+  /**
+   * Effecent and safe way to map methods to event listeners
+   * reference: https://medium.com/@WebReflection/dom-handleevent-a-cross-platform-standard-since-year-2000-5bf17287fd38
+   * @param  {Event} event
+   */
+  handleEvent: function handleEvent(event) {
+    var type = event.type;
+    // convert the first letter to upper case so the method is formatted like `onKeyup`, `onClick`
+
+    var methodName = 'on' + type.replace(/\w/, function (l) {
+      return l.toUpperCase();
+    });
+    this[methodName](event);
+  }
+});
 
 /***/ })
 /******/ ]);
