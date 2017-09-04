@@ -110,9 +110,7 @@ AFRAME.registerComponent('minecraft-controls', eventToMethod({
 
   onKeyup: function(event) {
     const { code } = event;
-    console.log('onKeyup', code);
-
-    if (!canCaptureKey()) { return; }
+    if (!canCaptureKey(event)) { return; }
     // Check for a value so we can ignore keys not in the isDown object.
     if (this.isDown[code] === true) {
       this.isDown[code] = false;
@@ -121,9 +119,7 @@ AFRAME.registerComponent('minecraft-controls', eventToMethod({
 
   onKeydown: function(event) {
     const { code } = event;
-    console.log('onKeydown', code);
-
-    if (!canCaptureKey()) { return; }
+    if (!canCaptureKey(event)) { return; }
     // Check for a value so we can ignore keys not in the isDown object.
     if (this.isDown[code] === false) {
       this.isDown[code] = true;

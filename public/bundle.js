@@ -9962,6 +9962,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = eventToMethod;
+exports.handleEvent = handleEvent;
 
 /**
  * Adds a handleEvent method to object.
@@ -9972,9 +9973,7 @@ exports.default = eventToMethod;
  * @return {Object}
  */
 function eventToMethod(obj) {
-  Object.defineProperty(obj, 'handleEvent', {
-    value: handleEvent
-  });
+  obj.handleEvent = handleEvent;
   return obj;
 }
 
@@ -9985,11 +9984,17 @@ function eventToMethod(obj) {
 */
 function handleEvent(event) {
   var type = event.type;
-  // convert the first letter to upper case so the method is formatted like `onKeyup`, `onClick`
+  // convert the first letter to upper case so the method is formatted like `click -> Click`
 
-  var methodName = 'on' + type.replace(/\w/, function (l) {
+  type = type.replace(/\w/, function (l) {
     return l.toUpperCase();
   });
+  // convert dash to upperc case like `model-loaded -> modelLoaded`
+  type = type.replace(/-\w/, function (l) {
+    return l.substr(1).toUpperCase();
+  });
+  var methodName = "on" + type;
+  // call the method, passing in the event.
   this[methodName](event);
 }
 
@@ -10009,6 +10014,10 @@ __webpack_require__(88);
 __webpack_require__(89);
 
 document.addEventListener("DOMContentLoaded", function () {
+  var player = document.getElementById('player');
+
+  // look-controls add the wasd-controls, remove it so we can do pure minecraft-controls
+  // player.removeAttribute('wasd-controls');
   console.log('Game Ready!');
 });
 
@@ -98988,9 +98997,7 @@ AFRAME.registerComponent('minecraft-controls', (0, _eventToMethod2.default)({
   onKeyup: function onKeyup(event) {
     var code = event.code;
 
-    console.log('onKeyup', code);
-
-    if (!canCaptureKey()) {
+    if (!canCaptureKey(event)) {
       return;
     }
     // Check for a value so we can ignore keys not in the isDown object.
@@ -99002,9 +99009,7 @@ AFRAME.registerComponent('minecraft-controls', (0, _eventToMethod2.default)({
   onKeydown: function onKeydown(event) {
     var code = event.code;
 
-    console.log('onKeydown', code);
-
-    if (!canCaptureKey()) {
+    if (!canCaptureKey(event)) {
       return;
     }
     // Check for a value so we can ignore keys not in the isDown object.
@@ -99040,12 +99045,18 @@ AFRAME.registerComponent('is-solid', (0, _eventToMethod2.default)({
 
     console.log('is-solid init', el);
     el.addEventListener('collide', this);
+    el.addEventListener('body-loaded', this);
+    el.addEventListener('click', this);
   },
   /**
    * Called whenever the component is detached from the entity
    * reference: https://aframe.io/docs/0.6.0/core/component.html#remove
    */
-  remove: function remove() {},
+  remove: function remove() {
+    el.removeEventListener('collide', this);
+    el.removeEventListener('body-loaded', this);
+    el.removeEventListener('click', this);
+  },
 
   update: function update() {},
   /**
@@ -99059,7 +99070,15 @@ AFRAME.registerComponent('is-solid', (0, _eventToMethod2.default)({
   play: function play() {},
 
   onCollide: function onCollide(event) {
+    console.log('is-solid onCollide', event);
     debugger;
+  },
+  onBodyLoaded: function onBodyLoaded(event) {
+    console.log('is-solid onBodyLoaded', event.detail);
+    // debugger;
+  },
+  onClick: function onClick(event) {
+    console.log('is-solid onClick', event);
   }
 }));
 

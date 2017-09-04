@@ -8,9 +8,7 @@
  * @return {Object}
  */
 export default function eventToMethod(obj) {
-  Object.defineProperty(obj, 'handleEvent', {
-    value: handleEvent,
-  });
+  obj.handleEvent = handleEvent;
   return obj;
 }
 
@@ -20,9 +18,13 @@ export default function eventToMethod(obj) {
 * reference: https://medium.com/@WebReflection/dom-handleevent-a-cross-platform-standard-since-year-2000-5bf17287fd38
 * @param  {Event} event
 */
-function handleEvent(event) {
-  const { type } = event;
-  // convert the first letter to upper case so the method is formatted like `onKeyup`, `onClick`
-  const methodName = 'on' + type.replace(/\w/, (l) => l.toUpperCase())
+export function handleEvent(event) {
+  let { type } = event;
+  // convert the first letter to upper case so the method is formatted like `click -> Click`
+  type = type.replace(/\w/, (l) => l.toUpperCase())
+  // convert dash to upperc case like `model-loaded -> modelLoaded`
+  type = type.replace(/-\w/, (l) => l.substr(1).toUpperCase())
+  const methodName = `on${type}`;
+  // call the method, passing in the event.
   this[methodName](event);
 }

@@ -14,22 +14,30 @@
       <a-assets>
         <img id="skyTexture" src="textures/washington-ruby-beach-olympic-np-dark-sky-360.jpg">
         <img id="stoneWall" src="textures/stone_wall.png">
-        <img id="grassTexture" src="textures/grass.png">
+        <img id="grassTexture" src="textures/grass.png" repeat="1 0">
         <img id="chest3Texture" src="models/Chest3.png">
         <a-asset-item id="chest" src="models/chest.dae"></a-asset-item>
+        <a-asset-item id="minecart" src="models/mine_cart.dae"></a-asset-item>
+        <a-asset-item id="minetrack-straight" src="models/mine_track_straight.dae"></a-asset-item>
+        <a-asset-item id="minetrack-curve" src="models/mine_track_curve.dae"></a-asset-item>
+        <a-asset-item id="minetrack-optional-left" src="models/mine_track_optional_left.dae"></a-asset-item>
+        <a-asset-item id="minetrack-optional-right" src="models/mine_track_optional_right.dae"></a-asset-item>
       </a-assets>
 
-      <a-camera
+      <a-camera id="player"
         user-height="1.6"
         positin="0 5 0"
         geometry="primitive: box;"
-        static-body
         look-controls minecraft-controls>
-         <a-cursor position="0 0 -1" opacity=".5" color="#fff;">
+         <a-cursor fuse="true" position="0 0 -1" opacity=".5" color="#fff;">
          </a-cursor>
       </a-camera>
-      <a-plane static-body position="0 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
+
       <a-sky src="#skyTexture"></a-sky>
+
+      <a-plane static-body position="0 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
+      <a-plane static-body position="10 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
+
 
       <a-box dynamic-body="mass: 1" position="-2 0.5 -3" width="1" height="1" depth="1" color="#0074D9"></a-box>
 
@@ -37,7 +45,21 @@
 
       <a-plane is-solid static-body position="0 0 -5" width="10" height="5" src="#stoneWall"></a-plane>
 
-      <a-collada-model src="#chest" position="0 0 -3" scale=".5 .5 .5"></a-collada-model>
+      <a-entity is-solid position="-3 0 3">
+        <a-collada-model src="#minecart"></a-collada-model>
+        <a-collada-model src="#minetrack-straight"></a-collada-model>
+        <a-collada-model src="#minetrack-curve"></a-collada-model>
+        <a-collada-model src="#minetrack-optional-left"></a-collada-model>
+        <a-collada-model src="#minetrack-optional-right"></a-collada-model>
+      </a-entity>
+
+      <a-entity>
+        <a-collada-model is-solid src="#chest" position="0 0 -3" scale=".5 .5 .5"></a-collada-model>
+      </a-entity>
+
+      <a-entity is-solid position="5 0 -3" scale=".5 .5 .5">
+        <a-collada-model src="#chest"></a-collada-model>
+      </a-entity>
     </a-scene>
   </body>
 </html>
