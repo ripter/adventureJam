@@ -51,6 +51,18 @@
   <library_effects>
     <effect id="UV-Material-effect">
       <profile_COMMON>
+
+        <newparam sid="Chest3_png-surface">
+          <surface type="2D">
+            <init_from>Chest3_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="Chest3_png-sampler">
+          <sampler2D>
+            <source>Chest3_png-surface</source>
+          </sampler2D>
+        </newparam>
+
         <newparam sid="Chest3-AO_png-surface">
           <surface type="2D">
             <init_from>Chest3-AO_png</init_from>
