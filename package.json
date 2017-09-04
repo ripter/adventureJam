@@ -31,7 +31,8 @@
     "aframe": "^0.6.1",
     "aframe-physics-system": "^2.0.0",
     "babel-loader": "^7.1.2",
-    "webpack": "^3.5.5"
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
