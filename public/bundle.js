@@ -9964,6 +9964,8 @@ __webpack_require__(47);
 
 __webpack_require__(87);
 
+__webpack_require__(88);
+
 document.addEventListener("DOMContentLoaded", function () {
   console.log('Game Ready!');
 });
@@ -98975,6 +98977,71 @@ AFRAME.registerComponent('minecraft-controls', {
     var methodName = 'on' + type.replace(/\w/, function (l) {
       return l.toUpperCase();
     });
+    this[methodName](event);
+  }
+});
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+AFRAME.registerComponent('animate-open', {
+  schema: {},
+
+  /**
+   * Called once at the beginning of the component’s lifecycle
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#init
+   */
+  init: function init() {
+    var el = this.el;
+
+
+    el.addEventListener('model-loaded', this);
+  },
+  /**
+   * Called whenever the component is detached from the entity
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#remove
+   */
+  remove: function remove() {},
+  update: function update() {},
+  /**
+   * Called on each tick or frame of the scene’s render loop (60 to 120 times per second).
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#tick-time-timedelta
+   * @param  {Number} time  Global uptime of the scene in milliseconds.
+   * @param  {Number} delta The time difference in milliseconds since the last frame.
+   */
+  tick: function tick(time, delta) {},
+  pause: function pause() {},
+  play: function play() {},
+
+  onModelLoaded: function onModelLoaded(event) {
+    var detail = event.detail;
+    // debugger;
+
+    console.log('detail', detail);
+  },
+
+  /**
+   * Effecent and safe way to map methods to event listeners
+   * reference: https://medium.com/@WebReflection/dom-handleevent-a-cross-platform-standard-since-year-2000-5bf17287fd38
+   * @param  {Event} event
+   */
+  handleEvent: function handleEvent(event) {
+    var type = event.type;
+    // convert the first letter to upper case so the method is formatted like `click -> Click`
+
+    type = type.replace(/\w/, function (l) {
+      return l.toUpperCase();
+    });
+    // convert dash to upperc case like `model-loaded -> modelLoaded`
+    type = type.replace(/-\w/, function (l) {
+      return l.substr(1).toUpperCase();
+    });
+    var methodName = 'on' + type;
+    // call the method, passing in the event.
     this[methodName](event);
   }
 });

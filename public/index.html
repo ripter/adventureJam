@@ -16,7 +16,6 @@
         <img id="grassTexture" src="textures/grass.png">
         <img id="chest3Texture" src="models/Chest3.png">
         <a-asset-item id="chest" src="models/chest.dae"></a-asset-item>
-        <a-asset-item id="chest2" src="models/chest.gltf"></a-asset-item>
       </a-assets>
 
       <a-camera
@@ -28,18 +27,14 @@
          <a-cursor position="0 0 -1" opacity=".5" color="#fff;">
          </a-cursor>
       </a-camera>
-      <a-plane static-body position="0 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
+      <a-plane static-body position="0 0 0" rotation="-90 0 0" width="20" height="20" src="#grassTexture"></a-plane>
       <a-sky src="#skyTexture"></a-sky>
 
       <a-box dynamic-body="mass: 1" position="-2 0.5 -3" width="1" height="1" depth="1" color="#0074D9"></a-box>
 
       <a-sphere dynamic-body position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
 
-
-      <a-collada-model src="#chest" position="0 0 -3" scale=".5 .5 .5"></a-collada-model>
-
-      <a-gltf-model src="#chest2" position=" 0 -3" scale=".5 .5 .5"></a-gltf-model>
-
+      <a-collada-model animate-open src="#chest" position="0 0 -3" scale=".5 .5 .5"></a-collada-model>
     </a-scene>
   </body>
 </html>
