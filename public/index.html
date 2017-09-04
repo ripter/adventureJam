@@ -22,6 +22,10 @@
         <a-asset-item id="minetrack-curve" src="models/mine_track_curve.dae"></a-asset-item>
         <a-asset-item id="minetrack-optional-left" src="models/mine_track_optional_left.dae"></a-asset-item>
         <a-asset-item id="minetrack-optional-right" src="models/mine_track_optional_right.dae"></a-asset-item>
+
+
+        <a-asset-item id="compass-base" src="models/compass_base.dae"></a-asset-item>
+        <a-asset-item id="compass-needle" src="models/compass_needle.dae"></a-asset-item>
       </a-assets>
 
       <a-camera id="player"
@@ -39,7 +43,10 @@
       <a-plane static-body position="10 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
 
 
-      <a-box dynamic-body="mass: 1" position="-2 0.5 -3" width="1" height="1" depth="1" color="#0074D9"></a-box>
+      <a-entity position="-2 0.5 -3">
+        <a-collada-model src="#compass-base"></a-collada-model>
+        <a-collada-model src="#compass-needle" position="0 .01 0"></a-collada-model>
+      </a-entity>
 
       <a-sphere dynamic-body position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
 
