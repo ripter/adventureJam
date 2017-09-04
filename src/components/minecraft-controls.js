@@ -1,17 +1,8 @@
-const KEYCODE_TO_CODE = {
-  '38': 'ArrowUp',
-  '37': 'ArrowLeft',
-  '40': 'ArrowDown',
-  '39': 'ArrowRight',
-  '87': 'W',
-  '65': 'A',
-  '83': 'S',
-  '68': 'D',
-};
+import eventToMethod from '../utils/eventToMethod.js';
 // https://github.com/aframevr/aframe/blob/master/src/utils/index.js#L213-L221
 const canCaptureKey = AFRAME.utils.shouldCaptureKeyEvent;
 
-AFRAME.registerComponent('minecraft-controls', {
+AFRAME.registerComponent('minecraft-controls', eventToMethod({
   schema: {
      fly: {default: false},
   },
@@ -119,6 +110,9 @@ AFRAME.registerComponent('minecraft-controls', {
 
   onKeyup: function(event) {
     const { code } = event;
+    console.log('onKeyup', code);
+
+    if (!canCaptureKey()) { return; }
     // Check for a value so we can ignore keys not in the isDown object.
     if (this.isDown[code] === true) {
       this.isDown[code] = false;
@@ -127,21 +121,12 @@ AFRAME.registerComponent('minecraft-controls', {
 
   onKeydown: function(event) {
     const { code } = event;
+    console.log('onKeydown', code);
+
+    if (!canCaptureKey()) { return; }
     // Check for a value so we can ignore keys not in the isDown object.
     if (this.isDown[code] === false) {
       this.isDown[code] = true;
     }
   },
-
-  /**
-   * Effecent and safe way to map methods to event listeners
-   * reference: https://medium.com/@WebReflection/dom-handleevent-a-cross-platform-standard-since-year-2000-5bf17287fd38
-   * @param  {Event} event
-   */
-  handleEvent: function(event) {
-    const { type } = event;
-    // convert the first letter to upper case so the method is formatted like `onKeyup`, `onClick`
-    const methodName = 'on' + type.replace(/\w/, (l) => l.toUpperCase())
-    this[methodName](event);
-  },
-});
+}));

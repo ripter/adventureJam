@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 42);
+/******/ 	return __webpack_require__(__webpack_require__.s = 43);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1159,7 +1159,7 @@ Quaternion.prototype.integrate = function(angularVelocity, dt, angularFactor, ta
 
 // Export classes
 module.exports = {
-    version :                       __webpack_require__(48).version,
+    version :                       __webpack_require__(49).version,
 
     AABB :                          __webpack_require__(4),
     ArrayCollisionMatrix :          __webpack_require__(26),
@@ -1169,46 +1169,46 @@ module.exports = {
     Constraint :                    __webpack_require__(10),
     ContactEquation :               __webpack_require__(7),
     Narrowphase :                   __webpack_require__(28),
-    ConeTwistConstraint :           __webpack_require__(50),
+    ConeTwistConstraint :           __webpack_require__(51),
     ContactMaterial :               __webpack_require__(31),
     ConvexPolyhedron :              __webpack_require__(8),
-    Cylinder :                      __webpack_require__(52),
-    DistanceConstraint :            __webpack_require__(53),
+    Cylinder :                      __webpack_require__(53),
+    DistanceConstraint :            __webpack_require__(54),
     Equation :                      __webpack_require__(11),
     EventTarget :                   __webpack_require__(22),
     FrictionEquation :              __webpack_require__(23),
     GSSolver :                      __webpack_require__(32),
-    GridBroadphase :                __webpack_require__(54),
-    Heightfield :                   __webpack_require__(55),
+    GridBroadphase :                __webpack_require__(55),
+    Heightfield :                   __webpack_require__(56),
     HingeConstraint :               __webpack_require__(33),
-    LockConstraint :                __webpack_require__(56),
+    LockConstraint :                __webpack_require__(57),
     Mat3 :                          __webpack_require__(5),
     Material :                      __webpack_require__(13),
     NaiveBroadphase :               __webpack_require__(34),
-    ObjectCollisionMatrix :         __webpack_require__(57),
+    ObjectCollisionMatrix :         __webpack_require__(58),
     Pool :                          __webpack_require__(30),
     Particle :                      __webpack_require__(35),
     Plane :                         __webpack_require__(27),
     PointToPointConstraint :        __webpack_require__(19),
     Quaternion :                    __webpack_require__(2),
     Ray :                           __webpack_require__(17),
-    RaycastVehicle :                __webpack_require__(58),
+    RaycastVehicle :                __webpack_require__(59),
     RaycastResult :                 __webpack_require__(14),
-    RigidVehicle :                  __webpack_require__(60),
+    RigidVehicle :                  __webpack_require__(61),
     RotationalEquation :            __webpack_require__(20),
     RotationalMotorEquation :       __webpack_require__(24),
-    SAPBroadphase :                 __webpack_require__(61),
-    SPHSystem :                     __webpack_require__(62),
+    SAPBroadphase :                 __webpack_require__(62),
+    SPHSystem :                     __webpack_require__(63),
     Shape :                         __webpack_require__(1),
     Solver :                        __webpack_require__(18),
     Sphere :                        __webpack_require__(36),
-    SplitSolver :                   __webpack_require__(63),
-    Spring :                        __webpack_require__(64),
+    SplitSolver :                   __webpack_require__(64),
+    Spring :                        __webpack_require__(65),
     Transform :                     __webpack_require__(9),
-    Trimesh :                       __webpack_require__(65),
+    Trimesh :                       __webpack_require__(66),
     Vec3 :                          __webpack_require__(0),
     Vec3Pool :                      __webpack_require__(29),
-    World :                         __webpack_require__(67),
+    World :                         __webpack_require__(68),
 };
 
 
@@ -4172,7 +4172,7 @@ Constraint.idCounter = 0;
 
 module.exports = Equation;
 
-var JacobianElement = __webpack_require__(49),
+var JacobianElement = __webpack_require__(50),
     Vec3 = __webpack_require__(0);
 
 /**
@@ -9209,9 +9209,9 @@ Sphere.prototype.calculateWorldAABB = function(pos,quat,min,max){
 /***/ (function(module, exports, __webpack_require__) {
 
 var CANNON = __webpack_require__(3),
-    mesh2shape = __webpack_require__(74);
+    mesh2shape = __webpack_require__(75);
 
-__webpack_require__(76);
+__webpack_require__(77);
 
 module.exports = {
   schema: {
@@ -9625,7 +9625,7 @@ module.exports = AmmoDriver;
 /***/ (function(module, exports, __webpack_require__) {
 
 var CANNON = __webpack_require__(3);
-var mathUtils = __webpack_require__(85);
+var mathUtils = __webpack_require__(86);
 
 /******************************************************************************
  * IDs
@@ -9958,18 +9958,62 @@ function deserializeQuaternion (message) {
 "use strict";
 
 
-__webpack_require__(43);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = eventToMethod;
 
-__webpack_require__(47);
+/**
+ * Adds a handleEvent method to object.
+ * This translates events like `click` to `obj.onClick(event)`
+ * Listen to events with `addEventListener('click', obj);`
+ * Stop listening to events with `removeEventListener('click', obj);`
+ * @param  {Object} obj
+ * @return {Object}
+ */
+function eventToMethod(obj) {
+  Object.defineProperty(obj, 'handleEvent', {
+    value: handleEvent
+  });
+  return obj;
+}
 
-__webpack_require__(87);
+/**
+* Effecent and safe way to map methods to event listeners
+* reference: https://medium.com/@WebReflection/dom-handleevent-a-cross-platform-standard-since-year-2000-5bf17287fd38
+* @param  {Event} event
+*/
+function handleEvent(event) {
+  var type = event.type;
+  // convert the first letter to upper case so the method is formatted like `onKeyup`, `onClick`
+
+  var methodName = 'on' + type.replace(/\w/, function (l) {
+    return l.toUpperCase();
+  });
+  this[methodName](event);
+}
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(44);
+
+__webpack_require__(48);
+
+__webpack_require__(88);
+
+__webpack_require__(89);
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log('Game Ready!');
 });
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {var require;var require;(function(f){if(true){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.AFRAME = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return require(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -90654,10 +90698,10 @@ module.exports = getWakeLock();
 });
 //# sourceMappingURL=aframe-master.js.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25), __webpack_require__(44).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25), __webpack_require__(45).setImmediate))
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -90710,13 +90754,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(45);
+__webpack_require__(46);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -90906,10 +90950,10 @@ exports.clearImmediate = clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25), __webpack_require__(46)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25), __webpack_require__(47)))
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -91099,16 +91143,16 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var CANNON = __webpack_require__(3);
 
-__webpack_require__(70);
-__webpack_require__(73);
-__webpack_require__(77);
+__webpack_require__(71);
+__webpack_require__(74);
 __webpack_require__(78);
 __webpack_require__(79);
+__webpack_require__(80);
 
 module.exports = {
   registerAll: function () {
@@ -91121,13 +91165,13 @@ window.CANNON = window.CANNON || CANNON;
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = {"_from":"github:donmccurdy/cannon.js#v0.6.2-dev1","_id":"cannon@0.6.2","_inBundle":false,"_integrity":"sha1-2ltEtbMIa1PJOYyuEF3x8/SVybo=","_location":"/cannon","_phantomChildren":{},"_requested":{"type":"git","raw":"cannon@github:donmccurdy/cannon.js#v0.6.2-dev1","name":"cannon","escapedName":"cannon","rawSpec":"github:donmccurdy/cannon.js#v0.6.2-dev1","saveSpec":"github:donmccurdy/cannon.js#v0.6.2-dev1","fetchSpec":null,"gitCommittish":"v0.6.2-dev1"},"_requiredBy":["/aframe-physics-system"],"_resolved":"github:donmccurdy/cannon.js#022e8ba53fa83abf0ad8a0e4fd08623123838a17","_spec":"cannon@github:donmccurdy/cannon.js#v0.6.2-dev1","_where":"/Users/chrisrichards/dev/adventureJam/node_modules/aframe-physics-system","author":{"name":"Stefan Hedman","email":"schteppe@gmail.com","url":"http://steffe.se"},"bugs":{"url":"https://github.com/schteppe/cannon.js/issues"},"bundleDependencies":false,"dependencies":{},"deprecated":false,"description":"A lightweight 3D physics engine written in JavaScript.","devDependencies":{"browserify":"*","grunt":"~0.4.0","grunt-browserify":"^2.1.4","grunt-contrib-concat":"~0.1.3","grunt-contrib-jshint":"~0.1.1","grunt-contrib-nodeunit":"^0.4.1","grunt-contrib-uglify":"^0.5.1","grunt-contrib-yuidoc":"^0.5.2","jshint":"latest","nodeunit":"^0.9.0","uglify-js":"latest"},"engines":{"node":"*"},"homepage":"https://github.com/schteppe/cannon.js","keywords":["cannon.js","cannon","physics","engine","3d"],"licenses":[{"type":"MIT"}],"main":"./src/Cannon.js","name":"cannon","repository":{"type":"git","url":"git+https://github.com/schteppe/cannon.js.git"},"version":"0.6.2"}
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = JacobianElement;
@@ -91175,14 +91219,14 @@ JacobianElement.prototype.multiplyVectors = function(spatial,rotational){
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = ConeTwistConstraint;
 
 var Constraint = __webpack_require__(10);
 var PointToPointConstraint = __webpack_require__(19);
-var ConeEquation = __webpack_require__(51);
+var ConeEquation = __webpack_require__(52);
 var RotationalEquation = __webpack_require__(20);
 var ContactEquation = __webpack_require__(7);
 var Vec3 = __webpack_require__(0);
@@ -91270,7 +91314,7 @@ ConeTwistConstraint.prototype.update = function(){
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = ConeEquation;
@@ -91353,7 +91397,7 @@ ConeEquation.prototype.computeB = function(h){
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = Cylinder;
@@ -91439,7 +91483,7 @@ Cylinder.prototype = new ConvexPolyhedron();
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = DistanceConstraint;
@@ -91500,7 +91544,7 @@ DistanceConstraint.prototype.update = function(){
 };
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = GridBroadphase;
@@ -91734,7 +91778,7 @@ GridBroadphase.prototype.collisionPairs = function(world,pairs1,pairs2){
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Shape = __webpack_require__(1);
@@ -92423,7 +92467,7 @@ Heightfield.prototype.setHeightsFromImage = function(image, scale){
 };
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = LockConstraint;
@@ -92521,7 +92565,7 @@ LockConstraint.prototype.update = function(){
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = ObjectCollisionMatrix;
@@ -92598,7 +92642,7 @@ ObjectCollisionMatrix.prototype.setNumObjects = function(n) {
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Body = __webpack_require__(6);
@@ -92606,7 +92650,7 @@ var Vec3 = __webpack_require__(0);
 var Quaternion = __webpack_require__(2);
 var RaycastResult = __webpack_require__(14);
 var Ray = __webpack_require__(17);
-var WheelInfo = __webpack_require__(59);
+var WheelInfo = __webpack_require__(60);
 
 module.exports = RaycastVehicle;
 
@@ -93306,7 +93350,7 @@ function resolveSingleBilateral(body1, pos1, body2, pos2, normal, impulse){
 }
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Vec3 = __webpack_require__(0);
@@ -93593,7 +93637,7 @@ WheelInfo.prototype.updateWheel = function(chassis){
 };
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Body = __webpack_require__(6);
@@ -93819,7 +93863,7 @@ RigidVehicle.prototype.getWheelSpeed = function(wheelIndex){
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Shape = __webpack_require__(1);
@@ -94147,7 +94191,7 @@ SAPBroadphase.prototype.aabbQuery = function(world, aabb, result){
 };
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = SPHSystem;
@@ -94366,7 +94410,7 @@ SPHSystem.prototype.nablaw = function(r){
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = SplitSolver;
@@ -94525,7 +94569,7 @@ function sortById(a, b){
 }
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Vec3 = __webpack_require__(0);
@@ -94724,7 +94768,7 @@ Spring.prototype.applyForce = function(){
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = Trimesh;
@@ -94734,7 +94778,7 @@ var Vec3 = __webpack_require__(0);
 var Quaternion = __webpack_require__(2);
 var Transform = __webpack_require__(9);
 var AABB = __webpack_require__(4);
-var Octree = __webpack_require__(66);
+var Octree = __webpack_require__(67);
 
 /**
  * @class Trimesh
@@ -95290,7 +95334,7 @@ Trimesh.createTorus = function (radius, tube, radialSegments, tubularSegments, a
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var AABB = __webpack_require__(4);
@@ -95529,7 +95573,7 @@ OctreeNode.prototype.removeEmptyNodes = function() {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global performance */
@@ -95545,11 +95589,11 @@ var FrictionEquation = __webpack_require__(23);
 var Narrowphase = __webpack_require__(28);
 var EventTarget = __webpack_require__(22);
 var ArrayCollisionMatrix = __webpack_require__(26);
-var OverlapKeeper = __webpack_require__(68);
+var OverlapKeeper = __webpack_require__(69);
 var Material = __webpack_require__(13);
 var ContactMaterial = __webpack_require__(31);
 var Body = __webpack_require__(6);
-var TupleDictionary = __webpack_require__(69);
+var TupleDictionary = __webpack_require__(70);
 var RaycastResult = __webpack_require__(14);
 var AABB = __webpack_require__(4);
 var Ray = __webpack_require__(17);
@@ -96567,7 +96611,7 @@ World.prototype.clearForces = function(){
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports) {
 
 module.exports = OverlapKeeper;
@@ -96667,7 +96711,7 @@ OverlapKeeper.prototype.getDiff = function(additions, removals) {
 };
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports) {
 
 module.exports = TupleDictionary;
@@ -96738,12 +96782,12 @@ TupleDictionary.prototype.reset = function() {
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-  'velocity':   __webpack_require__(71),
-  'quaternion': __webpack_require__(72),
+  'velocity':   __webpack_require__(72),
+  'quaternion': __webpack_require__(73),
 
   registerAll: function (AFRAME) {
     if (this._registered) return;
@@ -96759,7 +96803,7 @@ module.exports = {
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports) {
 
 /**
@@ -96809,7 +96853,7 @@ module.exports = AFRAME.registerComponent('velocity', {
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports) {
 
 /**
@@ -96842,7 +96886,7 @@ module.exports = AFRAME.registerComponent('quaternion', {
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Body = __webpack_require__(37);
@@ -96870,11 +96914,11 @@ module.exports = AFRAME.registerComponent('dynamic-body', DynamicBody);
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var CANNON = __webpack_require__(3),
-    quickhull = __webpack_require__(75);
+    quickhull = __webpack_require__(76);
 
 var PI_2 = Math.PI / 2;
 
@@ -97239,7 +97283,7 @@ function getMeshes (object) {
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports) {
 
 /**
@@ -97695,7 +97739,7 @@ module.exports = (function(){
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -97859,7 +97903,7 @@ module.exports = CANNON.shape2mesh;
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Body = __webpack_require__(37);
@@ -97880,7 +97924,7 @@ module.exports = AFRAME.registerComponent('static-body', StaticBody);
 
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var CANNON = __webpack_require__(3);
@@ -98028,17 +98072,17 @@ module.exports = AFRAME.registerComponent('constraint', {
 
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var CANNON = __webpack_require__(3),
-    CONSTANTS = __webpack_require__(80),
+    CONSTANTS = __webpack_require__(81),
     C_GRAV = CONSTANTS.GRAVITY,
     C_MAT = CONSTANTS.CONTACT_MATERIAL;
 
 var LocalDriver = __webpack_require__(38),
-    WorkerDriver = __webpack_require__(81),
-    NetworkDriver = __webpack_require__(86),
+    WorkerDriver = __webpack_require__(82),
+    NetworkDriver = __webpack_require__(87),
     AmmoDriver = __webpack_require__(40);
 
 /**
@@ -98251,7 +98295,7 @@ module.exports = AFRAME.registerSystem('physics', {
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -98270,16 +98314,16 @@ module.exports = {
 
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global performance */
 
-var webworkify = __webpack_require__(82),
-    webworkifyDebug = __webpack_require__(83),
+var webworkify = __webpack_require__(83),
+    webworkifyDebug = __webpack_require__(84),
     Driver = __webpack_require__(21),
     Event = __webpack_require__(39),
-    worker = __webpack_require__(84),
+    worker = __webpack_require__(85),
     protocol = __webpack_require__(41);
 
 var ID = protocol.ID;
@@ -98499,7 +98543,7 @@ WorkerDriver.prototype.getContacts = function () {
 
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports) {
 
 var bundleFn = arguments[3];
@@ -98586,7 +98630,7 @@ module.exports = function (fn, options) {
 
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports) {
 
 /**
@@ -98633,7 +98677,7 @@ EventTarget.prototype.postMessage = function (msg) {
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Event = __webpack_require__(39),
@@ -98730,7 +98774,7 @@ module.exports = function (self) {
 
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports) {
 
 module.exports.slerp = function ( a, b, t ) {
@@ -98799,7 +98843,7 @@ module.exports.slerp = function ( a, b, t ) {
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Driver = __webpack_require__(21);
@@ -98815,26 +98859,22 @@ module.exports = NetworkDriver;
 
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var KEYCODE_TO_CODE = {
-  '38': 'ArrowUp',
-  '37': 'ArrowLeft',
-  '40': 'ArrowDown',
-  '39': 'ArrowRight',
-  '87': 'W',
-  '65': 'A',
-  '83': 'S',
-  '68': 'D'
-};
+var _eventToMethod = __webpack_require__(42);
+
+var _eventToMethod2 = _interopRequireDefault(_eventToMethod);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // https://github.com/aframevr/aframe/blob/master/src/utils/index.js#L213-L221
 var canCaptureKey = AFRAME.utils.shouldCaptureKeyEvent;
 
-AFRAME.registerComponent('minecraft-controls', {
+AFRAME.registerComponent('minecraft-controls', (0, _eventToMethod2.default)({
   schema: {
     fly: { default: false }
   },
@@ -98947,8 +98987,13 @@ AFRAME.registerComponent('minecraft-controls', {
 
   onKeyup: function onKeyup(event) {
     var code = event.code;
-    // Check for a value so we can ignore keys not in the isDown object.
 
+    console.log('onKeyup', code);
+
+    if (!canCaptureKey()) {
+      return;
+    }
+    // Check for a value so we can ignore keys not in the isDown object.
     if (this.isDown[code] === true) {
       this.isDown[code] = false;
     }
@@ -98956,28 +99001,67 @@ AFRAME.registerComponent('minecraft-controls', {
 
   onKeydown: function onKeydown(event) {
     var code = event.code;
-    // Check for a value so we can ignore keys not in the isDown object.
 
+    console.log('onKeydown', code);
+
+    if (!canCaptureKey()) {
+      return;
+    }
+    // Check for a value so we can ignore keys not in the isDown object.
     if (this.isDown[code] === false) {
       this.isDown[code] = true;
     }
-  },
+  }
+}));
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _eventToMethod = __webpack_require__(42);
+
+var _eventToMethod2 = _interopRequireDefault(_eventToMethod);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+AFRAME.registerComponent('is-solid', (0, _eventToMethod2.default)({
+  schema: {},
 
   /**
-   * Effecent and safe way to map methods to event listeners
-   * reference: https://medium.com/@WebReflection/dom-handleevent-a-cross-platform-standard-since-year-2000-5bf17287fd38
-   * @param  {Event} event
+   * Called once at the beginning of the component’s lifecycle
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#init
    */
-  handleEvent: function handleEvent(event) {
-    var type = event.type;
-    // convert the first letter to upper case so the method is formatted like `onKeyup`, `onClick`
+  init: function init() {
+    var el = this.el;
 
-    var methodName = 'on' + type.replace(/\w/, function (l) {
-      return l.toUpperCase();
-    });
-    this[methodName](event);
+
+    console.log('is-solid init', el);
+    el.addEventListener('collide', this);
+  },
+  /**
+   * Called whenever the component is detached from the entity
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#remove
+   */
+  remove: function remove() {},
+
+  update: function update() {},
+  /**
+   * Called on each tick or frame of the scene’s render loop (60 to 120 times per second).
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#tick-time-timedelta
+   * @param  {Number} time  Global uptime of the scene in milliseconds.
+   * @param  {Number} delta The time difference in milliseconds since the last frame.
+   */
+  tick: function tick(time, delta) {},
+  pause: function pause() {},
+  play: function play() {},
+
+  onCollide: function onCollide(event) {
+    debugger;
   }
-});
+}));
 
 /***/ })
 /******/ ]);

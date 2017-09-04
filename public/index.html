@@ -13,10 +13,10 @@
     <a-scene physics="debug: true">
       <a-assets>
         <img id="skyTexture" src="textures/washington-ruby-beach-olympic-np-dark-sky-360.jpg">
+        <img id="stoneWall" src="textures/stone_wall.png">
         <img id="grassTexture" src="textures/grass.png">
         <img id="chest3Texture" src="models/Chest3.png">
         <a-asset-item id="chest" src="models/chest.dae"></a-asset-item>
-        <a-asset-item id="chest2" src="models/chest.gltf"></a-asset-item>
       </a-assets>
 
       <a-camera
@@ -35,11 +35,9 @@
 
       <a-sphere dynamic-body position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
 
+      <a-plane is-solid static-body position="0 0 -5" width="10" height="5" src="#stoneWall"></a-plane>
 
       <a-collada-model src="#chest" position="0 0 -3" scale=".5 .5 .5"></a-collada-model>
-
-      <a-gltf-model src="#chest2" position=" 0 -3" scale=".5 .5 .5"></a-gltf-model>
-
     </a-scene>
   </body>
 </html>
