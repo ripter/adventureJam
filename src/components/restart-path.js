@@ -1,6 +1,6 @@
 import eventToMethod from '../utils/eventToMethod.js';
 
-AFRAME.registerComponent('is-solid', eventToMethod({
+AFRAME.registerComponent('restart-path', eventToMethod({
   schema: {
   },
 
@@ -8,25 +8,25 @@ AFRAME.registerComponent('is-solid', eventToMethod({
    * Called once at the beginning of the component’s lifecycle
    * reference: https://aframe.io/docs/0.6.0/core/component.html#init
    */
-  init: function () {
+  init() {
     const { el } = this;
-
-    console.log('is-solid init', el);
-    el.addEventListener('collide', this);
-    el.addEventListener('body-loaded', this);
     el.addEventListener('click', this);
   },
   /**
    * Called whenever the component is detached from the entity
    * reference: https://aframe.io/docs/0.6.0/core/component.html#remove
    */
-  remove: function () {
-    el.removeEventListener('collide', this);
-    el.removeEventListener('body-loaded', this);
+  remove() {
+    const { el } = this;
     el.removeEventListener('click', this);
   },
 
-  update: function () {},
+  onClick(event) {
+    const { el } = this;
+    el.components.alongpath.reset();
+  },
+
+  update() {},
   /**
    * Called on each tick or frame of the scene’s render loop (60 to 120 times per second).
    * reference: https://aframe.io/docs/0.6.0/core/component.html#tick-time-timedelta
@@ -37,18 +37,4 @@ AFRAME.registerComponent('is-solid', eventToMethod({
   },
   pause: function () {},
   play: function () {},
-
-  onCollide(event) {
-     console.log('is-solid onCollide', event);
-     debugger;
-  },
-
-  onBodyLoaded(event) {
-    console.log('is-solid onBodyLoaded', event.detail);
-    // debugger;
-  },
-
-  onClick(event) {
-    console.log('is-solid onClick', event);
-  },
 }));

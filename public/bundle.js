@@ -1162,33 +1162,33 @@ module.exports = {
     version :                       __webpack_require__(49).version,
 
     AABB :                          __webpack_require__(4),
-    ArrayCollisionMatrix :          __webpack_require__(26),
+    ArrayCollisionMatrix :          __webpack_require__(27),
     Body :                          __webpack_require__(6),
     Box :                           __webpack_require__(15),
     Broadphase :                    __webpack_require__(16),
     Constraint :                    __webpack_require__(10),
     ContactEquation :               __webpack_require__(7),
-    Narrowphase :                   __webpack_require__(28),
+    Narrowphase :                   __webpack_require__(29),
     ConeTwistConstraint :           __webpack_require__(51),
-    ContactMaterial :               __webpack_require__(31),
+    ContactMaterial :               __webpack_require__(32),
     ConvexPolyhedron :              __webpack_require__(8),
     Cylinder :                      __webpack_require__(53),
     DistanceConstraint :            __webpack_require__(54),
     Equation :                      __webpack_require__(11),
-    EventTarget :                   __webpack_require__(22),
-    FrictionEquation :              __webpack_require__(23),
-    GSSolver :                      __webpack_require__(32),
+    EventTarget :                   __webpack_require__(23),
+    FrictionEquation :              __webpack_require__(24),
+    GSSolver :                      __webpack_require__(33),
     GridBroadphase :                __webpack_require__(55),
     Heightfield :                   __webpack_require__(56),
-    HingeConstraint :               __webpack_require__(33),
+    HingeConstraint :               __webpack_require__(34),
     LockConstraint :                __webpack_require__(57),
     Mat3 :                          __webpack_require__(5),
     Material :                      __webpack_require__(13),
-    NaiveBroadphase :               __webpack_require__(34),
+    NaiveBroadphase :               __webpack_require__(35),
     ObjectCollisionMatrix :         __webpack_require__(58),
-    Pool :                          __webpack_require__(30),
-    Particle :                      __webpack_require__(35),
-    Plane :                         __webpack_require__(27),
+    Pool :                          __webpack_require__(31),
+    Particle :                      __webpack_require__(36),
+    Plane :                         __webpack_require__(28),
     PointToPointConstraint :        __webpack_require__(19),
     Quaternion :                    __webpack_require__(2),
     Ray :                           __webpack_require__(17),
@@ -1196,18 +1196,18 @@ module.exports = {
     RaycastResult :                 __webpack_require__(14),
     RigidVehicle :                  __webpack_require__(61),
     RotationalEquation :            __webpack_require__(20),
-    RotationalMotorEquation :       __webpack_require__(24),
+    RotationalMotorEquation :       __webpack_require__(25),
     SAPBroadphase :                 __webpack_require__(62),
     SPHSystem :                     __webpack_require__(63),
     Shape :                         __webpack_require__(1),
     Solver :                        __webpack_require__(18),
-    Sphere :                        __webpack_require__(36),
+    Sphere :                        __webpack_require__(37),
     SplitSolver :                   __webpack_require__(64),
     Spring :                        __webpack_require__(65),
     Transform :                     __webpack_require__(9),
     Trimesh :                       __webpack_require__(66),
     Vec3 :                          __webpack_require__(0),
-    Vec3Pool :                      __webpack_require__(29),
+    Vec3Pool :                      __webpack_require__(30),
     World :                         __webpack_require__(68),
 };
 
@@ -1973,7 +1973,7 @@ Mat3.prototype.transpose = function( target ) {
 
 module.exports = Body;
 
-var EventTarget = __webpack_require__(22);
+var EventTarget = __webpack_require__(23);
 var Shape = __webpack_require__(1);
 var Vec3 = __webpack_require__(0);
 var Mat3 = __webpack_require__(5);
@@ -4893,7 +4893,7 @@ var Body = __webpack_require__(6);
 var Vec3 = __webpack_require__(0);
 var Quaternion = __webpack_require__(2);
 var Shape = __webpack_require__(1);
-var Plane = __webpack_require__(27);
+var Plane = __webpack_require__(28);
 
 module.exports = Broadphase;
 
@@ -6248,6 +6248,53 @@ function abstractMethod () {
 
 /***/ }),
 /* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = eventToMethod;
+exports.handleEvent = handleEvent;
+
+/**
+ * Adds a handleEvent method to object.
+ * This translates events like `click` to `obj.onClick(event)`
+ * Listen to events with `addEventListener('click', obj);`
+ * Stop listening to events with `removeEventListener('click', obj);`
+ * @param  {Object} obj
+ * @return {Object}
+ */
+function eventToMethod(obj) {
+  obj.handleEvent = handleEvent;
+  return obj;
+}
+
+/**
+* Effecent and safe way to map methods to event listeners
+* reference: https://medium.com/@WebReflection/dom-handleevent-a-cross-platform-standard-since-year-2000-5bf17287fd38
+* @param  {Event} event
+*/
+function handleEvent(event) {
+  var type = event.type;
+  // convert the first letter to upper case so the method is formatted like `click -> Click`
+
+  type = type.replace(/\w/, function (l) {
+    return l.toUpperCase();
+  });
+  // convert dash to upperc case like `model-loaded -> modelLoaded`
+  type = type.replace(/-\w/, function (l) {
+    return l.substr(1).toUpperCase();
+  });
+  var methodName = "on" + type;
+  // call the method, passing in the event.
+  this[methodName](event);
+}
+
+/***/ }),
+/* 23 */
 /***/ (function(module, exports) {
 
 /**
@@ -6352,7 +6399,7 @@ EventTarget.prototype = {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = FrictionEquation;
@@ -6417,7 +6464,7 @@ FrictionEquation.prototype.computeB = function(h){
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = RotationalMotorEquation;
@@ -6493,7 +6540,7 @@ RotationalMotorEquation.prototype.computeB = function(h){
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 var g;
@@ -6520,7 +6567,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = ArrayCollisionMatrix;
@@ -6597,7 +6644,7 @@ ArrayCollisionMatrix.prototype.setNumObjects = function(n) {
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = Plane;
@@ -6664,7 +6711,7 @@ Plane.prototype.updateBoundingSphereRadius = function(){
 };
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = Narrowphase;
@@ -6678,9 +6725,9 @@ var Transform = __webpack_require__(9);
 var ConvexPolyhedron = __webpack_require__(8);
 var Quaternion = __webpack_require__(2);
 var Solver = __webpack_require__(18);
-var Vec3Pool = __webpack_require__(29);
+var Vec3Pool = __webpack_require__(30);
 var ContactEquation = __webpack_require__(7);
-var FrictionEquation = __webpack_require__(23);
+var FrictionEquation = __webpack_require__(24);
 
 /**
  * Helper class for the World. Generates ContactEquations.
@@ -8530,13 +8577,13 @@ Narrowphase.prototype.sphereHeightfield = function (
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = Vec3Pool;
 
 var Vec3 = __webpack_require__(0);
-var Pool = __webpack_require__(30);
+var Pool = __webpack_require__(31);
 
 /**
  * @class Vec3Pool
@@ -8560,7 +8607,7 @@ Vec3Pool.prototype.constructObject = function(){
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = Pool;
@@ -8641,7 +8688,7 @@ Pool.prototype.resize = function (size) {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Utils = __webpack_require__(12);
@@ -8726,7 +8773,7 @@ ContactMaterial.idCounter = 0;
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = GSSolver;
@@ -8872,7 +8919,7 @@ GSSolver.prototype.solve = function(dt,world){
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = HingeConstraint;
@@ -8880,7 +8927,7 @@ module.exports = HingeConstraint;
 var Constraint = __webpack_require__(10);
 var PointToPointConstraint = __webpack_require__(19);
 var RotationalEquation = __webpack_require__(20);
-var RotationalMotorEquation = __webpack_require__(24);
+var RotationalMotorEquation = __webpack_require__(25);
 var ContactEquation = __webpack_require__(7);
 var Vec3 = __webpack_require__(0);
 
@@ -9012,7 +9059,7 @@ HingeConstraint.prototype.update = function(){
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = NaiveBroadphase;
@@ -9091,7 +9138,7 @@ NaiveBroadphase.prototype.aabbQuery = function(world, aabb, result){
 };
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = Particle;
@@ -9142,7 +9189,7 @@ Particle.prototype.calculateWorldAABB = function(pos,quat,min,max){
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = Sphere;
@@ -9205,7 +9252,7 @@ Sphere.prototype.calculateWorldAABB = function(pos,quat,min,max){
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var CANNON = __webpack_require__(3),
@@ -9465,7 +9512,7 @@ module.exports = {
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var CANNON = __webpack_require__(3),
@@ -9581,7 +9628,7 @@ LocalDriver.prototype.getContacts = function () {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -9605,7 +9652,7 @@ module.exports = {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Driver = __webpack_require__(21);
@@ -9621,7 +9668,7 @@ module.exports = AmmoDriver;
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var CANNON = __webpack_require__(3);
@@ -9952,53 +9999,6 @@ function deserializeQuaternion (message) {
 
 
 /***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = eventToMethod;
-exports.handleEvent = handleEvent;
-
-/**
- * Adds a handleEvent method to object.
- * This translates events like `click` to `obj.onClick(event)`
- * Listen to events with `addEventListener('click', obj);`
- * Stop listening to events with `removeEventListener('click', obj);`
- * @param  {Object} obj
- * @return {Object}
- */
-function eventToMethod(obj) {
-  obj.handleEvent = handleEvent;
-  return obj;
-}
-
-/**
-* Effecent and safe way to map methods to event listeners
-* reference: https://medium.com/@WebReflection/dom-handleevent-a-cross-platform-standard-since-year-2000-5bf17287fd38
-* @param  {Event} event
-*/
-function handleEvent(event) {
-  var type = event.type;
-  // convert the first letter to upper case so the method is formatted like `click -> Click`
-
-  type = type.replace(/\w/, function (l) {
-    return l.toUpperCase();
-  });
-  // convert dash to upperc case like `model-loaded -> modelLoaded`
-  type = type.replace(/-\w/, function (l) {
-    return l.substr(1).toUpperCase();
-  });
-  var methodName = "on" + type;
-  // call the method, passing in the event.
-  this[methodName](event);
-}
-
-/***/ }),
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10012,6 +10012,14 @@ __webpack_require__(48);
 __webpack_require__(88);
 
 __webpack_require__(89);
+
+__webpack_require__(90);
+
+__webpack_require__(91);
+
+__webpack_require__(92);
+
+__webpack_require__(93);
 
 document.addEventListener("DOMContentLoaded", function () {
   var player = document.getElementById('player');
@@ -90707,7 +90715,7 @@ module.exports = getWakeLock();
 });
 //# sourceMappingURL=aframe-master.js.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25), __webpack_require__(45).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26), __webpack_require__(45).setImmediate))
 
 /***/ }),
 /* 45 */
@@ -90959,7 +90967,7 @@ exports.clearImmediate = clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25), __webpack_require__(47)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26), __webpack_require__(47)))
 
 /***/ }),
 /* 47 */
@@ -92484,7 +92492,7 @@ module.exports = LockConstraint;
 var Constraint = __webpack_require__(10);
 var PointToPointConstraint = __webpack_require__(19);
 var RotationalEquation = __webpack_require__(20);
-var RotationalMotorEquation = __webpack_require__(24);
+var RotationalMotorEquation = __webpack_require__(25);
 var ContactEquation = __webpack_require__(7);
 var Vec3 = __webpack_require__(0);
 
@@ -93650,10 +93658,10 @@ WheelInfo.prototype.updateWheel = function(chassis){
 /***/ (function(module, exports, __webpack_require__) {
 
 var Body = __webpack_require__(6);
-var Sphere = __webpack_require__(36);
+var Sphere = __webpack_require__(37);
 var Box = __webpack_require__(15);
 var Vec3 = __webpack_require__(0);
-var HingeConstraint = __webpack_require__(33);
+var HingeConstraint = __webpack_require__(34);
 
 module.exports = RigidVehicle;
 
@@ -94208,7 +94216,7 @@ module.exports = SPHSystem;
 var Shape = __webpack_require__(1);
 var Vec3 = __webpack_require__(0);
 var Quaternion = __webpack_require__(2);
-var Particle = __webpack_require__(35);
+var Particle = __webpack_require__(36);
 var Body = __webpack_require__(6);
 var Material = __webpack_require__(13);
 
@@ -95592,21 +95600,21 @@ module.exports = World;
 var Shape = __webpack_require__(1);
 var Vec3 = __webpack_require__(0);
 var Quaternion = __webpack_require__(2);
-var GSSolver = __webpack_require__(32);
+var GSSolver = __webpack_require__(33);
 var ContactEquation = __webpack_require__(7);
-var FrictionEquation = __webpack_require__(23);
-var Narrowphase = __webpack_require__(28);
-var EventTarget = __webpack_require__(22);
-var ArrayCollisionMatrix = __webpack_require__(26);
+var FrictionEquation = __webpack_require__(24);
+var Narrowphase = __webpack_require__(29);
+var EventTarget = __webpack_require__(23);
+var ArrayCollisionMatrix = __webpack_require__(27);
 var OverlapKeeper = __webpack_require__(69);
 var Material = __webpack_require__(13);
-var ContactMaterial = __webpack_require__(31);
+var ContactMaterial = __webpack_require__(32);
 var Body = __webpack_require__(6);
 var TupleDictionary = __webpack_require__(70);
 var RaycastResult = __webpack_require__(14);
 var AABB = __webpack_require__(4);
 var Ray = __webpack_require__(17);
-var NaiveBroadphase = __webpack_require__(34);
+var NaiveBroadphase = __webpack_require__(35);
 
 /**
  * The physics world
@@ -96898,7 +96906,7 @@ module.exports = AFRAME.registerComponent('quaternion', {
 /* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Body = __webpack_require__(37);
+var Body = __webpack_require__(38);
 
 /**
  * Dynamic body.
@@ -97915,7 +97923,7 @@ module.exports = CANNON.shape2mesh;
 /* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Body = __webpack_require__(37);
+var Body = __webpack_require__(38);
 
 /**
  * Static body.
@@ -98089,10 +98097,10 @@ var CANNON = __webpack_require__(3),
     C_GRAV = CONSTANTS.GRAVITY,
     C_MAT = CONSTANTS.CONTACT_MATERIAL;
 
-var LocalDriver = __webpack_require__(38),
+var LocalDriver = __webpack_require__(39),
     WorkerDriver = __webpack_require__(82),
     NetworkDriver = __webpack_require__(87),
-    AmmoDriver = __webpack_require__(40);
+    AmmoDriver = __webpack_require__(41);
 
 /**
  * Physics system.
@@ -98331,9 +98339,9 @@ module.exports = {
 var webworkify = __webpack_require__(83),
     webworkifyDebug = __webpack_require__(84),
     Driver = __webpack_require__(21),
-    Event = __webpack_require__(39),
+    Event = __webpack_require__(40),
     worker = __webpack_require__(85),
-    protocol = __webpack_require__(41);
+    protocol = __webpack_require__(42);
 
 var ID = protocol.ID;
 
@@ -98689,10 +98697,10 @@ EventTarget.prototype.postMessage = function (msg) {
 /* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Event = __webpack_require__(39),
-    LocalDriver = __webpack_require__(38),
-    AmmoDriver = __webpack_require__(40),
-    protocol = __webpack_require__(41);
+var Event = __webpack_require__(40),
+    LocalDriver = __webpack_require__(39),
+    AmmoDriver = __webpack_require__(41),
+    protocol = __webpack_require__(42);
 
 var ID = protocol.ID;
 
@@ -98869,12 +98877,485 @@ module.exports = NetworkDriver;
 
 /***/ }),
 /* 88 */
+/***/ (function(module, exports) {
+
+/* global AFRAME */
+
+if (typeof AFRAME === 'undefined') {
+    throw new Error('Component attempted to register before AFRAME was available.');
+}
+
+/**
+ * Curve component for A-Frame to deal with spline curves
+ */
+var zAxis = new THREE.Vector3(0, 0, 1);
+var degToRad = THREE.Math.degToRad;
+
+AFRAME.registerComponent('curve-point', {
+
+    //dependencies: ['position'],
+
+    schema: {},
+
+    init: function () {
+        this.el.addEventListener("componentchanged", this.changeHandler.bind(this));
+        this.el.emit("curve-point-change");
+    },
+
+    changeHandler: function (event) {
+        if (event.detail.name == "position") {
+            this.el.emit("curve-point-change");
+        }
+    }
+
+});
+
+AFRAME.registerComponent('curve', {
+
+    //dependencies: ['curve-point'],
+
+    schema: {
+        type: {
+            type: 'string',
+            default: 'CatmullRom',
+            oneOf: ['CatmullRom', 'CubicBezier', 'QuadraticBezier', 'Line']
+        },
+        closed: {
+            type: 'boolean',
+            default: false
+        }
+    },
+
+    init: function () {
+        this.pathPoints = null;
+        this.curve = null;
+
+        this.el.addEventListener("curve-point-change", this.update.bind(this));
+    },
+
+    update: function (oldData) {
+
+        this.points = Array.from(this.el.querySelectorAll("a-curve-point, [curve-point]"));
+
+        if (this.points.length <= 1) {
+            console.warn("At least 2 curve-points needed to draw a curve");
+            this.curve = null;
+        } else {
+            // Get Array of Positions from Curve-Points
+            var pointsArray = this.points.map(function (point) {
+
+                if (point.x !== undefined && point.y !== undefined && point.z !== undefined) {
+                    return point;
+                }
+
+                return point.object3D.getWorldPosition();
+            });
+
+            // Update the Curve if either the Curve-Points or other Properties changed
+            if (!AFRAME.utils.deepEqual(pointsArray, this.pathPoints) || (oldData !== 'CustomEvent' && !AFRAME.utils.deepEqual(this.data, oldData))) {
+                this.curve = null;
+
+                this.pathPoints = pointsArray;
+
+                // TODO: Make other Curve-Types work
+                //this.threeConstructor = THREE[this.data.type + 'Curve3'];
+                this.threeConstructor = THREE['CatmullRomCurve3'];
+
+                if (!this.threeConstructor) {
+                    throw new Error('No Three constructor of type (case sensitive): ' + this.data.type + 'Curve3');
+                }
+
+                // Create Curve
+                this.curve = new this.threeConstructor(this.pathPoints);
+                this.curve.closed = this.data.closed;
+
+                this.el.emit('curve-updated');
+            }
+        }
+
+    },
+
+    remove: function () {
+        this.el.removeEventListener("curve-point-change", this.update.bind(this));
+    },
+
+    closestPointInLocalSpace: function closestPoint(point, resolution, testPoint, currentRes) {
+        if (!this.curve) throw Error('Curve not instantiated yet.');
+        resolution = resolution || 0.1 / this.curve.getLength();
+        currentRes = currentRes || 0.5;
+        testPoint = testPoint || 0.5;
+        currentRes /= 2;
+        var aTest = testPoint + currentRes;
+        var bTest = testPoint - currentRes;
+        var a = this.curve.getPointAt(aTest);
+        var b = this.curve.getPointAt(bTest);
+        var aDistance = a.distanceTo(point);
+        var bDistance = b.distanceTo(point);
+        var aSmaller = aDistance < bDistance;
+        if (currentRes < resolution) {
+
+            var tangent = this.curve.getTangentAt(aSmaller ? aTest : bTest);
+            if (currentRes < resolution) return {
+                result: aSmaller ? aTest : bTest,
+                location: aSmaller ? a : b,
+                distance: aSmaller ? aDistance : bDistance,
+                normal: normalFromTangent(tangent),
+                tangent: tangent
+            };
+        }
+        if (aDistance < bDistance) {
+            return this.closestPointInLocalSpace(point, resolution, aTest, currentRes);
+        } else {
+            return this.closestPointInLocalSpace(point, resolution, bTest, currentRes);
+        }
+    }
+});
+
+
+var tempQuaternion = new THREE.Quaternion();
+
+function normalFromTangent(tangent) {
+    var lineEnd = new THREE.Vector3(0, 1, 0);
+    tempQuaternion.setFromUnitVectors(zAxis, tangent);
+    lineEnd.applyQuaternion(tempQuaternion);
+    return lineEnd;
+}
+
+AFRAME.registerShader('line', {
+    schema: {
+        color: {default: '#ff0000'},
+    },
+
+    init: function (data) {
+        this.material = new THREE.LineBasicMaterial(data);
+    },
+
+    update: function (data) {
+        this.material = new THREE.LineBasicMaterial(data);
+    },
+});
+
+AFRAME.registerComponent('draw-curve', {
+
+    //dependencies: ['curve', 'material'],
+
+    schema: {
+        curve: {type: 'selector'}
+    },
+
+    init: function () {
+        this.data.curve.addEventListener('curve-updated', this.update.bind(this));
+    },
+
+    update: function () {
+        if (this.data.curve) {
+            this.curve = this.data.curve.components.curve;
+        }
+
+        if (this.curve && this.curve.curve) {
+            var mesh = this.el.getOrCreateObject3D('mesh', THREE.Line);
+
+            lineMaterial = mesh.material ? mesh.material : new THREE.LineBasicMaterial({
+                color: "#ff0000"
+            });
+
+            var lineGeometry = new THREE.Geometry();
+            lineGeometry.vertices = this.curve.curve.getPoints(this.curve.curve.points.length * 10);
+
+            this.el.setObject3D('mesh', new THREE.Line(lineGeometry, lineMaterial));
+        }
+    },
+
+    remove: function () {
+        this.data.curve.removeEventListener('curve-updated', this.update.bind(this));
+        this.el.getObject3D('mesh').geometry = new THREE.Geometry();
+    }
+
+});
+
+AFRAME.registerComponent('clone-along-curve', {
+
+    //dependencies: ['curve'],
+
+    schema: {
+        curve: {type: 'selector'},
+        spacing: {default: 1},
+        rotation: {
+            type: 'vec3',
+            default: '0 0 0'
+        },
+        scale: {
+            type: 'vec3',
+            default: '1 1 1'
+        }
+    },
+
+    init: function () {
+        this.el.addEventListener('model-loaded', this.update.bind(this));
+        this.data.curve.addEventListener('curve-updated', this.update.bind(this));
+    },
+
+    update: function () {
+        this.remove();
+
+        if (this.data.curve) {
+            this.curve = this.data.curve.components.curve;
+        }
+
+        if (!this.el.getObject3D('clones') && this.curve && this.curve.curve) {
+            var mesh = this.el.getObject3D('mesh');
+
+            var length = this.curve.curve.getLength();
+            var start = 0;
+            var counter = start;
+
+            var cloneMesh = this.el.getOrCreateObject3D('clones', THREE.Group);
+
+            var parent = new THREE.Object3D();
+            mesh.scale.set(this.data.scale.x, this.data.scale.y, this.data.scale.z);
+            mesh.rotation.set(degToRad(this.data.rotation.x), degToRad(this.data.rotation.y), degToRad(this.data.rotation.z));
+            mesh.rotation.order = 'YXZ';
+
+            parent.add(mesh);
+
+            while (counter <= length) {
+                var child = parent.clone(true);
+
+                child.position.copy(this.curve.curve.getPointAt(counter / length));
+
+                tangent = this.curve.curve.getTangentAt(counter / length).normalize();
+
+                child.quaternion.setFromUnitVectors(zAxis, tangent);
+
+                cloneMesh.add(child);
+
+                counter += this.data.spacing;
+            }
+        }
+    },
+
+    remove: function () {
+        this.curve = null;
+        if (this.el.getObject3D('clones')) {
+            this.el.removeObject3D('clones');
+        }
+    }
+
+});
+
+AFRAME.registerPrimitive('a-draw-curve', {
+    defaultComponents: {
+        'draw-curve': {},
+    },
+    mappings: {
+        curveref: 'draw-curve.curve',
+    }
+});
+
+AFRAME.registerPrimitive('a-curve-point', {
+    defaultComponents: {
+        'curve-point': {},
+    },
+    mappings: {}
+});
+
+AFRAME.registerPrimitive('a-curve', {
+    defaultComponents: {
+        'curve': {}
+    },
+
+    mappings: {
+        type: 'curve.type',
+    }
+});
+
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports) {
+
+if (typeof AFRAME === 'undefined') {
+    throw new Error('Component attempted to register before AFRAME was available.');
+}
+
+/**
+ * Alongpath component for A-Frame.
+ * Move Entities along a predefined Curve
+ */
+AFRAME.registerComponent('alongpath', {
+
+    //dependencies: ['curve'],
+
+    schema: {
+        curve: {default: ''},
+        triggers: {default: 'a-curve-point'},
+        triggerRadius: {type: 'number', default: 0.01},
+        dur: {default: 1000},
+        delay: {default: 0},
+        loop: {default: false},
+        rotate: {default: false},
+        resetonplay: {default:true}
+    },
+
+    init: function () {
+
+        // We have to fetch curve and triggers manually because of an A-FRAME ISSUE
+        // with Property-Type "Selector" / "SelectorAll": https://github.com/aframevr/aframe/issues/2517
+
+    },
+
+    update: function (oldData) {
+
+        this.curve = document.querySelector(this.data.curve);
+        this.triggers = this.curve.querySelectorAll(this.data.triggers);
+
+        if (!this.curve) {
+            console.warn("Curve not found. Can't follow anything...");
+        } else {
+            this.initialPosition = this.el.object3D.position;
+        }
+
+        this.reset();
+    },
+
+    reset: function() {
+        // Reset to initial state
+        this.interval = 0;
+
+        this.el.removeState("endofpath");
+        this.el.removeState("moveonpath");
+
+        if (this.activeTrigger) {
+            this.activeTrigger.removeState("alongpath-active-trigger");
+            this.activeTrigger = null;
+        }
+    },
+
+    tick: function (time, timeDelta) {
+        var curve = this.curve.components['curve'] ? this.curve.components['curve'].curve : null;
+
+        if (curve) {
+            // Only update position if we didn't reach
+            // the end of the path
+            if (!this.el.is("endofpath")) {
+                this.interval = this.interval + timeDelta;
+
+                var i = 0;
+
+                if (this.interval - this.data.delay >= this.data.dur) {
+                    // Time is up, we should be at the end of the path
+                    i = 1;
+                } else if ((this.interval - this.data.delay < 0)) {
+                    // We are still waiting for the delay-time to finish
+                    // so keep entity at the beginning of the path
+                    i = 0;
+                } else {
+                    // Update path position based on timing
+                    i = (this.interval - this.data.delay) / this.data.dur;
+                }
+
+                if ((this.data.loop === false) && i >= 1) {
+                    // Set the end-position
+                    this.el.setAttribute('position', curve.points[curve.points.length - 1]);
+
+                    // We have reached the end of the path and are not going
+                    // to loop back to the beginning therefore set final state
+                    this.el.removeState("moveonpath");
+                    this.el.addState("endofpath");
+                    this.el.emit("movingended");
+                } else if ((this.data.loop === true) && i >= 1) {
+                    // We have reached the end of the path
+                    // but we are looping through the curve,
+                    // so restart here.
+                    this.el.emit("movingended");
+                    this.interval = this.data.delay;
+                } else {
+                    // We are starting to move or somewhere in the middle of the path…
+                    if (!this.el.is("moveonpath")) {
+                        this.el.addState("moveonpath");
+                        this.el.emit("movingstarted");
+                    }
+
+                    // …updating position
+                    var p = curve.getPoint(i);
+                    this.el.setAttribute('position', p);
+                }
+
+                // Update Rotation of Entity
+                // Based on http://jsfiddle.net/qGPTT/133/
+                if (this.data.rotate === true) {
+                    var axis = new THREE.Vector3();
+                    var up = new THREE.Vector3(0, 1, 0);
+                    var tangent = curve.getTangentAt(i).normalize();
+
+                    axis.crossVectors(up, tangent).normalize();
+
+                    var radians = Math.acos(up.dot(tangent));
+
+                    this.el.object3D.quaternion.setFromAxisAngle(axis, radians);
+                }
+
+                // Check for Active-Triggers
+                if (this.triggers && (this.triggers.length > 0)) {
+                    this.updateActiveTrigger();
+                }
+            }
+        } else {
+            console.error("The entity associated with the curve property has no curve component.");
+        }
+    },
+
+    play: function () {
+        if (this.data.resetonplay) {
+            this.reset();
+        }
+    },
+
+    remove: function () {
+        this.el.object3D.position.copy(this.initialPosition);
+    },
+
+    updateActiveTrigger: function() {
+        for (var i = 0; i < this.triggers.length; i++) {
+            if (this.triggers[i].object3D) {
+                if (this.triggers[i].object3D.position.distanceTo(this.el.object3D.position) <= this.data.triggerRadius) {
+                    // If this element is not the active trigger, activate it - and if necessary deactivate other triggers.
+                    if (this.activeTrigger && (this.activeTrigger != this.triggers[i])) {
+                        this.activeTrigger.removeState("alongpath-active-trigger");
+                        this.activeTrigger.emit("alongpath-trigger-deactivated");
+
+                        this.activeTrigger = this.triggers[i];
+                        this.activeTrigger.addState("alongpath-active-trigger");
+                        this.activeTrigger.emit("alongpath-trigger-activated");
+                    } else if (!this.activeTrigger) {
+                        this.activeTrigger = this.triggers[i];
+                        this.activeTrigger.addState("alongpath-active-trigger");
+                        this.activeTrigger.emit("alongpath-trigger-activated");
+                    }
+
+                    break;
+                } else {
+                    // If this Element was the active trigger, deactivate it
+                    if (this.activeTrigger && (this.activeTrigger == this.triggers[i])) {
+                        this.activeTrigger.removeState("alongpath-active-trigger");
+                        this.activeTrigger.emit("alongpath-trigger-deactivated");
+                        this.activeTrigger = null;
+                    }
+                }
+            }
+        }
+    }
+
+});
+
+/***/ }),
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _eventToMethod = __webpack_require__(42);
+var _eventToMethod = __webpack_require__(22);
 
 var _eventToMethod2 = _interopRequireDefault(_eventToMethod);
 
@@ -99020,19 +99501,19 @@ AFRAME.registerComponent('minecraft-controls', (0, _eventToMethod2.default)({
 }));
 
 /***/ }),
-/* 89 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _eventToMethod = __webpack_require__(42);
+var _eventToMethod = __webpack_require__(22);
 
 var _eventToMethod2 = _interopRequireDefault(_eventToMethod);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-AFRAME.registerComponent('is-solid', (0, _eventToMethod2.default)({
+AFRAME.registerComponent('can-click', (0, _eventToMethod2.default)({
   schema: {},
 
   /**
@@ -99041,22 +99522,12 @@ AFRAME.registerComponent('is-solid', (0, _eventToMethod2.default)({
    */
   init: function init() {
     var el = this.el;
-
-
-    console.log('is-solid init', el);
-    el.addEventListener('collide', this);
-    el.addEventListener('body-loaded', this);
-    el.addEventListener('click', this);
   },
   /**
    * Called whenever the component is detached from the entity
    * reference: https://aframe.io/docs/0.6.0/core/component.html#remove
    */
-  remove: function remove() {
-    el.removeEventListener('collide', this);
-    el.removeEventListener('body-loaded', this);
-    el.removeEventListener('click', this);
-  },
+  remove: function remove() {},
 
   update: function update() {},
   /**
@@ -99067,19 +99538,121 @@ AFRAME.registerComponent('is-solid', (0, _eventToMethod2.default)({
    */
   tick: function tick(time, delta) {},
   pause: function pause() {},
-  play: function play() {},
+  play: function play() {}
+}));
 
-  onCollide: function onCollide(event) {
-    console.log('is-solid onCollide', event);
-    debugger;
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _eventToMethod = __webpack_require__(22);
+
+var _eventToMethod2 = _interopRequireDefault(_eventToMethod);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+AFRAME.registerComponent('charge-fuse', (0, _eventToMethod2.default)({
+  schema: {},
+
+  /**
+   * Called once at the beginning of the component’s lifecycle
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#init
+   */
+  init: function init() {
+    var el = this.el;
+
+
+    console.log('charge-fuse', this);
+    el.addEventListener('fusing', this);
   },
-  onBodyLoaded: function onBodyLoaded(event) {
-    console.log('is-solid onBodyLoaded', event.detail);
-    // debugger;
+
+  /**
+   * Called whenever the component is detached from the entity
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#remove
+   */
+  remove: function remove() {
+    var el = this.el;
+
+
+    el.removeEventListener('fusing', this);
+  },
+
+
+  /**
+   * Called on each tick or frame of the scene’s render loop (60 to 120 times per second).
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#tick-time-timedelta
+   * @param  {Number} time  Global uptime of the scene in milliseconds.
+   * @param  {Number} delta The time difference in milliseconds since the last frame.
+   */
+  tick: function tick(time, delta) {},
+  onFusing: function onFusing(event) {
+    var el = this.el;
+    var _event$detail = event.detail,
+        intersectedEl = _event$detail.intersectedEl,
+        intersection = _event$detail.intersection,
+        target = _event$detail.target;
+
+    var canClick = intersectedEl.getAttribute('can-click');
+
+    // play the animation
+    el.emit('play-fuse');
+  }
+}));
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _eventToMethod = __webpack_require__(22);
+
+var _eventToMethod2 = _interopRequireDefault(_eventToMethod);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+AFRAME.registerComponent('restart-path', (0, _eventToMethod2.default)({
+  schema: {},
+
+  /**
+   * Called once at the beginning of the component’s lifecycle
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#init
+   */
+  init: function init() {
+    var el = this.el;
+
+    el.addEventListener('click', this);
+  },
+
+  /**
+   * Called whenever the component is detached from the entity
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#remove
+   */
+  remove: function remove() {
+    var el = this.el;
+
+    el.removeEventListener('click', this);
   },
   onClick: function onClick(event) {
-    console.log('is-solid onClick', event);
-  }
+    var el = this.el;
+
+    el.components.alongpath.reset();
+  },
+  update: function update() {},
+
+  /**
+   * Called on each tick or frame of the scene’s render loop (60 to 120 times per second).
+   * reference: https://aframe.io/docs/0.6.0/core/component.html#tick-time-timedelta
+   * @param  {Number} time  Global uptime of the scene in milliseconds.
+   * @param  {Number} delta The time difference in milliseconds since the last frame.
+   */
+  tick: function tick(time, delta) {},
+  pause: function pause() {},
+  play: function play() {}
 }));
 
 /***/ })

@@ -10,22 +10,19 @@
     <script src="bundle.js"></script>
   </head>
   <body>
-    <a-scene physics="debug: true">
+    <a-scene>
       <a-assets>
         <img id="skyTexture" src="textures/washington-ruby-beach-olympic-np-dark-sky-360.jpg">
         <img id="stoneWall" src="textures/stone_wall.png">
         <img id="grassTexture" src="textures/grass.png" repeat="1 0">
-        <img id="chest3Texture" src="models/Chest3.png">
-        <a-asset-item id="chest" src="models/chest.dae"></a-asset-item>
         <a-asset-item id="minecart" src="models/mine_cart.dae"></a-asset-item>
         <a-asset-item id="minetrack-straight" src="models/mine_track_straight.dae"></a-asset-item>
         <a-asset-item id="minetrack-curve" src="models/mine_track_curve.dae"></a-asset-item>
         <a-asset-item id="minetrack-optional-left" src="models/mine_track_optional_left.dae"></a-asset-item>
         <a-asset-item id="minetrack-optional-right" src="models/mine_track_optional_right.dae"></a-asset-item>
 
-
-        <a-asset-item id="compass-base" src="models/compass_base.dae"></a-asset-item>
-        <a-asset-item id="compass-needle" src="models/compass_needle.dae"></a-asset-item>
+        <a-mixin id="track" rotation="0 90 0"></a-mixin>
+        <a-mixin id="track-start" position="-1 0 -1" ></a-mixin>
       </a-assets>
 
       <a-camera id="player" user-height="1.6" look-controls minecraft-controls>
@@ -48,35 +45,35 @@
 
       <a-sky src="#skyTexture"></a-sky>
 
+      <a-entity position="0 0 -3">
+        <a-entity id="train" restart-path alongpath="curve:#track1; dur:5000;" class="clickable" mixin="track">
+          <a-collada-model src="#minecart" position="0 0 0"></a-collada-model>
+        </a-entity>
+
+        <a-curve id="track1" curve>
+          <a-curve-point position="0 0 0" curve-point></a-curve-point>
+          <a-curve-point position="4 0 0" curve-point=""></a-curve-point>
+          <a-curve-point position="4 0 2" curve-point=""></a-curve-point>
+        </a-curve>
+
+          <a-collada-model src="#minetrack-straight" mixin="track"></a-collada-model>
+          <a-collada-model position="2 0 0" src="#minetrack-straight" mixin="track"></a-collada-model>
+          <a-collada-model position="2 0 0" src="#minetrack-curve" mixin="track"></a-collada-model>
+      <a-entity>
+
+      <!-- <a-entity id="tracks" >
+        <a-collada-model src="#minetrack-straight" position="1.887 0 -3.877" rotation="0 90 0"></a-collada-model>
+        <a-collada-model src="#minetrack-straight" position="3.869 0 -3.877" rotation="0 90 0"></a-collada-model>
+        <a-collada-model src="#minetrack-straight" position="5.825 0 -3.877" rotation="0 90 0"></a-collada-model><a-collada-model src="#minetrack-straight" position="5.825 0 -0.894" rotation="0 90 0" collada-model="models/mine_track_straight.dae"></a-collada-model>
+        <a-collada-model src="#minetrack-curve" position="5.72 0 -3.909"></a-collada-model>
+        <a-collada-model src="#minetrack-optional-left"></a-collada-model>
+        <a-collada-model src="#minetrack-optional-right" position="5.725 0 -3.879" rotation="0 -90 0"></a-collada-model>
+      </a-entity> -->
+
+
       <a-plane static-body position="0 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
       <a-plane static-body position="10 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
-
-
-      <a-entity position="-2 0.5 -3">
-        <a-collada-model src="#compass-base"></a-collada-model>
-        <a-collada-model src="#compass-needle" position="0 .01 0"></a-collada-model>
-      </a-entity>
-
       <a-plane static-body position="0 0 -5" width="10" height="5" src="#stoneWall"></a-plane>
-
-      <a-entity position="-3 0 3">
-        <a-collada-model class="clickable" src="#minecart"></a-collada-model>
-        <a-collada-model src="#minetrack-straight"></a-collada-model>
-        <a-collada-model src="#minetrack-curve"></a-collada-model>
-        <a-collada-model src="#minetrack-optional-left"></a-collada-model>
-        <a-collada-model src="#minetrack-optional-right"></a-collada-model>
-      </a-entity>
-
-      <a-entity class="clickable">
-        <a-collada-model src="#chest" position="0 0 -3" scale=".5 .5 .5"></a-collada-model>
-      </a-entity>
-
-      <a-entity class="clickable"  position="5 0 -3" scale=".5 .5 .5">
-        <a-collada-model src="#chest"></a-collada-model>
-      </a-entity>
-
-      <a-link on="click" class="clickable" href="cave1.html" title="cave1"
-        position="11 1 0" rotation="0 90 0"></a-link>
     </a-scene>
   </body>
 </html>
