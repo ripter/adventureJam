@@ -1,4 +1,4 @@
-.PHONY: all build run vr
+.PHONY: all build run vr plop
 
 all: build run
 
@@ -14,3 +14,7 @@ vr: build
 node_modules/: package.json
 	npm install
 	touch node_modules/
+
+
+plop: node_modules/
+	npx plop

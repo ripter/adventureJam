@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Adventure Jam</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="bundle.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="skyTexture" src="textures/washington-ruby-beach-olympic-np-dark-sky-360.jpg">
+        <img id="stoneWall" src="textures/stone_wall.png">
+        <img id="grassTexture" src="textures/grass.png" repeat="1 0">
+        <a-asset-item id="minecart" src="models/mine_cart.dae"></a-asset-item>
+        <a-asset-item id="minetrack-straight" src="models/mine_track_straight.dae"></a-asset-item>
+        <a-asset-item id="minetrack-curve" src="models/mine_track_curve.dae"></a-asset-item>
+        <a-asset-item id="minetrack-optional-left" src="models/mine_track_optional_left.dae"></a-asset-item>
+        <a-asset-item id="minetrack-optional-right" src="models/mine_track_optional_right.dae"></a-asset-item>
+
+        <a-mixin id="track" rotation="0 90 0"></a-mixin>
+        <a-mixin id="track-start" position="-1 0 -1" ></a-mixin>
+      </a-assets>
+
+      <a-camera id="player" user-height="1.6" look-controls minecraft-controls>
+         <a-cursor
+           raycaster="objects: .clickable;"
+           charge-fuse fuse="true"
+           material="color: white; opacity: 0.5;"
+           max-distance="1"
+           position="0 0 -1">
+           <a-animation attribute="geometry.radiusOuter"
+               begin="play-fuse"
+               dur="1000" from="0.026" to="0.046"
+               direction="alternate" repeat="1"></a-animation>
+           <a-animation attribute="geometry.radiusInner"
+               begin="play-fuse"
+               dur="1000" from="0.020" to="0.040"
+               direction="alternate" repeat="1"></a-animation>
+         </a-cursor>
+      </a-camera>
+
+      <a-sky src="#skyTexture"></a-sky>
+
+      <a-entity position="0 0 -3">
+        <a-entity id="train" restart-path alongpath="curve:#track1; dur:5000;" class="clickable" mixin="track">
+          <a-collada-model src="#minecart" position="0 0 0"></a-collada-model>
+        </a-entity>
+
+        <a-curve id="track1" curve>
+          <a-curve-point position="0 0 0" curve-point></a-curve-point>
+          <a-curve-point position="4 0 0" curve-point=""></a-curve-point>
+          <a-curve-point position="4 0 2" curve-point=""></a-curve-point>
+        </a-curve>
+
+          <a-collada-model src="#minetrack-straight" mixin="track"></a-collada-model>
+          <a-collada-model position="2 0 0" src="#minetrack-straight" mixin="track"></a-collada-model>
+          <a-collada-model position="2 0 0" src="#minetrack-curve" mixin="track"></a-collada-model>
+      <a-entity>
+
+      <!-- <a-entity id="tracks" >
+        <a-collada-model src="#minetrack-straight" position="1.887 0 -3.877" rotation="0 90 0"></a-collada-model>
+        <a-collada-model src="#minetrack-straight" position="3.869 0 -3.877" rotation="0 90 0"></a-collada-model>
+        <a-collada-model src="#minetrack-straight" position="5.825 0 -3.877" rotation="0 90 0"></a-collada-model><a-collada-model src="#minetrack-straight" position="5.825 0 -0.894" rotation="0 90 0" collada-model="models/mine_track_straight.dae"></a-collada-model>
+        <a-collada-model src="#minetrack-curve" position="5.72 0 -3.909"></a-collada-model>
+        <a-collada-model src="#minetrack-optional-left"></a-collada-model>
+        <a-collada-model src="#minetrack-optional-right" position="5.725 0 -3.879" rotation="0 -90 0"></a-collada-model>
+      </a-entity> -->
+
+
+      <a-plane static-body position="0 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
+      <a-plane static-body position="10 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
+      <a-plane static-body position="0 0 -5" width="10" height="5" src="#stoneWall"></a-plane>
+    </a-scene>
+  </body>
+</html>
