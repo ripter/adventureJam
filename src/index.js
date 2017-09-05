@@ -3,7 +3,6 @@ import 'aframe-physics-system';
 import 'aframe-curve-component';
 import 'aframe-alongpath-component';
 import './components/minecraft-controls.js';
-import './components/can-click.js';
 import './components/charge-fuse.js';
 import './components/restart-path.js';
 
