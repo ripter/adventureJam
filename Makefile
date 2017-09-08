@@ -1,4 +1,4 @@
-.PHONY: all build run vr plop
+.PHONY: all build run vr plop public
 
 all: build run
 
@@ -10,6 +10,9 @@ run:
 
 vr: build
 	npx webpack-dev-server --open
+
+public: build
+	npx http-server
 
 node_modules/: package.json
 	npm install
