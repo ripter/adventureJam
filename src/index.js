@@ -3,9 +3,7 @@ import 'aframe-physics-system';
 import 'aframe-curve-component';
 import 'aframe-alongpath-component';
 import 'aframe-animation-component';
-import './components/minecraft-controls.js';
-import './components/charge-fuse.js';
-import './components/restart-path.js';
+import './components/sneak-to.js';
 
 
 document.addEventListener("DOMContentLoaded", function() {
