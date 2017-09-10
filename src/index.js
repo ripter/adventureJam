@@ -1,7 +1,4 @@
 import 'aframe';
-import 'aframe-physics-system';
-import 'aframe-curve-component';
-import 'aframe-alongpath-component';
 import 'aframe-animation-component';
 import './components/sneak-to.js';
 

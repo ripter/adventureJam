@@ -18,8 +18,11 @@
         <img id="four" src="textures/four.png">
         <img id="green" src="textures/five.png">
         <img id="six" src="textures/six.png">
+        <img id="wall-stone" src="textures/stone-wall.png">
 
         <a-mixin id="floor" geometry="height: 10; width: 10;" rotation="-90 0 0"></a-mixin>
+        <a-mixin id="move-dest" color="crimson" position="0 .5 0" geometry="height: 1;"></a-mixin>
+        <a-mixin id="wall" geometry="height: 5; width: 1;" material="src: #wall-stone; repeat: 3 1;"></a-mixin>
       </a-assets>
 
       <a-sky color="#7FDBFF"></a-sky>
@@ -38,16 +41,19 @@
       <!-- Room #1 -->
       <a-plane mixin="floor" src="#one"></a-plane>
 
+      <a-box mixin="wall" position="-5 2.5 -10" depth="30"></a-box>
+      <a-box mixin="wall" position="-9.607 2.5 -24.5" depth="10" rotation="0 90 0"></a-box>
+
       <!-- Room #2 -->
-      <a-entity id="room-2" position="10 0 -10">
+      <a-entity id="room-2" position="0 0 -30">
         <a-plane mixin="floor" src="#green" ></a-plane>
-        <a-cylinder sneak-to class="clickable" color="crimson" height="6" radius="1"></a-cylinder>
+        <a-cylinder mixin="move-dest" sneak-to class="clickable" color="crimson" radius="1"></a-cylinder>
       </a-entity>
 
       <!-- Room #3 -->
-      <a-entity id="room-3" position="-10 0 -10">
+      <a-entity id="room-3" position="-20 0 -30">
         <a-plane mixin="floor" src="#two" ></a-plane>
-        <a-cylinder sneak-to="duration: 5000" class="clickable" color="crimson" height="6" radius="1"></a-cylinder>
+        <a-cylinder mixin="move-dest" sneak-to="duration: 6000" class="clickable" color="crimson" radius="1"></a-cylinder>
       </a-entity>
     </a-scene>
   </body>

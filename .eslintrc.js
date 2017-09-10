@@ -5,6 +5,10 @@ module.exports = {
     es6: true,
     mocha: true,
   },
+  globals: {
+    AFRAME: true,
+    THREE: true,
+  },
   parserOptions: {
     sourceType: 'module',
   },

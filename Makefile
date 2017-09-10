@@ -18,6 +18,8 @@ node_modules/: package.json
 	npm install
 	touch node_modules/
 
+lint: node_modules/
+	npx eslint src
 
 plop: node_modules/
 	npx plop

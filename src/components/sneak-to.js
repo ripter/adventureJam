@@ -8,7 +8,7 @@ import eventToMethod from '../utils/eventToMethod.js';
  */
 AFRAME.registerComponent('sneak-to', eventToMethod({
   schema: {
-    duration: {default: 3050},
+    duration: {default: 4050},
   },
 
   /**
@@ -56,15 +56,10 @@ AFRAME.registerComponent('sneak-to', eventToMethod({
   tick: function (time, delta) {
     const { linePath, srcElm } = this;
     const { duration } = this.data;
-    let { currentTime } = this;
     if (!linePath) { return; }
-    // update the current time so we can calculate the new position on the line
-    currentTime += delta;
-    // Calculate the potision along the line.
-    // 0 is start of the line, 1 is end of the line.
-    // Thus, it's a percentage
-    let position = currentTime / duration;
-    const newPosition = linePath.at(position);
+    const currentTime = this.currentTime + delta;
+    const percent = currentTime / duration;
+    const newPosition = linePath.at(percent);
 
     // stop moving when the animation finishes.
     if (currentTime >= duration) {
