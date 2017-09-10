@@ -29,7 +29,6 @@ AFRAME.registerComponent('sneak-to', eventToMethod({
   },
 
   onClick(event) {
-    console.log('onClick', event);
     const { cursorEl, target } = event.detail;
     const srcElm = cursorEl.closest('.does-sneak');
     const destObject3D = target.object3D;
@@ -37,14 +36,14 @@ AFRAME.registerComponent('sneak-to', eventToMethod({
     // Get positions relative to the world, not our local grouping.
     const srcPosition = srcObject3D.getWorldPosition();
     const destPosition = destObject3D.getWorldPosition();
-    // No flying, don't change y axis
+    // No flying, so don't change y axis
     destPosition.y = srcPosition.y;
     // Create a line for the srcElm to travel.
     const path = new THREE.Line3(srcPosition, destPosition);
-    console.log('path', path);
 
     this.srcElm = srcElm;
     this.linePath = path;
+    this.currentTime = 0;
   },
 
   update() {},
@@ -57,15 +56,23 @@ AFRAME.registerComponent('sneak-to', eventToMethod({
   tick: function (time, delta) {
     const { linePath, srcElm } = this;
     const { duration } = this.data;
+    let { currentTime } = this;
     if (!linePath) { return; }
+    // update the current time so we can calculate the new position on the line
+    currentTime += delta;
     // Calculate the potision along the line.
     // 0 is start of the line, 1 is end of the line.
-    let position = .5;
-
+    // Thus, it's a percentage
+    let position = currentTime / duration;
     const newPosition = linePath.at(position);
-    console.log('newPosition', newPosition);
+
+    // stop moving when the animation finishes.
+    if (currentTime >= duration) {
+      delete this.linePath;
+    }
+
+    this.currentTime = currentTime;
     srcElm.setAttribute('position', newPosition);
-    delete this.linePath;
   },
   pause: function () {},
   play: function () {},
