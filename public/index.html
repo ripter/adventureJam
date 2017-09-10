@@ -21,7 +21,7 @@
         <img id="wall-stone" src="textures/stone-wall.png">
 
         <a-mixin id="floor" geometry="height: 10; width: 10;" rotation="-90 0 0"></a-mixin>
-        <a-mixin id="move-dest" color="crimson" position="0 .5 0" geometry="height: 1;"></a-mixin>
+        <a-mixin id="move-dest" sneak-to class="clickable" position="0 .5 0" material="color: #FF4136;" geometry="height: 1;"></a-mixin>
         <a-mixin id="wall" geometry="height: 5; width: 1;" material="src: #wall-stone; repeat: 3 1;"></a-mixin>
       </a-assets>
 
@@ -45,15 +45,69 @@
       <a-box mixin="wall" position="-9.607 2.5 -24.5" depth="10" rotation="0 90 0"></a-box>
 
       <!-- Room #2 -->
-      <a-entity id="room-2" position="0 0 -30">
+      <a-entity position="0 0 -30">
         <a-plane mixin="floor" src="#green" ></a-plane>
-        <a-cylinder mixin="move-dest" sneak-to class="clickable" color="crimson" radius="1"></a-cylinder>
+        <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
       </a-entity>
 
       <!-- Room #3 -->
-      <a-entity id="room-3" position="-20 0 -30">
+      <a-entity position="-20 0 -30">
         <a-plane mixin="floor" src="#two" ></a-plane>
-        <a-cylinder mixin="move-dest" sneak-to="duration: 6000" class="clickable" color="crimson" radius="1"></a-cylinder>
+        <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
+      </a-entity>
+
+      <!-- Room #4 -->
+      <a-entity position="-20 0 -60">
+        <a-plane mixin="floor" src="#two" ></a-plane>
+        <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
+      </a-entity>
+
+      <!-- Room #5 -->
+      <a-entity position="-40 0 -60">
+        <a-plane mixin="floor" src="#two" ></a-plane>
+        <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
+      </a-entity>
+
+      <!-- Room #6 -->
+      <a-entity position="-40 0 -90">
+        <a-plane mixin="floor" src="#two" ></a-plane>
+        <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
+      </a-entity>
+
+      <!-- Room #7 -->
+      <a-entity position="-70 0 -90">
+        <a-plane mixin="floor" src="#two" ></a-plane>
+        <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
+      </a-entity>
+
+      <!-- Room #8 -->
+      <a-entity position="-70 0 -130">
+        <a-plane mixin="floor" src="#two" ></a-plane>
+        <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
+      </a-entity>
+
+      <!-- Room #9 -->
+      <a-entity position="-110 0 -130">
+        <a-plane mixin="floor" src="#two" ></a-plane>
+        <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
+      </a-entity>
+
+      <!-- Room #10 -->
+      <a-entity position="-110 0 -100">
+        <a-plane mixin="floor" src="#four" ></a-plane>
+        <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
+      </a-entity>
+
+      <!-- Room #11 -->
+      <a-entity position="-130 0 -100">
+        <a-plane mixin="floor" src="#three" ></a-plane>
+        <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
+      </a-entity>
+
+      <!-- Room #12 -->
+      <a-entity position="-130 0 -130">
+        <a-plane mixin="floor" src="#green" ></a-plane>
+        <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
       </a-entity>
     </a-scene>
   </body>
