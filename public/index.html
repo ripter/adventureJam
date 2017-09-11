@@ -12,12 +12,12 @@
   <body>
     <a-scene debug>
       <a-assets>
-        <img id="one" src="textures/one.png">
-        <img id="two" src="textures/two.png">
-        <img id="three" src="textures/three.png">
-        <img id="four" src="textures/four.png">
-        <img id="green" src="textures/five.png">
-        <img id="six" src="textures/six.png">
+        <img id="one" src="textures/one_227ppi.jpg">
+        <img id="two" src="textures/two_227ppi.jpg">
+        <img id="three" src="textures/three.jpg">
+        <img id="four" src="textures/four_227ppi.jpg">
+        <img id="green" src="textures/five_227ppi.jpg">
+        <img id="six" src="textures/six.jpg">
         <img id="wall-stone" src="textures/stone-wall.png">
 
         <a-mixin id="floor" geometry="height: 10; width: 10;" rotation="-90 0 0"></a-mixin>
@@ -42,7 +42,19 @@
       <a-plane mixin="floor" src="#one"></a-plane>
 
       <a-box mixin="wall" position="-5 2.5 -10" depth="30"></a-box>
-      <a-box mixin="wall" position="-9.607 2.5 -24.5" depth="10" rotation="0 90 0"></a-box>
+      <a-box mixin="wall" position="-10 2.5 -24.5" depth="10" rotation="0 90 0"></a-box>
+      <a-box mixin="wall" position="-25.174 2.5 -40.027" depth="30"></a-box>
+      <a-box mixin="wall" position="-30.049 2.5 -54.756" depth="10" rotation="0 90 0"></a-box>
+      <a-box mixin="wall" position="-45.485 2.5 -69.992" depth="30"></a-box>
+      <a-box mixin="wall" position="-54.945 2.5 -85.179" depth="20" rotation="0 90 0"></a-box>
+      <a-box mixin="wall" position="-89.483 2.5 -124.719" depth="30" rotation="0 90 0"></a-box>
+      <a-box mixin="wall" position="-5.515 2.5 -35.493" depth="20" rotation="0 90 0"></a-box>
+      <a-box mixin="wall" position="-25.171 2.5 -65.065" depth="20" rotation="0 90 0"></a-box>
+      <a-box mixin="wall" position="-24.962 2.5 -65.5" depth="20" rotation="0 90 0"></a-box>
+      <a-box mixin="wall" position="-64.512 2.5 -113.308" depth="40"></a-box>
+      <a-box mixin="wall" position="-115.083 2.5 -119.82" depth="30"></a-box>
+      <a-box mixin="wall" position="-104.628 2.5 -110.184" depth="30"></a-box>
+      <a-box mixin="wall" position="-119.898 2.5 -104.949" depth="10" rotation="0 90 0"></a-box>
 
       <!-- Room #2 -->
       <a-entity position="0 0 -30">
@@ -53,6 +65,12 @@
       <!-- Room #3 -->
       <a-entity position="-20 0 -30">
         <a-plane mixin="floor" src="#two" ></a-plane>
+        <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
+      </a-entity>
+
+      <!-- Dead-End #1 -->
+      <a-entity position="30 0 -30">
+        <a-plane mixin="floor" src="#four" ></a-plane>
         <a-cylinder mixin="move-dest" radius="1"></a-cylinder>
       </a-entity>
 
