@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Adventure Jam</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="bundle.js"></script>
+  </head>
+  <body>
+    <a-scene physics="debug: true">
+      <a-assets>
+        <img id="skyTexture" src="textures/washington-ruby-beach-olympic-np-dark-sky-360.jpg">
+        <img id="stoneWall" src="textures/stone_wall.png">
+        <img id="grassTexture" src="textures/grass.png" repeat="1 0">
+        <img id="chest3Texture" src="models/Chest3.png">
+        <a-asset-item id="chest" src="models/chest.dae"></a-asset-item>
+        <a-asset-item id="minecart" src="models/mine_cart.dae"></a-asset-item>
+        <a-asset-item id="minetrack-straight" src="models/mine_track_straight.dae"></a-asset-item>
+        <a-asset-item id="minetrack-curve" src="models/mine_track_curve.dae"></a-asset-item>
+        <a-asset-item id="minetrack-optional-left" src="models/mine_track_optional_left.dae"></a-asset-item>
+        <a-asset-item id="minetrack-optional-right" src="models/mine_track_optional_right.dae"></a-asset-item>
+
+
+        <a-asset-item id="compass-base" src="models/compass_base.dae"></a-asset-item>
+        <a-asset-item id="compass-needle" src="models/compass_needle.dae"></a-asset-item>
+      </a-assets>
+
+      <a-camera id="player" user-height="1.6" look-controls minecraft-controls>
+         <a-cursor
+           raycaster="objects: .clickable;"
+           charge-fuse fuse="true"
+           material="color: white; opacity: 0.5;"
+           max-distance="1"
+           position="0 0 -1">
+           <a-animation attribute="geometry.radiusOuter"
+               begin="play-fuse"
+               dur="1000" from="0.026" to="0.046"
+               direction="alternate" repeat="1"></a-animation>
+           <a-animation attribute="geometry.radiusInner"
+               begin="play-fuse"
+               dur="1000" from="0.020" to="0.040"
+               direction="alternate" repeat="1"></a-animation>
+         </a-cursor>
+      </a-camera>
+
+      <a-sky src="#skyTexture"></a-sky>
+
+      <a-plane static-body position="0 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
+      <a-plane static-body position="10 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
+
+
+      <a-entity position="-2 0.5 -3">
+        <a-collada-model src="#compass-base"></a-collada-model>
+        <a-collada-model src="#compass-needle" position="0 .01 0"></a-collada-model>
+      </a-entity>
+
+      <a-plane static-body position="0 0 -5" width="10" height="5" src="#stoneWall"></a-plane>
+
+      <a-entity position="-3 0 3">
+        <a-collada-model class="clickable" src="#minecart"></a-collada-model>
+        <a-collada-model src="#minetrack-straight"></a-collada-model>
+        <a-collada-model src="#minetrack-curve"></a-collada-model>
+        <a-collada-model src="#minetrack-optional-left"></a-collada-model>
+        <a-collada-model src="#minetrack-optional-right"></a-collada-model>
+      </a-entity>
+
+      <a-entity class="clickable">
+        <a-collada-model src="#chest" position="0 0 -3" scale=".5 .5 .5"></a-collada-model>
+      </a-entity>
+
+      <a-entity class="clickable"  position="5 0 -3" scale=".5 .5 .5">
+        <a-collada-model src="#chest"></a-collada-model>
+      </a-entity>
+
+      <a-link on="click" class="clickable" href="cave1.html" title="cave1"
+        position="11 1 0" rotation="0 90 0"></a-link>
+    </a-scene>
+  </body>
+</html>
