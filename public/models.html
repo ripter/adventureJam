@@ -12,14 +12,15 @@
   <body>
     <a-scene physics="debug: true">
       <a-assets>
-        <a-asset-item id="npc" src="models/npc.dae"></a-asset-item>
-        <img id="soldier" src="textures/skin_soldier.png">
+        <a-asset-item id="test" src="models/advancedCharacter.fbx"></a-asset-item>
+        <!-- <img id="testSkin" src="models/advancedCharacterUV.tga"></a-asset-item> -->
       </a-assets>
 
       <a-camera id="player" user-height="1.6" look-controls>
       </a-camera>
 
-      <a-entity collada-model="#npc" materal="src: #soldier" rotation="90 0 0" scale=".25 .25 .25"></a-entity>
+      <!-- <a-entity collada-model="#npc" materal="src: #soldier" rotation="90 0 0" scale=".25 .25 .25"></a-entity> -->
+      <a-entity fbx-model="#test" rotation="90 0 0" scale=".25 .25 .25"></a-entity>
 
     </a-scene>
   </body>

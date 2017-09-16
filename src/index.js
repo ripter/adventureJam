@@ -5,6 +5,7 @@ import 'aframe-alongpath-component';
 import './components/minecraft-controls.js';
 import './components/charge-fuse.js';
 import './components/restart-path.js';
+import './components/fbx-model.js';
 
 
 document.addEventListener("DOMContentLoaded", function() {
