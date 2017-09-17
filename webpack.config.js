@@ -19,7 +19,7 @@ module.exports = {
     alias: {
       // I like npm namespaces, but I don't like typing them.
       // alias them without the namespace
-      // 'store': path.resolve(__dirname, 'node_modules/@ripter/store/src/index.js'),
+      'aframe-spritesheet-component': path.resolve(__dirname, 'node_modules/@ekolabs/aframe-spritesheet-component/index.js'),
     }
   },
 
