@@ -1,6 +1,8 @@
 import 'aframe';
 import 'aframe-spritesheet-component';
 import 'aframe-animation-component';
+import 'aframe-curve-component';
+import 'aframe-alongpath-component';
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -10,14 +12,4 @@ document.addEventListener("DOMContentLoaded", function() {
   // look-controls add the wasd-controls, remove it so we can do pure minecraft-controls
   // player.removeAttribute('wasd-controls');
   console.log('Game Ready!');
-
-  playJump(npc);
 });
-
-function playJump(entity) {
-
-
-  // set the animation frames
-  entity.setAttribute('sprite-sheet', 'firstFrame: 0; lastFrame: 5');
-  console.log('playJump', entity);
-}

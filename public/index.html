@@ -10,13 +10,14 @@
     <script src="bundle.js"></script>
   </head>
   <body>
-    <a-scene physics="debug: true">
+    <a-scene>
       <a-assets>
         <img id="walk" src="sprites/adventurer/walk.svg"></img>
-        <img id="truckUV" src="models/truckUV.png"></img>
+        <img id="spriteBox" src="sprites/box.svg"></img>
         <a-asset-item id="truck" src="models/truck2.dae"></a-asset-item>
 
-        <a-mixin id="sprite" geometry="primitive: plane; width: 2; height: 2;" position="0 .5 0" material="transparent: true; shader: flat;"></a-mixin>
+        <a-mixin id="npc" geometry="primitive: plane; width: 2; height: 2;" position="0 .5 0" material="transparent: true; shader: flat;"></a-mixin>
+        <a-mixin id="itemBox" rotation="-24 0 0" scale="0.5 0.5 0.5" material="src: #spriteBox; transparent:true;" geometry="primitive:plane"></a-mixin>
       </a-assets>
 
       <a-camera id="player" user-height="1.6" position="0 0 5" look-controls>
@@ -24,11 +25,23 @@
 
       <a-entity geometry="primitive: plane; width: 10; height: 10;" material="color: green" rotation="-90 0 0" position="0 -.5 0"></a-entity>
 
-      <a-entity id="npc" mixin="sprite" material="src: #walk" sprite-sheet="cols:3; rows: 1;"
-        animation="property: sprite-sheet.progress; from: 0; to: 2; dur: 1000; startEvents: click; loop: true;"
-      ></a-entity>
 
-      <a-entity collada-model="#truck" position="-3 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
+      <a-entity collada-model="#truck" position="5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
+
+      <a-curve id="track1" curve="">
+        <a-curve-point position="0.5 0.5 -3.538"></a-curve-point>
+        <a-curve-point position="0 0.5 -0.082"></a-curve-point>
+        <a-curve-point position="3.5 0.5 -0.269"></a-curve-point>
+      </a-curve>
+
+      <a-entity alongpath="curve: #track1; dur: 3000;">
+        <a-entity id="npc" mixin="npc"
+          material="src: #walk"
+          sprite-sheet="cols:3; rows: 1; firstFrame: 0; lastFrame: 3;"
+          animation="property: sprite-sheet.progress; from: 0; to: 2; dur: 1000; startEvents: click, movingstarted; loop: true;">
+        </a-entity>
+        <a-entity mixin="itemBox" position="-0.233 0 0.233" ></a-entity>
+      </a-entity>
 
     </a-scene>
   </body>
