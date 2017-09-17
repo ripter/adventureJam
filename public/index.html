@@ -13,8 +13,10 @@
     <a-scene physics="debug: true">
       <a-assets>
         <img id="walk" src="sprites/adventurer/walk.svg"></img>
+        <img id="truckUV" src="models/truckUV.png"></img>
+        <a-asset-item id="truck" src="models/truck.dae"></a-asset-item>
 
-        <a-mixin id="sprite" geometry="primitive: plane; width: 2; height: 2;" position="0 .5 0" material="transparent: true;"></a-mixin>
+        <a-mixin id="sprite" geometry="primitive: plane; width: 2; height: 2;" position="0 .5 0" material="transparent: true; shader: flat;"></a-mixin>
       </a-assets>
 
       <a-camera id="player" user-height="1.6" position="0 0 5" look-controls>
@@ -23,9 +25,10 @@
       <a-entity geometry="primitive: plane; width: 10; height: 10;" material="color: green" rotation="-90 0 0" position="0 -.5 0"></a-entity>
 
       <a-entity id="npc" mixin="sprite" material="src: #walk" sprite-sheet="cols:3; rows: 1;"
-        animation="property: sprite-sheet.progress; from: 0; to: 2; dur: 2000; startEvents: click; loop: true; round: true;"
+        animation="property: sprite-sheet.progress; from: 0; to: 2; dur: 1000; startEvents: click; loop: true;"
       ></a-entity>
 
+      <a-entity collada-model="#truck" position="-3 0 -3" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
 
     </a-scene>
   </body>
