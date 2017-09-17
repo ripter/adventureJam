@@ -12,17 +12,17 @@
   <body>
     <a-scene physics="debug: true">
       <a-assets>
-        <!-- <a-asset-item id="test" src="models/advancedCharacter.fbx"></a-asset-item> -->
-        <img id="test" src="sprites/adventurer_talk.png"></a-asset-item>
+        <img id="talk" src="sprites/adventurer_talk.png"></a-asset-item>
+        <img id="stand" src="sprites/adventurer_stand.svg"></a-asset-item>
+        <a-mixin id="sprite" geometry="primitive: plane; width: 2; height: 2;" position="0 .5 0" material="src: #stand; transparent: true;"></a-mixin>
       </a-assets>
 
       <a-camera id="player" user-height="1.6" position="0 0 5" look-controls>
       </a-camera>
 
-      <a-entity geometry="primitive: plane; width: 10; heigt: 10;" material="color: green" rotation="-90 0 0" position="0 -.5 0"></a-entity>
+      <a-entity geometry="primitive: plane; width: 10; height: 10;" material="color: green" rotation="-90 0 0" position="0 -.5 0"></a-entity>
 
-      <a-entity geometry="primitive: plane" material="src: #test"></a-entity>
-
+      <a-entity mixin="sprite"></a-entity>
     </a-scene>
   </body>
 </html>
