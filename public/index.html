@@ -12,7 +12,7 @@
   <body>
     <a-scene>
       <a-assets>
-        <img id="walk" src="sprites/adventurer/walk.svg"></img>
+        <img id="walk" src="sprites/adventurer_vector.svg"></img>
         <img id="spriteBox" src="sprites/box.svg"></img>
         <a-asset-item id="truck" src="models/truck2.dae"></a-asset-item>
 
@@ -37,10 +37,9 @@
       <a-entity alongpath="curve: #track1; dur: 3000;">
         <a-entity id="npc" mixin="npc"
           material="src: #walk"
-          sprite-sheet="cols:3; rows: 1; firstFrame: 0; lastFrame: 3;"
-          animation="property: sprite-sheet.progress; from: 0; to: 2; dur: 1000; startEvents: click, movingstarted; loop: true;">
+          sprite-sheet="cols:9; rows: 3; firstFrame: 19; lastFrame: 19;">
         </a-entity>
-        <a-entity mixin="itemBox" position="-0.233 0 0.233" ></a-entity>
+        <a-entity mixin="itemBox" position="0.571 0.33 0.233" ></a-entity>
       </a-entity>
 
     </a-scene>
