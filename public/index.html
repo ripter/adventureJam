@@ -16,6 +16,13 @@
         <img id="spriteBox" src="sprites/box.svg"></img>
         <img id="spriteBoxSideActive" src="sprites/box_active.svg"></img>
         <a-asset-item id="truck" src="models/truck.dae"></a-asset-item>
+        <a-asset-item id="kitchenFloor" src="models/kitchen-floor.dae"></a-asset-item>
+
+        <!-- Road Models -->
+        <a-asset-item id="road-grass-to-sidewalk-obj" src="models/road/grass_to_sidewalk.obj"></a-asset-item>
+        <a-asset-item id="road-grass-to-sidewalk-mtl" src="models/road/grass_to_sidewalk.mtl"></a-asset-item>
+        <a-asset-item id="road-thick-round-curb-obj" src="models/road/road-thick-round-curb.obj"></a-asset-item>
+        <a-asset-item id="road-thick-round-curb-mtl" src="models/road/road-thick-round-curb.mtl"></a-asset-item>
 
         <a-mixin id="npc" geometry="primitive: plane; width: 2; height: 2;" position="0 .5 0" material="transparent: true; shader: flat;"></a-mixin>
         <a-mixin id="itemBox" rotation="-24 0 0" scale="0.5 0.5 0.5" material="src: #spriteBox; transparent:true;" geometry="primitive:plane"></a-mixin>
@@ -24,10 +31,12 @@
       <a-camera id="player" user-height="1.6" position="0 0 5" look-controls>
       </a-camera>
 
-      <a-entity geometry="primitive: plane; width: 10; height: 10;" material="color: green" rotation="-90 0 0" position="0 -.5 0"></a-entity>
+      <!-- Floor -->
+      <a-entity collada-model="#kitchenFloor" rotation="0 -90 0" position="-1.5 -1 3.5"></a-entity>
 
 
-      <a-entity collada-model="#truck" position="5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
+      <!-- Truck -->
+      <a-entity collada-model="#truck" position="4.5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
 
       <!-- Path from Truck to boxes -->
       <a-curve id="track1" curve="">
@@ -51,6 +60,7 @@
         geometry="primitive: box; height: .5; width: .5; depth: .5;"
         material="src: #spriteBoxSideActive; shader: flat;"
         ></a-entity>
+
 
     </a-scene>
   </body>
