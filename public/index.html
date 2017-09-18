@@ -14,7 +14,8 @@
       <a-assets>
         <img id="walk" src="sprites/adventurer_vector.svg"></img>
         <img id="spriteBox" src="sprites/box.svg"></img>
-        <a-asset-item id="truck" src="models/truck2.dae"></a-asset-item>
+        <img id="spriteBoxSideActive" src="sprites/box_active.svg"></img>
+        <a-asset-item id="truck" src="models/truck.dae"></a-asset-item>
 
         <a-mixin id="npc" geometry="primitive: plane; width: 2; height: 2;" position="0 .5 0" material="transparent: true; shader: flat;"></a-mixin>
         <a-mixin id="itemBox" rotation="-24 0 0" scale="0.5 0.5 0.5" material="src: #spriteBox; transparent:true;" geometry="primitive:plane"></a-mixin>
@@ -28,19 +29,28 @@
 
       <a-entity collada-model="#truck" position="5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
 
+      <!-- Path from Truck to boxes -->
       <a-curve id="track1" curve="">
         <a-curve-point position="0.5 0.5 -3.538"></a-curve-point>
         <a-curve-point position="0 0.5 -0.082"></a-curve-point>
         <a-curve-point position="3.5 0.5 -0.269"></a-curve-point>
       </a-curve>
 
-      <a-entity alongpath="curve: #track1; dur: 3000;">
+      <!-- NPC and box being carried -->
+      <a-entity alongpath="curve: #track1; dur: 3000; delay: 1500">
         <a-entity id="npc" mixin="npc"
           material="src: #walk"
           sprite-sheet="cols:9; rows: 3; firstFrame: 19; lastFrame: 19;">
         </a-entity>
         <a-entity mixin="itemBox" position="0.571 0.33 0.233" ></a-entity>
       </a-entity>
+
+      <!-- Pile of boxes -->
+      <a-entity
+        position="3.5 0.3 0.233"
+        geometry="primitive: box; height: .5; width: .5; depth: .5;"
+        material="src: #spriteBoxSideActive; shader: flat;"
+        ></a-entity>
 
     </a-scene>
   </body>
