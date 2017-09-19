@@ -25,24 +25,30 @@
         <a-asset-item id="road-thick-round-curb-mtl" src="models/road/road-thick-round-curb.mtl"></a-asset-item>
 
         <a-mixin id="npc" geometry="primitive: plane; width: 2; height: 2;" position="0 .5 0" material="transparent: true; shader: flat;"></a-mixin>
-        <a-mixin id="itemBox" rotation="-24 0 0" scale="0.5 0.5 0.5" material="src: #spriteBox; transparent:true;" geometry="primitive:plane"></a-mixin>
+        <a-mixin id="itemBox2" rotation="-24 0 0" scale="0.5 0.5 0.5" material="src: #spriteBox; transparent:true;" geometry="primitive:plane"></a-mixin>
+        <a-mixin id="itemBox" geometry="primitive: box; height: .75; width: .75; depth: .75;" material="src: #spriteBoxSideActive; shader: flat;"></a-mixin>
       </a-assets>
 
       <a-camera id="player" user-height="1.6" position="0 0 5" look-controls>
       </a-camera>
 
       <!-- Floor -->
-      <a-entity collada-model="#kitchenFloor" rotation="0 -90 0" position="-1.5 -1 3.5"></a-entity>
+      <a-entity collada-model="#kitchenFloor" rotation="0 -90 0" position=".5 -1 2"></a-entity>
 
 
       <!-- Truck -->
-      <a-entity collada-model="#truck" position="4.5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
+      <a-entity>
+        <a-entity collada-model="#truck" position="4.5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
+        <a-entity mixin="itemBox" position="1.409 0.754 -2.387"></a-entity>
+        <a-entity mixin="itemBox" position="2.157 1.165 -2.396"></a-entity>
+        <a-entity mixin="itemBox" position="1.749 1.018 -3.147"></a-entity>
+      </a-entity>
 
       <!-- Path from Truck to boxes -->
       <a-curve id="track1">
-        <a-curve-point position="-1.126 0.17 -2.708" curve-point=""></a-curve-point>
-        <a-curve-point position="-1.081 0.17 -1.04"></a-curve-point>
-        <a-curve-point position="3.062 0.17 1.538"></a-curve-point>
+        <a-curve-point position="-0.158 0 -3"></a-curve-point>
+        <a-curve-point position="-1.7 0.17 -0.978"></a-curve-point>
+        <a-curve-point position="1.625 0.17 0.883"></a-curve-point>
       </a-curve>
 
       <!-- NPC and box being carried -->
@@ -51,14 +57,14 @@
           material="src: #walk"
           sprite-sheet="cols:9; rows: 3; firstFrame: 19; lastFrame: 19;">
         </a-entity>
-        <a-entity mixin="itemBox" position="0.571 0.33 0.233" ></a-entity>
+        <a-entity mixin="itemBox" position="0.571 0.33 0.375" ></a-entity>
       </a-entity>
 
       <!-- Pile of boxes -->
       <a-entity
         position="3.5 0.3 0.233"
-        geometry="primitive: box; height: .5; width: .5; depth: .5;"
-        material="src: #spriteBoxSideActive; shader: flat;"
+
+
         ></a-entity>
 
 
