@@ -15,6 +15,7 @@
         <img id="walk" src="sprites/adventurer_vector.svg"></img>
         <img id="spriteBox" src="sprites/box.svg"></img>
         <img id="spriteBoxSideActive" src="sprites/box_active.svg"></img>
+        <img id="spriteOrange" src="sprites/orange.svg"></img>
         <a-asset-item id="truck" src="models/truck.dae"></a-asset-item>
         <a-asset-item id="kitchenFloor" src="models/kitchen-floor.dae"></a-asset-item>
 
@@ -25,7 +26,7 @@
         <a-asset-item id="road-thick-round-curb-mtl" src="models/road/road-thick-round-curb.mtl"></a-asset-item>
 
         <a-mixin id="npc" geometry="primitive: plane; width: 2; height: 2;" position="0 .5 0" material="transparent: true; shader: flat;"></a-mixin>
-        <a-mixin id="itemBox2" rotation="-24 0 0" scale="0.5 0.5 0.5" material="src: #spriteBox; transparent:true;" geometry="primitive:plane"></a-mixin>
+        <a-mixin id="item" rotation="-24 0 0" scale="0.5 0.5 0.5" material="transparent:true;" geometry="primitive:plane"></a-mixin>
         <a-mixin id="itemBox" geometry="primitive: box; height: .75; width: .75; depth: .75;" material="src: #spriteBoxSideActive; shader: flat;"></a-mixin>
       </a-assets>
 
@@ -35,6 +36,7 @@
       <!-- Floor -->
       <a-entity collada-model="#kitchenFloor" rotation="0 -90 0" position=".5 -1 2"></a-entity>
 
+      <a-entity mixin="item" material="src: #spriteOrange;"></a-entity>
 
       <!-- Truck -->
       <a-entity>
@@ -52,7 +54,7 @@
       </a-curve>
 
       <!-- NPC and box being carried -->
-      <a-entity alongpath="curve: #track1; dur: 3000; delay: 1500">
+      <a-entity alongpath="curve: #track1; dur: 3000; delay: 1500; loop: true;">
         <a-entity id="npc" mixin="npc"
           material="src: #walk"
           sprite-sheet="cols:9; rows: 3; firstFrame: 19; lastFrame: 19;">
