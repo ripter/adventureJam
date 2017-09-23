@@ -12,7 +12,7 @@
   <body>
     <a-scene>
       <a-assets>
-        <img id="walk" src="sprites/adventurer_vector.svg"></img>
+        <img id="spriteDeliveryGuy" src="sprites/deliveryGuy.svg"></img>
         <img id="spriteOppenheimer" src="sprites/oppenheimer.svg"></img>
         <img id="spriteBox" src="sprites/box.svg"></img>
         <img id="spriteBoxSideActive" src="sprites/box_active.svg"></img>
@@ -28,6 +28,10 @@
         <a-asset-item id="road-thick-round-curb-mtl" src="models/road/road-thick-round-curb.mtl"></a-asset-item>
 
         <a-mixin id="npc" geometry="primitive: plane; width: 2; height: 2;" position="0 .5 0" material="transparent: true; shader: flat;"></a-mixin>
+        <a-mixin id="deliveryGuy" material="src: #spriteDeliveryGuy; width: 68; height: 100;"></a-mixin>
+        <a-mixin id="oppie" material="src: #spriteOppenheimer; width: 68; height: 100;"></a-mixin>
+
+
         <a-mixin id="item" rotation="-24 0 0" scale="0.5 0.5 0.5" material="transparent:true;" geometry="primitive:plane"></a-mixin>
         <a-mixin id="itemBox" geometry="primitive: box; height: .75; width: .75; depth: .75;" material="src: #spriteBoxSideActive; shader: flat;"></a-mixin>
       </a-assets>
@@ -36,6 +40,8 @@
       <a-entity>
         <a-camera active-camera="level" active="false" user-height="1.6" position="-3 0 8" look-controls>
         </a-camera>
+
+        <a-entity id="oppie" mixin="npc oppie" material="src: #spriteOppenheimer"></a-entity>
         <!-- Floor -->
         <a-entity collada-model="#kitchenFloor" rotation="0 -90 0" position=".5 -1 2"></a-entity>
         <!-- Truck -->
@@ -53,10 +59,7 @@
         </a-curve>
         <!-- NPC and box being carried -->
         <a-entity alongpath="curve: #track1; dur: 3000; delay: 1500; loop: true;">
-          <a-entity id="npc" mixin="npc"
-            material="src: #walk"
-            sprite-sheet="cols:9; rows: 3; firstFrame: 19; lastFrame: 19;">
-          </a-entity>
+          <a-entity id="deliveryGuy" mixin="npc deliveryGuy"></a-entity>
           <a-entity mixin="itemBox" position="0.571 0.33 0.375" ></a-entity>
         </a-entity>
       </a-enity>
@@ -71,7 +74,7 @@
         <a-entity position="3 -2.342 1" scale="10 10 10" text="color:#fff;value:He was inspired by an orange."></a-entity>
         <a-entity position="-5.811 3.473 1" rotation="0 0 0" mixin="item" material="flatShading:true;src:#spriteOrange"></a-entity>
         <a-entity position="-6.742 3.516 1" mixin="npc" material="src:#spriteOppenheimer" ></a-entity>
-        <a-entity position="-5.595 0 1" rotation="0 0 0" mixin="item" material="src:#imgOppie" geometry="height:10;width:10"></a-entity>
+        <a-entity position="-5.595 0 1" rotation="0 0 0" mixin="item" material="src:#imgOppie; npot:true;" geometry="height:10;width:10"></a-entity>
       </a-entity>
 
     </a-scene>
