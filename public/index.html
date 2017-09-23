@@ -63,24 +63,17 @@
 
 
 
-
       <!-- Intro -->
-      <a-entity
-        position="-4 -7 0"
-        rotation="90 0 0"
-        material="color:#000;shader:flat;"
-        geometry="height:40;width:40;primitive:plane"
-      >
-        <a-camera active="true" user-height="1.6"
-          position="0.29 0 8"
-          rotation="-1.261 0.458 0"
-        ></a-camera>
-        <a-entity position="3 0 1" scale="10 10 10" text="value:In July 1944, Oppenheimer abandoned the gun design in favor of an implosion-type weapon." ></a-entity>
-        <a-entity position="3 -1 1" scale="10 10 10" text="color:#fff;value:He was inspired by an orange."></a-entity>
-        <a-entity position="5 -1 1" rotation="0 0 0" mixin="item" material="flatShading:true;src:#spriteOrange" ></a-entity>
-        <a-entity mixin="item" material="src:#imgOppie" position="-5.595 0 1" rotation="0 0 0" geometry="height:10;width:10"></a-entity>
-        <a-entity id="oppenheimer" mixin="npc" material="src:#spriteOppenheimer" position="-0.46 1.429 1"></a-entity>
-      <a-entity>
+      <a-entity store-action="action: completeIntro;" position="-4 -7 0" rotation="90 0 0" material="shader:flat;color:#000" geometry="primitive:plane;height:40;width:40">
+        <a-camera position="0 0 8" active="true" user-height="1.6" rotation="-1 0 0"></a-camera>
+        <a-entity position="3 1.226 1" scale="10 10 10" text="value:The Los Alamos Laboratory, was a secret laboratory established by the Manhattan Project during World War II. Its mission was to design and build the first atomic bombs. Robert Oppenheimer was its first director, from 1943 to December 1945."></a-entity>
+        <a-entity position="3 -0.968 1" scale="10 10 10" text="value:In July 1944, Oppenheimer abandoned the gun design in favor of an implosion-type weapon."></a-entity>
+        <a-entity position="3 -2.342 1" scale="10 10 10" text="color:#fff;value:He was inspired by an orange."></a-entity>
+        <a-entity position="-5.811 3.473 1" rotation="0 0 0" mixin="item" material="flatShading:true;src:#spriteOrange"></a-entity>
+        <a-entity position="-6.742 3.516 1" mixin="npc" material="src:#spriteOppenheimer" ></a-entity>
+        <a-entity position="-5.595 0 1" rotation="0 0 0" mixin="item" material="src:#imgOppie" geometry="height:10;width:10"></a-entity>
+      </a-entity>
+
     </a-scene>
   </body>
 </html>

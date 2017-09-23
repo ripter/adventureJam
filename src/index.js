@@ -4,6 +4,7 @@ import 'aframe-animation-component';
 import 'aframe-curve-component';
 import '@ripter/aframe-alongpath-component';
 import './store.js';
+import './components/store-action.js';
 
 
 document.addEventListener('DOMContentLoaded', function() {
