@@ -3,13 +3,21 @@ import 'aframe-spritesheet-component';
 import 'aframe-animation-component';
 import 'aframe-curve-component';
 import '@ripter/aframe-alongpath-component';
+import './store.js';
 
 
-document.addEventListener("DOMContentLoaded", function() {
-  const player = document.getElementById('player');
-  const npc = document.getElementById('npc');
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Game Ready!', arguments);
+});
 
-  // look-controls add the wasd-controls, remove it so we can do pure minecraft-controls
-  // player.removeAttribute('wasd-controls');
-  console.log('Game Ready!');
+document.addEventListener('store-changed', function() {
+  console.log('store-changed recieved', arguments);
+});
+
+document.addEventListener('store-action', function() {
+  console.log('store-changed recieved', arguments);
+});
+
+document.addEventListener('click', function() {
+  console.log('click', arguments);
 });
