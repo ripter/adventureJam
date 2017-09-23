@@ -2,7 +2,7 @@ import 'aframe';
 import 'aframe-spritesheet-component';
 import 'aframe-animation-component';
 import 'aframe-curve-component';
-import 'aframe-alongpath-component';
+import '@ripter/aframe-alongpath-component';
 
 
 document.addEventListener("DOMContentLoaded", function() {

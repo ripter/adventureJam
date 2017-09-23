@@ -13,9 +13,11 @@
     <a-scene>
       <a-assets>
         <img id="walk" src="sprites/adventurer_vector.svg"></img>
+        <img id="spriteOppenheimer" src="sprites/oppenheimer.svg"></img>
         <img id="spriteBox" src="sprites/box.svg"></img>
         <img id="spriteBoxSideActive" src="sprites/box_active.svg"></img>
         <img id="spriteOrange" src="sprites/orange.svg"></img>
+        <img id="imgOppie" src="images/Oppie.jpg"></img>
         <a-asset-item id="truck" src="models/truck.dae"></a-asset-item>
         <a-asset-item id="kitchenFloor" src="models/kitchen-floor.dae"></a-asset-item>
 
@@ -30,46 +32,55 @@
         <a-mixin id="itemBox" geometry="primitive: box; height: .75; width: .75; depth: .75;" material="src: #spriteBoxSideActive; shader: flat;"></a-mixin>
       </a-assets>
 
-      <a-camera id="player" user-height="1.6" position="-3 0 8" look-controls>
-      </a-camera>
-
-      <!-- Floor -->
-      <a-entity collada-model="#kitchenFloor" rotation="0 -90 0" position=".5 -1 2"></a-entity>
-
-      <a-entity mixin="item" material="src: #spriteOrange;"></a-entity>
-
-      <!-- Truck -->
+      <!-- Mess Hall -->
       <a-entity>
-        <a-entity collada-model="#truck" position="4.5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
-        <a-entity mixin="itemBox" position="1.409 0.754 -2.387"></a-entity>
-        <a-entity mixin="itemBox" position="2.157 1.165 -2.396"></a-entity>
-        <a-entity mixin="itemBox" position="1.749 1.018 -3.147"></a-entity>
-      </a-entity>
-
-      <!-- Path from Truck to boxes -->
-      <a-curve id="track1">
-        <a-curve-point position="-0.158 0 -3"></a-curve-point>
-        <a-curve-point position="-1.7 0.17 -0.978"></a-curve-point>
-        <a-curve-point position="1.625 0.17 0.883"></a-curve-point>
-      </a-curve>
-
-      <!-- NPC and box being carried -->
-      <a-entity alongpath="curve: #track1; dur: 3000; delay: 1500; loop: true;">
-        <a-entity id="npc" mixin="npc"
-          material="src: #walk"
-          sprite-sheet="cols:9; rows: 3; firstFrame: 19; lastFrame: 19;">
+        <a-camera active="false" user-height="1.6" position="-3 0 8" look-controls>
+        </a-camera>
+        <!-- Floor -->
+        <a-entity collada-model="#kitchenFloor" rotation="0 -90 0" position=".5 -1 2"></a-entity>
+        <!-- Truck -->
+        <a-entity>
+          <a-entity collada-model="#truck" position="4.5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
+          <a-entity mixin="itemBox" position="1.409 0.754 -2.387"></a-entity>
+          <a-entity mixin="itemBox" position="2.157 1.165 -2.396"></a-entity>
+          <a-entity mixin="itemBox" position="1.749 1.018 -3.147"></a-entity>
         </a-entity>
-        <a-entity mixin="itemBox" position="0.571 0.33 0.375" ></a-entity>
-      </a-entity>
+        <!-- Path from Truck to boxes -->
+        <a-curve id="track1">
+          <a-curve-point position="-0.158 0 -3"></a-curve-point>
+          <a-curve-point position="-1.7 0.17 -0.978"></a-curve-point>
+          <a-curve-point position="1.625 0.17 0.883"></a-curve-point>
+        </a-curve>
+        <!-- NPC and box being carried -->
+        <a-entity alongpath="curve: #track1; dur: 3000; delay: 1500; loop: true;">
+          <a-entity id="npc" mixin="npc"
+            material="src: #walk"
+            sprite-sheet="cols:9; rows: 3; firstFrame: 19; lastFrame: 19;">
+          </a-entity>
+          <a-entity mixin="itemBox" position="0.571 0.33 0.375" ></a-entity>
+        </a-entity>
+      </a-enity>
 
-      <!-- Pile of boxes -->
+
+
+
+      <!-- Intro -->
       <a-entity
-        position="3.5 0.3 0.233"
-
-
-        ></a-entity>
-
-
+        position="-4 -7 0"
+        rotation="90 0 0"
+        material="color:#000;shader:flat;"
+        geometry="height:20;width:20;primitive:plane"
+      >
+        <a-camera active="true" user-height="1.6"
+          position="0.29 0 8"
+          rotation="-1.261 0.458 0"
+        ></a-camera>
+        <a-entity text="value:In July 1944, Oppenheimer abandoned the gun design in favor of an implosion-type weapon." position="1.022 0 1" scale="6 6 6"></a-entity>
+        <a-entity text="color:#fff;value:He was inspired by an orange." position="1.033 -1.052 1" scale="6 6 6"></a-entity>
+        <a-entity mixin="item" material="flatShading:true;src:#spriteOrange" position="2.439 -1.077 1" rotation="0 0 0"></a-entity>
+        <a-entity mixin="item" material="src:#imgOppie" position="-5.595 0 1" rotation="0 0 0" geometry="height:10;width:10"></a-entity>
+        <a-entity id="oppenheimer" mixin="npc" material="src:#spriteOppenheimer" position="-0.46 1.429 1"></a-entity>
+      <a-entity>
     </a-scene>
   </body>
 </html>
