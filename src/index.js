@@ -5,6 +5,7 @@ import 'aframe-curve-component';
 import '@ripter/aframe-alongpath-component';
 import './store.js';
 import './components/store-action.js';
+import './components/active-camera.js';
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -21,4 +22,9 @@ document.addEventListener('store-action', function() {
 
 document.addEventListener('click', function() {
   console.log('click', arguments);
+
+  const action = new Event('store-action', {detail: {
+    type: 'completeIntro',
+  }});
+  document.dispatchEvent(action);
 });
