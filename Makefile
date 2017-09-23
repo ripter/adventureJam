@@ -1,4 +1,4 @@
-.PHONY: all build run vr plop server
+.PHONY: all build run dev-server plop server
 
 all: build run
 
@@ -8,7 +8,7 @@ build: node_modules/
 run:
 	npm start
 
-vr: build
+dev-server: build
 	npx webpack-dev-server --open
 
 server: build
