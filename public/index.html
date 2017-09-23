@@ -17,9 +17,10 @@
         <img id="spriteBox" src="sprites/box.svg"></img>
         <img id="spriteBoxSideActive" src="sprites/box_active.svg"></img>
         <img id="spriteOrange" src="sprites/orange.svg"></img>
+        <img id="spriteCurvepoint" src="sprites/curvePointRed.svg"></img>
         <img id="imgOppie" src="images/Oppie.jpg"></img>
         <a-asset-item id="truck" src="models/truck.dae"></a-asset-item>
-        <a-asset-item id="kitchenFloor" src="models/kitchen-floor.dae"></a-asset-item>
+        <a-asset-item id="modelSet" src="models/level.dae"></a-asset-item>
 
         <!-- Road Models -->
         <a-asset-item id="road-grass-to-sidewalk-obj" src="models/road/grass_to_sidewalk.obj"></a-asset-item>
@@ -32,8 +33,10 @@
         <a-mixin id="oppie" material="src: #spriteOppenheimer; width: 68; height: 100;"></a-mixin>
 
 
-        <a-mixin id="item" rotation="-24 0 0" scale="0.5 0.5 0.5" material="transparent:true;" geometry="primitive:plane"></a-mixin>
+        <!-- rotation="-24 0 0" -->
+        <a-mixin id="item"  scale="0.5 0.5 0.5" material="transparent:true;flatShading:true;" geometry="primitive:plane"></a-mixin>
         <a-mixin id="itemBox" geometry="primitive: box; height: .75; width: .75; depth: .75;" material="src: #spriteBoxSideActive; shader: flat;"></a-mixin>
+        <a-mixin id="curvePoint" visible="false" material="color: #ff5342;flatShading:true;" geometry="primitive: cone; radiusBottom: .75; radiusTop: 0.1;"></a-mixin>
       </a-assets>
 
       <!-- Mess Hall -->
@@ -41,9 +44,29 @@
         <a-camera active-camera="level" active="false" user-height="1.6" position="-3 0 8" look-controls>
         </a-camera>
 
-        <a-entity id="oppie" mixin="npc oppie" material="src: #spriteOppenheimer"></a-entity>
-        <!-- Floor -->
-        <a-entity collada-model="#kitchenFloor" rotation="0 -90 0" position=".5 -1 2"></a-entity>
+        <!-- Oppie aka the game timer
+          Time: 5min (300000ms)
+                1min (60000ms)
+                20sec (20000ms)
+        -->
+        <a-entity position="0 .5 0">
+          <a-entity id="oppie" position="-4 0 4" mixin="npc oppie"  alongpath="curve: #trackOppie; dur: 20000; delay: 0; loop: true;"></a-entity>
+          <a-curve id="trackOppie">
+            <a-curve-point mixin="curvePoint" position="-5.8 0 4" id="timePoint0"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-6 0 6.5" id="timePoint1"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-2.5 0 6.5" id="timePoint2"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-2.21 0 10.191" id="timePoint3"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-0.639 0 8.38" id="timePoint4"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="0.951 0 6.583" id="timePoint5"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="4.384 0 6.583" id="timePoint6"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="4.384 0 3.469" id="timePoint7"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-9.79 0 3.469" id="timePoint8"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-9.79 0 9.073" id="timePoint9"></a-curve-point>
+          </a-curve>
+
+
+        </e-entity>
+
         <!-- Truck -->
         <a-entity>
           <a-entity collada-model="#truck" position="4.5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
@@ -53,15 +76,18 @@
         </a-entity>
         <!-- Path from Truck to boxes -->
         <a-curve id="track1">
-          <a-curve-point position="-0.158 0 -3"></a-curve-point>
-          <a-curve-point position="-1.7 0.17 -0.978"></a-curve-point>
-          <a-curve-point position="1.625 0.17 0.883"></a-curve-point>
+          <a-curve-point mixin="curvePoint" position="-0.158 0 -3"></a-curve-point>
+          <a-curve-point mixin="curvePoint" position="-1.7 0.17 -0.978"></a-curve-point>
+          <a-curve-point mixin="curvePoint" position="1.625 0.17 0.883"></a-curve-point>
         </a-curve>
         <!-- NPC and box being carried -->
         <a-entity alongpath="curve: #track1; dur: 3000; delay: 1500; loop: true;">
           <a-entity id="deliveryGuy" mixin="npc deliveryGuy"></a-entity>
           <a-entity mixin="itemBox" position="0.571 0.33 0.375" ></a-entity>
         </a-entity>
+
+        <!-- Set: Floor, Walls, Tables, Chairs -->
+        <a-entity collada-model="#modelSet" rotation="0 -90 0" position=".5 -1 2"></a-entity>
       </a-enity>
 
 
@@ -69,12 +95,13 @@
       <!-- Intro -->
       <a-entity position="-4 -7 0" rotation="90 0 0" material="shader:flat;color:#000" geometry="primitive:plane;height:40;width:40">
         <a-camera active-camera="intro" position="0 0 8" active="true" user-height="1.6" rotation="-1 0 0"></a-camera>
-        <a-entity position="3 1.226 1" scale="10 10 10" text="value:The Los Alamos Laboratory, was a secret laboratory established by the Manhattan Project during World War II. Its mission was to design and build the first atomic bombs. Robert Oppenheimer was its first director, from 1943 to December 1945."></a-entity>
-        <a-entity position="3 -0.968 1" scale="10 10 10" text="value:In July 1944, Oppenheimer abandoned the gun design in favor of an implosion-type weapon."></a-entity>
-        <a-entity position="3 -2.342 1" scale="10 10 10" text="color:#fff;value:He was inspired by an orange."></a-entity>
-        <a-entity position="-5.811 3.473 1" rotation="0 0 0" mixin="item" material="flatShading:true;src:#spriteOrange"></a-entity>
-        <a-entity position="-6.742 3.516 1" mixin="npc" material="src:#spriteOppenheimer" ></a-entity>
-        <a-entity position="-5.595 0 1" rotation="0 0 0" mixin="item" material="src:#imgOppie; npot:true;" geometry="height:10;width:10"></a-entity>
+        <a-entity position="3 1 1" scale="10 10 10" text="value:The Los Alamos Laboratory, was a secret laboratory established by the Manhattan Project during World War II. Its mission was to design and build the first atomic bombs. Robert Oppenheimer was its first director, from 1943 to December 1945."></a-entity>
+        <a-entity position="3 -1 1" scale="10 10 10" text="value:In July 1944, Oppenheimer abandoned the gun design in favor of an implosion-type weapon."></a-entity>
+        <a-entity position="3 -2 1" scale="10 10 10" text="color:#fff;value:He was inspired by an orange."></a-entity>
+
+        <a-entity position="-6 3 1" mixin="item" material="src:#spriteOrange"></a-entity>
+        <a-entity position="-6 0 1" mixin="item" material="src:#imgOppie; npot:true;" geometry="height:10;width:10"></a-entity>
+        <a-entity position="-7 4 1" mixin="npc" material="src:#spriteOppenheimer"></a-entity>
       </a-entity>
 
     </a-scene>
