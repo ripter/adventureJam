@@ -1,14 +1,18 @@
 import Store from '@ripter/store';
 import dispatchChange from './utils/dispatchChange.js';
+
 import activeCamera from './reducers/activeCamera.js';
+import endGame from './reducers/endGame.js';
 
 // Create a store to hold the game logic
 const store = new Store({
   // Inital State
   activeCamera: 'intro',
+  isOrangeInPlace: false,
 }, [
   // Reducers
   activeCamera,
+  endGame,
 ], function() {
   // On State Change, trigger a store-change event so components can update.
   const state = store.getState();

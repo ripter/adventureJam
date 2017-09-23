@@ -1,4 +1,4 @@
-import eventToMethod from '../utils/eventToMethod.js';
+import dispatchAction from '../utils/dispatchAction.js';
 
 AFRAME.registerComponent('action-endgame', {
   schema: {
@@ -32,5 +32,8 @@ AFRAME.registerComponent('action-endgame', {
 
   handleEvent(event) {
     console.log('action-endgame', event.type, event);
+    dispatchAction({
+      type: 'endGame'  
+    });
   }
 });

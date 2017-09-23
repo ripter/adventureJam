@@ -31,7 +31,7 @@ module.exports = ( plop ) => {
     actions: [{
       type: 'add',
       path: 'src/reducers/{{camelCase name}}.js',
-      templateFile: 'plop-templates/reducers.js',
+      templateFile: 'plop-templates/reducer.js',
     }],
   }); // component
 };
