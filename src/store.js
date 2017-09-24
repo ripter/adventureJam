@@ -4,12 +4,16 @@ import dispatchChange from './utils/dispatchChange.js';
 
 import startGame from './reducers/startGame.js';
 import endGame from './reducers/endGame.js';
+import triggerAnimations from './reducers/triggerAnimations.js';
 
 // Create a store to hold the game logic
 const store = new Store(defaultState(), [
   // Reducers
   startGame,
   endGame,
+
+  // Dirty non-pure, side-effects in the reducers after this line.
+  triggerAnimations,
 ], function() {
   // On State Change, trigger a store-change event so components can update.
   const state = store.getState();
