@@ -4,7 +4,7 @@ import 'aframe-animation-component';
 import 'aframe-curve-component';
 import '@ripter/aframe-alongpath-component';
 import './components/active-camera.js';
-import './components/action-endgame.js';
+import './components/event-to-action.js';
 
 import './store.js';
 import dispatchAction from './utils/dispatchAction.js';

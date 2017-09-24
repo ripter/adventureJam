@@ -59,7 +59,7 @@
             <a-curve-point mixin="curvePoint" position="-0.307 0 3.469"></a-curve-point>
             <a-curve-point mixin="curvePoint" position="-5.358 0 3.469"></a-curve-point>
             <a-curve-point mixin="curvePoint" position="-9.79 0 3.469"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="-9.79 0 9.073" class="a-curve-point" action-endgame></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-9.79 0 9.073" class="a-curve-point" event-to-action="events:alongpath-trigger-activated;actions:endGame;"></a-curve-point>
           </a-curve>
 
           <!-- Orange Table -->
@@ -87,7 +87,7 @@
 
         <!-- Set: Static Items like Walls and tables -->
         <a-entity collada-model="#modelSet" rotation="0 -90 0" position=".5 -1 2"></a-entity>
-        <a-entity position="0 -.5 0" material="color: #C2DB92;;shader: flat;" geometry="primitive: plane; height: 40; width: 40;"  rotation="-90 0 0"></a-entity>
+        <a-entity position="0 -.5 0" material="color:#C2DB92;shader:flat;" geometry="primitive: plane; height: 40; width: 40;"  rotation="-90 0 0"></a-entity>
       </a-enity>
 
 
@@ -98,11 +98,10 @@
       <!-- Intro -->
       <a-entity id="screenIntro" position="-23 -7 23" rotation="90 0 0">
         <a-camera active-camera="intro" position="-2 0 8" active="true" user-height="1.6" rotation="-1 0 0"></a-camera>
+        <a-entity position="-7.388 1.31 1" mixin="art" material="src:#imgOppie; npot:true;" geometry="height:10;width:10"></a-entity>
         <a-entity position="3 1 1" scale="10 10 10" text="value:The Los Alamos Laboratory, was a secret laboratory established by the Manhattan Project during World War II. Its mission was to design and build the first atomic bombs. Robert Oppenheimer was its first director, from 1943 to December 1945."></a-entity>
         <a-entity position="3 -1 1" scale="10 10 10" text="value:In July 1944, Oppenheimer abandoned the gun design in favor of an implosion-type weapon."></a-entity>
         <a-entity position="3 -2 1" scale="10 10 10" text="color:#fff;value:He was inspired by an orange."></a-entity>
-
-        <a-entity position="-7.388 1.31 1" mixin="art" material="src:#imgOppie; npot:true;" geometry="height:10;width:10"></a-entity>
         <a-entity position="0.933 4 1" mixin="art" material="src:#spriteOrange" scale="0.5 0.5 0.5"></a-entity>
         <a-entity position="-0.049 4 1" mixin="art" material="src:#spriteOppenheimer"></a-entity>
       </a-entity>
@@ -112,7 +111,6 @@
       <a-entity id="screenLose" position="4 -7 0" rotation="90 0 0">
         <a-camera active-camera="lose" position="0 0 8" active="false" user-height="1.6" rotation="-1 0 0"></a-camera>
         <a-entity position="-6 1.5 1" mixin="art" material="src:#imgLose;" geometry="height:10;width:10"></a-entity>
-
         <a-entity position="5 2.5 1" scale="10 10 10" text="value:Oh No! You changed history! Game Over"></a-entity>
         <a-entity position="5 1 1" scale="10 10 10" text="value:How to play"></a-entity>
         <a-entity position="5 0 1" scale="10 10 10" text="value:Click on things."></a-entity>

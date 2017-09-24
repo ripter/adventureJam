@@ -1,8 +1,9 @@
 import dispatchAction from '../utils/dispatchAction.js';
 
-AFRAME.registerComponent('action-endgame', {
+AFRAME.registerComponent('event-to-action', {
   schema: {
-    onEvents: {default: ['click', 'alongpath-trigger-activated']},
+    events: {default: ['click']},
+    actions: {default: []},
   },
 
   /**
@@ -11,9 +12,9 @@ AFRAME.registerComponent('action-endgame', {
    */
   init() {
     const { el } = this;
-    const { onEvents } = this.data;
+    const { events } = this.data;
 
-    onEvents.forEach((eventName) => {
+    events.forEach((eventName) => {
       el.addEventListener(eventName, this);
     });
   },
@@ -23,17 +24,21 @@ AFRAME.registerComponent('action-endgame', {
    */
   remove() {
     const { el } = this;
-    const { onEvents } = this.data;
+    const { events } = this.data;
 
-    onEvents.forEach((eventName) => {
+    events.forEach((eventName) => {
       el.removeEventListener(eventName, this);
     });
   },
 
   handleEvent(event) {
-    console.log('action-endgame', event.type, event);
-    dispatchAction({
-      type: 'endGame'  
+    const { actions } = this.data;
+
+    // Translate the event into an action
+    actions.forEach((actionType) => {
+      dispatchAction({
+        type: actionType,
+      });
     });
   }
 });
