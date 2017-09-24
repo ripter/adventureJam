@@ -29,7 +29,7 @@
   "homepage": "https://github.com/ripter/adventureJam#readme",
   "dependencies": {
     "@ekolabs/aframe-spritesheet-component": "^1.2.0",
-    "@ripter/aframe-alongpath-component": "^1.0.5",
+    "@ripter/aframe-alongpath-component": "^1.0.0",
     "@ripter/store": "^1.0.0",
     "aframe": "^0.6.1",
     "aframe-animation-component": "^3.2.5",

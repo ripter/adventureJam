@@ -15,8 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // User can click anywhere to dismiss the intro screen
-document.addEventListener('click', function() {
-  dispatchAction({
-    type: 'completeIntro'
-  });
-});
+// document.addEventListener('click', completeIntro);
+// function completeIntro() {
+//   dispatchAction({
+//     type: 'completeIntro'
+//   });
+//
+//   //WARNING: Can only play once!
+//   document.removeEventListener('click', completeIntro);
+// }

@@ -35,9 +35,15 @@
         <a-mixin id="curvePoint" visible="false" material="color: #ff5342;flatShading:true;" geometry="primitive: cone; radiusBottom: .75; radiusTop: 0.1;"></a-mixin>
       </a-assets>
 
-      <!-- Mess Hall -->
+      <!-- Level -->
       <a-entity>
         <a-camera active-camera="level" active="false" user-height="1.6" position="-3 0 8" look-controls>
+          <a-entity id="cursor"
+            cursor="fuse: true; fuseTimeout: 1500;"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: black; shader: flat">
+          </a-entity>
         </a-camera>
 
         <!-- Oppie aka the game timer
@@ -63,11 +69,11 @@
           </a-curve>
 
           <!-- Orange Table -->
-          <a-entity collada-model="#modelTable" position="-10 -1 9"></a-entity>
+          <a-entity class="clickable" collada-model="#modelTable" position="-10 -1 9" event-to-action="actions:touchTable;"></a-entity>
         </a-entity>
 
         <!-- Truck -->
-        <a-entity>
+        <a-entity event-to-action="actions:touchTruck">
           <a-entity collada-model="#modelTruck" position="4.5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
           <a-entity mixin="itemBox" position="1.409 0.754 -2.387"></a-entity>
           <a-entity mixin="itemBox" position="2.157 1.165 -2.396"></a-entity>
@@ -77,10 +83,12 @@
         <a-curve id="track1">
           <a-curve-point mixin="curvePoint" position="-0.158 0 -3"></a-curve-point>
           <a-curve-point mixin="curvePoint" position="-1.7 0.17 -0.978"></a-curve-point>
-          <a-curve-point mixin="curvePoint" position="1.625 0.17 0.883"></a-curve-point>
+          <a-curve-point mixin="curvePoint" position="1.625 0.17 0.883">
+            <a-entity mixin="itemBox"></a-entity>
+          </a-curve-point>
         </a-curve>
         <!-- NPC and box being carried -->
-        <a-entity id="deliveryGuy" alongpath="curve: #track1; dur: 3000; delay: 1500; loop: true;">
+        <a-entity id="deliveryGuy" alongpath="curve: #track1; dur: 3000; delay: 1500; loop: true; isReversing: true;">
           <a-entity mixin="sprite npc npcDeliveryGuy"></a-entity>
           <a-entity mixin="itemBox" position="0.571 0.33 0.375" ></a-entity>
         </a-entity>
@@ -97,25 +105,46 @@
 
       <!-- Intro -->
       <a-entity id="screenIntro" position="-23 -7 23" rotation="90 0 0">
-        <a-camera active-camera="intro" position="-2 0 8" active="true" user-height="1.6" rotation="-1 0 0"></a-camera>
-        <a-entity position="-7.388 1.31 1" mixin="art" material="src:#imgOppie; npot:true;" geometry="height:10;width:10"></a-entity>
+        <a-camera active-camera="intro" position="-2 0 8" active="true" user-height="1.6" rotation="-1 0 0">
+          <a-entity id="cursor"
+            cursor="fuse: true; fuseTimeout: 1500;"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: #FF00FC; shader: flat">
+          </a-entity>
+        </a-camera>
+        <a-entity position="-7.388 1.31 1" mixin="art" material="src:#imgOppie; npot:true;" geometry="height:10;width:10" event-to-action="actions:completeIntro;"></a-entity>
         <a-entity position="3 1 1" scale="10 10 10" text="value:The Los Alamos Laboratory, was a secret laboratory established by the Manhattan Project during World War II. Its mission was to design and build the first atomic bombs. Robert Oppenheimer was its first director, from 1943 to December 1945."></a-entity>
         <a-entity position="3 -1 1" scale="10 10 10" text="value:In July 1944, Oppenheimer abandoned the gun design in favor of an implosion-type weapon."></a-entity>
         <a-entity position="3 -2 1" scale="10 10 10" text="color:#fff;value:He was inspired by an orange."></a-entity>
-        <a-entity position="0.933 4 1" mixin="art" material="src:#spriteOrange" scale="0.5 0.5 0.5"></a-entity>
-        <a-entity position="-0.049 4 1" mixin="art" material="src:#spriteOppenheimer"></a-entity>
+
+        <a-entity position="3 -3 1" scale="10 10 10" text="value:Long Look on Oppenheimer to start."></a-entity>
+        <a-entity position="3 -3.5 1" scale="10 10 10" text="value:DESTOP: click and drag to look around."></a-entity>
+
+        <a-entity position="2 4 1" mixin="art" material="src:#spriteOrange"></a-entity>
+        <a-entity position="0 4 1" scale="2 2 2" mixin="art" material="src:#spriteOppenheimer" event-to-action="actions:completeIntro;"></a-entity>
       </a-entity>
 
 
       <!-- Game Lose -->
       <a-entity id="screenLose" position="4 -7 0" rotation="90 0 0">
-        <a-camera active-camera="lose" position="0 0 8" active="false" user-height="1.6" rotation="-1 0 0"></a-camera>
+        <a-camera active-camera="lose" position="0 0 8" active="false" user-height="1.6" rotation="-1 0 0">
+          <a-entity id="cursor"
+            cursor="fuse: true; fuseTimeout: 1500;"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: #FF00FC; shader: flat">
+          </a-entity>
+        </a-camera>
         <a-entity position="-6 1.5 1" mixin="art" material="src:#imgLose;" geometry="height:10;width:10"></a-entity>
         <a-entity position="5 2.5 1" scale="10 10 10" text="value:Oh No! You changed history! Game Over"></a-entity>
         <a-entity position="5 1 1" scale="10 10 10" text="value:How to play"></a-entity>
         <a-entity position="5 0 1" scale="10 10 10" text="value:Click on things."></a-entity>
         <a-entity position="5 -1 1" scale="10 10 10" text="value:Look Around. (VR CardBoard/Desktop Mouse)"></a-entity>
         <a-entity position="5 -2 1" scale="10 10 10" text="value:Get an orange on the table before Oppenheimer reaches it."></a-entity>
+
+        <a-entity position="4.837 -3.15 1" scale="10 10 10" text="value:Click or Long Look on Oppenheimer to re-start"></a-entity>
+        <a-entity position="1 4 1" scale="2 2 2" mixin="art" material="src:#spriteOppenheimer" event-to-action="actions:restartGame;"></a-entity>
       </a-entity>
 
     </a-scene>

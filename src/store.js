@@ -5,6 +5,7 @@ import dispatchChange from './utils/dispatchChange.js';
 import startGame from './reducers/startGame.js';
 import endGame from './reducers/endGame.js';
 import triggerAnimations from './reducers/triggerAnimations.js';
+import log from './reducers/log.js';
 
 // Create a store to hold the game logic
 const store = new Store(defaultState(), [
@@ -13,6 +14,7 @@ const store = new Store(defaultState(), [
   endGame,
 
   // Dirty non-pure, side-effects in the reducers after this line.
+  log,
   triggerAnimations,
 ], function() {
   // On State Change, trigger a store-change event so components can update.
