@@ -48,12 +48,16 @@
           user-height="1.6"
           rotation="1.6 -25 0"
           look-controls>
-          <a-entity id="cursor"
-            cursor="fuse: true; fuseTimeout: 1500;"
+          <a-entity cursor="fuse: true; fuseTimeout: 1100"
+            objects=".clickable"
             position="0 0 -1"
-            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-            material="color: black; shader: flat">
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03; thetaLength: 360"
+            material="color: black; shader: flat"
+            animation="restartEvents: fusing; pauseEvents: mouseleave; property: geometry.thetaLength; dur: 1000; easing: easeInSine; from: 0; to: 360;"
+            animation__reset="startEvents: mouseleave; property: geometry.thetaLength; dur: 500; to: 360;"
+            >
           </a-entity>
+
         </a-camera>
 
         <!-- Oppie aka the game timer
@@ -194,11 +198,14 @@
       <!-- Intro -->
       <a-entity id="screenIntro" position="-23 -7 23" rotation="90 0 0">
         <a-camera active-camera="intro" position="-2 0 8" active="true" user-height="1.6" rotation="-1 0 0">
-          <a-entity id="cursor"
-            cursor="fuse: true; fuseTimeout: 1500;"
+          <a-entity cursor="fuse: true; fuseTimeout: 1500"
+            objects=".clickable"
             position="0 0 -1"
-            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-            material="color: #FF00FC; shader: flat">
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03; thetaLength: 360"
+            material="color:#FF00FC; shader:flat;"
+            animation="restartEvents: fusing; pauseEvents: mouseleave; property: geometry.thetaLength; dur: 1000; easing: easeInSine; from: 0; to: 360;"
+            animation__reset="startEvents: mouseleave; property: geometry.thetaLength; dur: 500; to: 360;"
+            >
           </a-entity>
         </a-camera>
         <a-entity position="-7.388 1.31 1" mixin="art" material="src:#imgOppie; npot:true;" geometry="height:10;width:10" event-to-action="actions:completeIntro;"></a-entity>
@@ -215,7 +222,7 @@
       <!-- Game Lose -->
       <a-entity id="screenLose" position="4 -7 0" rotation="90 0 0">
         <a-camera active-camera="lose" position="0 0 8" active="false" user-height="1.6" rotation="-1 0 0">
-          <a-entity id="cursor"
+          <a-entity
             cursor="fuse: true; fuseTimeout: 1500;"
             position="0 0 -1"
             geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
@@ -232,7 +239,7 @@
       <!-- Game Win -->
       <a-entity id="screenWin" position="-16.218 -7 -23.988" rotation="90 0 0">
         <a-camera active-camera="win" position="0 1.6 8" active="true" user-height="1.6" rotation="-1 0 0" camera="active:false" look-controls="" wasd-controls="">
-          <a-entity id="cursor" cursor="fuse:true" position="0 0 -1" geometry="primitive:ring;radiusInner:0.02;radiusOuter:0.03" material="shader:flat;color:#FF00FC" raycaster="">
+          <a-entity cursor="fuse:true" position="0 0 -1" geometry="primitive:ring;radiusInner:0.02;radiusOuter:0.03" material="shader:flat;color:#FF00FC" raycaster="">
           </a-entity>
         </a-camera>
         <a-entity position="-6 3.5 1" mixin="art" material="src:#imgWin" geometry="height:10;width:10"></a-entity>
