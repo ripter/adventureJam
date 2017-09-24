@@ -37,7 +37,12 @@
 
       <!-- Level -->
       <a-entity>
-        <a-camera active-camera="level" active="false" user-height="1.6" position="-3 0 8" look-controls>
+        <a-camera active-camera="level"
+          active="false"
+          user-height="1.6"
+          position="-6 0 11.5"
+          rotation="1.6 -25 0"
+          look-controls>
           <a-entity id="cursor"
             cursor="fuse: true; fuseTimeout: 1500;"
             position="0 0 -1"
@@ -54,22 +59,32 @@
         <a-entity position="0 .5 0">
           <a-entity id="oppie" mixin="sprite npc npcOppie"  alongpath="curve: #trackOppie; dur: 20000; delay: 0; isPlaying: false;"></a-entity>
           <a-curve id="trackOppie">
-            <a-curve-point mixin="curvePoint" position="-5.8 0 4"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="-6 0 6.5"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="-2.5 0 6.5"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="-2.21 0 10.191"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="-0.639 0 8.38"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-5.8 0 3.236"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-7.832 0 5.415"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-5.006 0 6.679"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-2.21 0 6.76"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-2.21 0 8.342"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="0.906 0 8.38"></a-curve-point>
             <a-curve-point mixin="curvePoint" position="0.951 0 6.583"></a-curve-point>
             <a-curve-point mixin="curvePoint" position="4.384 0 6.583"></a-curve-point>
             <a-curve-point mixin="curvePoint" position="4.384 0 3.469"></a-curve-point>
             <a-curve-point mixin="curvePoint" position="-0.307 0 3.469"></a-curve-point>
             <a-curve-point mixin="curvePoint" position="-5.358 0 3.469"></a-curve-point>
             <a-curve-point mixin="curvePoint" position="-9.79 0 3.469"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="-9.79 0 9.073" class="a-curve-point" event-to-action="events:alongpath-trigger-activated;actions:endGame;"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-9.79 0 9.073" class="a-curve-point" event-to-action="events:alongpath-trigger-activated;actions:endGame"></a-curve-point>
           </a-curve>
 
           <!-- Orange Table -->
           <a-entity class="clickable" collada-model="#modelTable" position="-10 -1 9" event-to-action="actions:touchTable;"></a-entity>
+
+          <a-entity position="-0.056 -0.5 2.098" mixin="itemBox" event-to-action="actions:touchDelivery;"></a-entity>
+          <a-entity position="-0.5 -0.433 2">
+            <a-entity id="rollingOrange" alongpath="curve: #trackOrangeDelivery; dur: 2000; delay: 0; isPlaying:false;" mixin="sprite" material="src:#spriteOrange"></a-entity>
+            <a-curve id="trackOrangeDelivery">
+              <a-curve-point mixin="curvePoint" position="0 0 0"></a-curve-point>
+              <a-curve-point mixin="curvePoint" position="-1.76 0.17 2.745"></a-curve-point>
+            </a-curve>
+          </a-entity>
         </a-entity>
 
         <!-- Truck -->
@@ -79,19 +94,18 @@
           <a-entity mixin="itemBox" position="2.157 1.165 -2.396"></a-entity>
           <a-entity mixin="itemBox" position="1.749 1.018 -3.147"></a-entity>
         </a-entity>
+        <!-- NPC and box being carried -->
+        <a-entity id="deliveryGuy" actor-delivery-driver="events:alongpath-trigger-activated;" alongpath="curve: #track1; dur: 4000; delay: 1500; loop: true; isReversing: true;">
+          <a-entity mixin="sprite npc npcDeliveryGuy"></a-entity>
+          <a-entity class="inventory" mixin="itemBox" position="0.571 0.33 0.375" visible="false"></a-entity>
+        </a-entity>
         <!-- Path from Truck to boxes -->
         <a-curve id="track1">
-          <a-curve-point mixin="curvePoint" position="-0.158 0 -3"></a-curve-point>
-          <a-curve-point mixin="curvePoint" position="-1.7 0.17 -0.978"></a-curve-point>
-          <a-curve-point mixin="curvePoint" position="1.625 0.17 0.883">
-            <a-entity mixin="itemBox"></a-entity>
-          </a-curve-point>
+          <a-curve-point class="a-curve-point" mixin="curvePoint" position="-0.158 0 -3" event-to-action="events:alongpath-trigger-activated;actions:deliveryPickup"></a-curve-point>
+          <a-curve-point mixin="curvePoint" position="-1.76 0.17 -1.275"></a-curve-point>
+          <a-curve-point class="a-curve-point" mixin="curvePoint" position="-0.056 0.17 2.098" class="a-curve-point" event-to-action="events:alongpath-trigger-activated;actions:deliveryDropoff;"></a-curve-point>
         </a-curve>
-        <!-- NPC and box being carried -->
-        <a-entity id="deliveryGuy" alongpath="curve: #track1; dur: 3000; delay: 1500; loop: true; isReversing: true;">
-          <a-entity mixin="sprite npc npcDeliveryGuy"></a-entity>
-          <a-entity mixin="itemBox" position="0.571 0.33 0.375" ></a-entity>
-        </a-entity>
+
 
         <!-- Set: Static Items like Walls and tables -->
         <a-entity collada-model="#modelSet" rotation="0 -90 0" position=".5 -1 2"></a-entity>

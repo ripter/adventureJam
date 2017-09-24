@@ -3,29 +3,42 @@
  * DIRTY!!!
  */
 export default function triggerAnimations(state, action) {
+  const { type } = action;
   const { activeCamera } = state;
 
   // When the level starts
   // Start the Oppenheimer timer
   if (activeCamera === 'level') {
-    const elm = document.getElementById('oppie');
-    const alongpath = elm.getAttribute('alongpath');
+    playerOppie();
+  }
 
-    // start playing the path
-    alongpath.isPlaying = true;
-    elm.setAttribute('alongpath', alongpath);
-
-    // enable clicking via look
-    // enableCursor();
+  console.log('type', type);
+  switch (type) {
+    case 'touchDelivery':
+      playRollingOrange();
+      break;
+    default:
+      // no default
   }
 
   return state;
 }
 
-function enableCursor() {
-  const elm = document.getElementById('cursor');
-  const cursor = elm.getAttribute('cursor');
+function playRollingOrange() {
+  const elm = document.getElementById('rollingOrange');
+  const alongpath = elm.getAttribute('alongpath');
 
-  cursor.fuse = true;
-  elm.setAttribute('cursor', cursor);
+  console.log('playRollingOrange', elm, alongpath);
+  // start playing the path
+  alongpath.isPlaying = true;
+  elm.setAttribute('alongpath', alongpath);
+}
+
+function playerOppie() {
+  const elm = document.getElementById('oppie');
+  const alongpath = elm.getAttribute('alongpath');
+
+  // start playing the path
+  alongpath.isPlaying = true;
+  elm.setAttribute('alongpath', alongpath);
 }
