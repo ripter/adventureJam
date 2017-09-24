@@ -21,6 +21,7 @@
         <img id="spriteCurvepoint" src="sprites/curvePointRed.svg"></img>
         <img id="imgOppie" src="images/Oppie.jpg"></img>
         <img id="imgLose" src="images/Y12_Calutron_Operators.jpg"></img>
+        <img id="imgWin" src="images/win.jpg"></img>
         <a-asset-item id="modelTruck" src="models/truck.dae"></a-asset-item>
         <a-asset-item id="modelSet" src="models/level.dae"></a-asset-item>
         <a-asset-item id="modelTable" src="models/table.dae"></a-asset-item>
@@ -62,7 +63,7 @@
         -->
         <a-entity position="0 .5 0">
           <a-entity id="oppie" position="-5.8 0 3.236" mixin="sprite npc npcOppie"
-            alongpath="curve: #trackOppie; dur: 60000; isPlaying: false; triggers:.path-oppie;"></a-entity>
+            alongpath="curve: #trackOppie; dur: 35000; isPlaying: false; triggers:.path-oppie;"></a-entity>
           <a-curve id="trackOppie" position="0 0 0">
             <a-curve-point mixin="curvePoint" position="-5.8 0 3.236"></a-curve-point>
             <a-curve-point mixin="curvePoint" position="-7.832 0 5.415"></a-curve-point>
@@ -206,7 +207,7 @@
         <a-entity position="3 -2 1" scale="10 10 10" text="color:#fff;value:He was inspired by an orange."></a-entity>
 
         <a-entity position="3 -3 1" scale="10 10 10" text="value:Long Look on Oppenheimer to start."></a-entity>
-        <a-entity position="3 -3.5 1" scale="10 10 10" text="value:DESTOP: click and drag to look around."></a-entity>
+        <a-entity position="3 -3.75 1" scale="10 10 10" text="value:CONTROLS: Long Look to interact, mouse drag to look around."></a-entity>
 
         <a-entity position="2 4 1" mixin="art" material="src:#spriteOrange"></a-entity>
         <a-entity position="0 4 1" scale="2 2 2" mixin="art" material="src:#spriteOppenheimer" event-to-action="actions:completeIntro;"></a-entity>
@@ -222,14 +223,23 @@
           </a-entity>
         </a-camera>
         <a-entity position="-6 1.5 1" mixin="art" material="src:#imgLose;" geometry="height:10;width:10"></a-entity>
-        <a-entity position="5 2.5 1" scale="10 10 10" text="value:Oh No! You changed history! Game Over"></a-entity>
-        <a-entity position="5 1 1" scale="10 10 10" text="value:How to play"></a-entity>
-        <a-entity position="5 0 1" scale="10 10 10" text="value:Click on things."></a-entity>
-        <a-entity position="5 -1 1" scale="10 10 10" text="value:Look Around. (VR CardBoard/Desktop Mouse)"></a-entity>
-        <a-entity position="5 -2 1" scale="10 10 10" text="value:Get an orange on the table before Oppenheimer reaches it."></a-entity>
+        <a-entity position="5 4.238 1" scale="10 10 10" text="value:Oh No! You changed history!"></a-entity>
+        <a-entity position="4.974 1.932 1" scale="10 10 10" text="value:Get an orange on the table before Oppenheimer reaches it."></a-entity>
+        <a-entity position="1.14 0.339 1" scale="10 10 10" text="value:How to play;align:center"></a-entity>
+        <a-entity position="4.865 -0.885 1" scale="10 10 10" text="value:CONTROLS: Long Look to interact, mouse drag to look around."></a-entity>
+      </a-entity>
 
-        <a-entity position="4.837 -3.15 1" scale="10 10 10" text="value:Click or Long Look on Oppenheimer to re-start"></a-entity>
-        <a-entity position="1 4 1" scale="2 2 2" mixin="art" material="src:#spriteOppenheimer" event-to-action="actions:restartGame;"></a-entity>
+      <!-- Game Win -->
+      <a-entity id="screenWin" position="-16.218 -7 -23.988" rotation="90 0 0">
+        <a-camera active-camera="win" position="0 1.6 8" active="true" user-height="1.6" rotation="-1 0 0" camera="active:false" look-controls="" wasd-controls="">
+          <a-entity id="cursor" cursor="fuse:true" position="0 0 -1" geometry="primitive:ring;radiusInner:0.02;radiusOuter:0.03" material="shader:flat;color:#FF00FC" raycaster="">
+          </a-entity>
+        </a-camera>
+        <a-entity position="-6 3.5 1" mixin="art" material="src:#imgWin" geometry="height:10;width:10"></a-entity>
+        <a-entity position="3.494 7 1" scale="20 20 20" text="value:You Won!;align:center"></a-entity>
+        <a-entity position="5 5.137 1" scale="10 10 10" text="value:Created For https://itch.io/jam/101-adventure-challenge"></a-entity>
+        <a-entity position="5 3.597 1" scale="10 10 10" text="value:Created by Chris Richards"></a-entity>
+        <a-entity position="5 2.382 1" scale="10 10 10" text="value:Tech: a-frame, three.js, electron"></a-entity>
       </a-entity>
     </a-scene>
   </body>
