@@ -50,7 +50,13 @@ export default function triggerAnimations(state, action) {
         playPath('soldier');
         // Have him 'pick up' the orange
         toggleVisible('rollingOrange');
-        toggleVisible('soldierInentory');
+        toggleVisible('soldierInventory');
+      }
+      break;
+    case 'pieceLockTable':
+      if (puzzle.lockOrange) {
+        toggleVisible('soldierInventory');
+        toggleVisible('tableInventory');
       }
       break;
     default:

@@ -19,6 +19,9 @@ export default function puzzle(state, action, nextAction) {
         puzzle.lockSoldier = true;
       }
       break;
+    case 'pieceLockTable':
+      puzzle.lockOrange = true;
+      break;
     default:
       // ignore
   }

@@ -82,7 +82,9 @@
           </a-curve>
 
           <!-- Orange Table -->
-          <a-entity position="-10 -1 9" class="clickable" collada-model="#modelTable" event-to-action="actions:touchTable;"></a-entity>
+          <a-entity position="-10 -1 9" class="clickable" collada-model="#modelTable" event-to-action="actions:touchTable;">
+            <a-entity id="tableInventory" mixin="sprite spriteOrange" visible="false" class="inventory" position="0.022 1.137 -0.02" scale="1 1 1" rotation="0 90 0"></a-entity>
+          </a-entity>
 
           <!-- Box Hiding Orange -->
           <a-entity position="-0.056 -0.5 2.098" class="clickable" mixin="itemBox" event-to-action="actions:touchDelivery;"></a-entity>
@@ -147,7 +149,7 @@
             class="clickable"
             event-to-action="actions:touchSoldier"
             >
-            <a-entity id="soldierInentory" mixin="sprite spriteOrange" visible="false" class="inventory" position="-0.259 -0.131 0.163" scale="0.25 0.25 0.25"></a-entity>
+            <a-entity id="soldierInventory" mixin="sprite spriteOrange" visible="false" class="inventory" position="-0.259 -0.131 0.163" scale="0.25 0.25 0.25"></a-entity>
           </a-entity>
           <!-- Track for Part One -->
           <a-curve id="trackSoldier">
