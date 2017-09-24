@@ -14,4 +14,24 @@ module.exports = ( plop ) => {
       templateFile: 'plop-templates/component.js',
     }],
   }); // component
+
+  plop.setGenerator('reducer', {
+    description: 'Creates reducer for the Store',
+
+    prompts: [{
+      type: 'input',
+      name: 'name',
+      message: 'name:',
+    }, {
+      type: 'input',
+      name: 'type',
+      message: 'action type',
+    }],
+
+    actions: [{
+      type: 'add',
+      path: 'src/reducers/{{camelCase name}}.js',
+      templateFile: 'plop-templates/reducer.js',
+    }],
+  }); // component
 };

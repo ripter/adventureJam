@@ -10,73 +10,111 @@
     <script src="bundle.js"></script>
   </head>
   <body>
-    <a-scene physics="debug: true">
+    <a-scene>
       <a-assets>
-        <img id="skyTexture" src="textures/washington-ruby-beach-olympic-np-dark-sky-360.jpg">
-        <img id="stoneWall" src="textures/stone_wall.png">
-        <img id="grassTexture" src="textures/grass.png" repeat="1 0">
-        <img id="chest3Texture" src="models/Chest3.png">
-        <a-asset-item id="chest" src="models/chest.dae"></a-asset-item>
-        <a-asset-item id="minecart" src="models/mine_cart.dae"></a-asset-item>
-        <a-asset-item id="minetrack-straight" src="models/mine_track_straight.dae"></a-asset-item>
-        <a-asset-item id="minetrack-curve" src="models/mine_track_curve.dae"></a-asset-item>
-        <a-asset-item id="minetrack-optional-left" src="models/mine_track_optional_left.dae"></a-asset-item>
-        <a-asset-item id="minetrack-optional-right" src="models/mine_track_optional_right.dae"></a-asset-item>
+        <img id="spriteDeliveryGuy" src="sprites/deliveryGuy.svg"></img>
+        <img id="spriteOppenheimer" src="sprites/oppenheimer.svg"></img>
+        <img id="spriteBox" src="sprites/box.svg"></img>
+        <img id="spriteBoxSideActive" src="sprites/box_active.svg"></img>
+        <img id="spriteOrange" src="sprites/orange.svg"></img>
+        <img id="spriteCurvepoint" src="sprites/curvePointRed.svg"></img>
+        <img id="imgOppie" src="images/Oppie.jpg"></img>
+        <img id="imgLose" src="images/Y12_Calutron_Operators.jpg"></img>
+        <a-asset-item id="modelTruck" src="models/truck.dae"></a-asset-item>
+        <a-asset-item id="modelSet" src="models/level.dae"></a-asset-item>
+        <a-asset-item id="modelTable" src="models/table.dae"></a-asset-item>
+
+        <a-mixin id="npc" geometry="primitive: plane; width: 2; height: 2;" position="0 .5 0" material="transparent: true; shader: flat;"></a-mixin>
+        <a-mixin id="deliveryGuy" material="src: #spriteDeliveryGuy; width: 68; height: 100;"></a-mixin>
+        <a-mixin id="oppie" material="src: #spriteOppenheimer; width: 68; height: 100;"></a-mixin>
 
 
-        <a-asset-item id="compass-base" src="models/compass_base.dae"></a-asset-item>
-        <a-asset-item id="compass-needle" src="models/compass_needle.dae"></a-asset-item>
+        <a-mixin id="item"  scale="0.5 0.5 0.5" material="transparent:true;flatShading:true;" geometry="primitive:plane"></a-mixin>
+        <a-mixin id="itemBox" geometry="primitive: box; height: .75; width: .75; depth: .75;" material="src: #spriteBoxSideActive; shader: flat;"></a-mixin>
+        <a-mixin id="curvePoint" visible="true" material="color: #ff5342;flatShading:true;" geometry="primitive: cone; radiusBottom: .75; radiusTop: 0.1;"></a-mixin>
       </a-assets>
 
-      <a-camera id="player" user-height="1.6" look-controls minecraft-controls>
-         <a-cursor
-           raycaster="objects: .clickable;"
-           charge-fuse fuse="true"
-           material="color: white; opacity: 0.5;"
-           max-distance="1"
-           position="0 0 -1">
-           <a-animation attribute="geometry.radiusOuter"
-               begin="play-fuse"
-               dur="1000" from="0.026" to="0.046"
-               direction="alternate" repeat="1"></a-animation>
-           <a-animation attribute="geometry.radiusInner"
-               begin="play-fuse"
-               dur="1000" from="0.020" to="0.040"
-               direction="alternate" repeat="1"></a-animation>
-         </a-cursor>
-      </a-camera>
+      <!-- Mess Hall -->
+      <a-entity>
+        <a-camera active-camera="level" active="false" user-height="1.6" position="-3 0 8" look-controls>
+        </a-camera>
 
-      <a-sky src="#skyTexture"></a-sky>
+        <!-- Oppie aka the game timer
+          Time: 5min (300000ms)
+                1min (60000ms)
+                20sec (20000ms)
+        -->
+        <a-entity position="0 .5 0">
+          <a-entity id="oppie" position="-4 0 4" mixin="npc oppie"  alongpath="curve: #trackOppie; dur: 20000; delay: 0; loop: false;"></a-entity>
+          <a-curve id="trackOppie">
+            <a-curve-point mixin="curvePoint" position="-5.8 0 4" id="timePoint0"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-6 0 6.5" id="timePoint1"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-2.5 0 6.5" id="timePoint2"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-2.21 0 10.191" id="timePoint3"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-0.639 0 8.38" id="timePoint4"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="0.951 0 6.583" id="timePoint5"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="4.384 0 6.583" id="timePoint6"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="4.384 0 3.469" id="timePoint7"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-9.79 0 3.469" id="timePoint8"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-9.79 0 9.073" id="timePoint9" class="a-curve-point" action-endgame></a-curve-point>
+          </a-curve>
 
-      <a-plane static-body position="0 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
-      <a-plane static-body position="10 0 0" rotation="-90 0 0" width="10" height="10" src="#grassTexture"></a-plane>
+
+          <a-entity collada-model="#modelTable" position="-9.79 0 9.073"></a-entity>
+
+        </e-entity>
+
+        <!-- Truck -->
+        <a-entity>
+          <a-entity collada-model="#modelTruck" position="4.5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
+          <a-entity mixin="itemBox" position="1.409 0.754 -2.387"></a-entity>
+          <a-entity mixin="itemBox" position="2.157 1.165 -2.396"></a-entity>
+          <a-entity mixin="itemBox" position="1.749 1.018 -3.147"></a-entity>
+        </a-entity>
+        <!-- Path from Truck to boxes -->
+        <a-curve id="track1">
+          <a-curve-point mixin="curvePoint" position="-0.158 0 -3"></a-curve-point>
+          <a-curve-point mixin="curvePoint" position="-1.7 0.17 -0.978"></a-curve-point>
+          <a-curve-point mixin="curvePoint" position="1.625 0.17 0.883"></a-curve-point>
+        </a-curve>
+        <!-- NPC and box being carried -->
+        <a-entity alongpath="curve: #track1; dur: 3000; delay: 1500; loop: true;">
+          <a-entity id="deliveryGuy" mixin="npc deliveryGuy"></a-entity>
+          <a-entity mixin="itemBox" position="0.571 0.33 0.375" ></a-entity>
+        </a-entity>
+
+        <!-- Set: Static Items like Walls and tables -->
+        <a-entity collada-model="#modelSet" rotation="0 -90 0" position=".5 -1 2"></a-entity>
+        <a-entity position="0 -.5 0" material="color: #C2DB92;;shader: flat;" geometry="primitive: plane; height: 40; width: 40;"  rotation="-90 0 0"></a-entity>
+      </a-enity>
 
 
-      <a-entity position="-2 0.5 -3">
-        <a-collada-model src="#compass-base"></a-collada-model>
-        <a-collada-model src="#compass-needle" position="0 .01 0"></a-collada-model>
+
+      <!-- Screens -->
+      <a-entity position="-4 -7 0" rotation="90 0 0" material="shader:flat;color:#000" geometry="primitive:plane;height:80;width:80"></a-entity>
+
+      <!-- Intro -->
+      <a-entity id="screenIntro" position="-23 -7 23" rotation="90 0 0">
+        <a-camera active-camera="intro" position="0 0 8" active="true" user-height="1.6" rotation="-1 0 0"></a-camera>
+        <a-entity position="3 1 1" scale="10 10 10" text="value:The Los Alamos Laboratory, was a secret laboratory established by the Manhattan Project during World War II. Its mission was to design and build the first atomic bombs. Robert Oppenheimer was its first director, from 1943 to December 1945."></a-entity>
+        <a-entity position="3 -1 1" scale="10 10 10" text="value:In July 1944, Oppenheimer abandoned the gun design in favor of an implosion-type weapon."></a-entity>
+        <a-entity position="3 -2 1" scale="10 10 10" text="color:#fff;value:He was inspired by an orange."></a-entity>
+
+        <a-entity position="-6 3 1" mixin="item" material="src:#spriteOrange"></a-entity>
+        <a-entity position="-6 0 1" mixin="item" material="src:#imgOppie; npot:true;" geometry="height:10;width:10"></a-entity>
+        <a-entity position="-7 4 1" mixin="npc" material="src:#spriteOppenheimer"></a-entity>
       </a-entity>
 
-      <a-plane static-body position="0 0 -5" width="10" height="5" src="#stoneWall"></a-plane>
 
-      <a-entity position="-3 0 3">
-        <a-collada-model class="clickable" src="#minecart"></a-collada-model>
-        <a-collada-model src="#minetrack-straight"></a-collada-model>
-        <a-collada-model src="#minetrack-curve"></a-collada-model>
-        <a-collada-model src="#minetrack-optional-left"></a-collada-model>
-        <a-collada-model src="#minetrack-optional-right"></a-collada-model>
+      <!-- Game Lose -->
+      <a-entity id="screenLose" position="4 -7 0" rotation="90 0 0">
+        <a-camera active-camera="lose" position="0 0 8" active="false" user-height="1.6" rotation="-1 0 0"></a-camera>
+        <a-entity position="-5 1.5 1" mixin="item" material="src:#imgLose;" geometry="height:10;width:10"></a-entity>
+
+        <a-entity position="3 2.5 1" scale="10 10 10" text="value:Oh No! You changed history!"></a-entity>
+        <a-entity position="3 1 1" scale="10 10 10" text="value:Hint: Get the orange to the pedistal before Oppenheimer gets there."></a-entity>
       </a-entity>
 
-      <a-entity class="clickable">
-        <a-collada-model src="#chest" position="0 0 -3" scale=".5 .5 .5"></a-collada-model>
-      </a-entity>
-
-      <a-entity class="clickable"  position="5 0 -3" scale=".5 .5 .5">
-        <a-collada-model src="#chest"></a-collada-model>
-      </a-entity>
-
-      <a-link on="click" class="clickable" href="cave1.html" title="cave1"
-        position="11 1 0" rotation="0 90 0"></a-link>
     </a-scene>
   </body>
 </html>
