@@ -34,15 +34,15 @@
         <a-mixin id="sprite" material="transparent:true;flatShading:true;side:double;shader:flat;" geometry="primitive:plane;"></a-mixin>
         <a-mixin id="spriteOrange" material="src: #spriteOrange;width: 134;height: 134;" scale=".5 .5 .5"></a-mixin>
 
-        <a-mixin id="art" material="transparent:true;flatShading:true;" geometry="primitive:plane"></a-mixin>
         <a-mixin id="itemBox" geometry="primitive: box; height: .75; width: .75; depth: .75;" material="src: #spriteBoxSideActive; shader: flat;"></a-mixin>
+        <a-mixin id="art" material="transparent:true;flatShading:true;" geometry="primitive:plane"></a-mixin>
         <a-mixin id="curvePoint" visible="false" material="color: #ff5342;flatShading:true;" geometry="primitive: cone; radiusBottom: .75; radiusTop: 0.1;"></a-mixin>
       </a-assets>
 
       <!-- Level -->
       <a-entity>
         <a-camera active-camera="level"
-          position="-1.5 0 10.5"
+          position="-1.14 0 10.5"
           active="false"
           user-height="1.6"
           rotation="1.6 -25 0"
@@ -62,7 +62,7 @@
         -->
         <a-entity position="0 .5 0">
           <a-entity id="oppie" position="-5.8 0 3.236" mixin="sprite npc npcOppie"
-            alongpath="curve: #trackOppie; dur: 60000; delay: 0; isPlaying: false; triggers:.path-oppie;"></a-entity>
+            alongpath="curve: #trackOppie; dur: 60000; isPlaying: false; triggers:.path-oppie;"></a-entity>
           <a-curve id="trackOppie" position="0 0 0">
             <a-curve-point mixin="curvePoint" position="-5.8 0 3.236"></a-curve-point>
             <a-curve-point mixin="curvePoint" position="-7.832 0 5.415"></a-curve-point>
@@ -82,22 +82,22 @@
           </a-curve>
 
           <!-- Orange Table -->
-          <a-entity position="-10 -0.5 9" class="clickable" collada-model="#modelTable" event-to-action="actions:touchTable;"></a-entity>
+          <a-entity position="-10 -1 9" class="clickable" collada-model="#modelTable" event-to-action="actions:touchTable;"></a-entity>
 
           <!-- Box Hiding Orange -->
-          <a-entity position="-0.056 0 2.098" class="clickable" mixin="itemBox" event-to-action="actions:touchDelivery;"></a-entity>
+          <a-entity position="-0.056 -0.5 2.098" class="clickable" mixin="itemBox" event-to-action="actions:touchDelivery;"></a-entity>
           <!-- Rolling Orange -->
           <a-entity position="-0.5 0.5 2">
             <a-entity id="rollingOrange" mixin="sprite spriteOrange"
-              position="0 -0.67 -0.32"
-              alongpath="curve: #trackOrangeDelivery; dur: 2000; delay: 0; isPlaying:false;"></a-entity>
+              position="0 -1.14 -0.32"
+              alongpath="curve:#trackOrangeDelivery; dur:2000; isPlaying:false;"></a-entity>
             <a-curve id="trackOrangeDelivery">
-                <a-curve-point position="0 -0.67 -0.32" mixin="curvePoint"></a-curve-point>
-                <a-curve-point position="-0.32 -0.67 -0.32" mixin="curvePoint"></a-curve-point>
-                <a-curve-point position="-1.108 -0.67 1.114" mixin="curvePoint"></a-curve-point>
-                <a-curve-point position="-1.853 -0.67 3.677" mixin="curvePoint"></a-curve-point>
-                <a-curve-point position="-1.853 -0.67 5.811" mixin="curvePoint"
-                  class="a-curve-point" event-to-action="events:alongpath-trigger-activated;actions:pieceLockOrange"
+                <a-curve-point position="0 -1.14 -0.32" mixin="curvePoint"></a-curve-point>
+                <a-curve-point position="-0.32 -1.14 -0.32" mixin="curvePoint"></a-curve-point>
+                <a-curve-point position="-1.108 -1.14 1.114" mixin="curvePoint"></a-curve-point>
+                <a-curve-point position="-1.853 -1.14 3.677" mixin="curvePoint"></a-curve-point>
+                <a-curve-point position="-1.853 -1.14 5.811" mixin="curvePoint"
+                  class="a-curve-point" event-to-action="events:alongpath-trigger-activated;actions:pieceLockDelivery"
                 ></a-curve-point>
               </a-curve>
           </a-entity>
@@ -116,12 +116,12 @@
           <!-- NPC and box being carried -->
           <a-entity id="deliveryGuy"
             actor-delivery-driver="events:alongpath-trigger-activated;"
-            alongpath="curve:#track1; dur:4000; delay:1500; loop:true; canReverse:true; isPlaying:false; triggers:.path-delivery">
+            alongpath="curve:#track1; dur:4000; loop:true; canReverse:true; isPlaying:false; triggers:.path-delivery">
             <a-entity mixin="sprite npc npcDeliveryGuy"></a-entity>
-            <a-entity id="deliveryInventory" class="inventory" mixin="itemBox"
-              position="0.571 0.33 0.375"
-              scale=".5 .5 .5"
-              visible="false"></a-entity>
+            <a-entity id="deliveryInventory"
+              class="inventory" mixin="itemBox"
+              position="0.429 -0.049 0.375"
+              visible="true"></a-entity>
           </a-entity>
           <!-- Path from Truck to boxes -->
           <a-curve id="track1">
@@ -146,7 +146,10 @@
             alongpath="curve:#trackSoldier; dur:7000; canReverse:true; isPlaying:false; triggers:.path-soldier;"
             class="clickable"
             event-to-action="actions:touchSoldier"
-            ></a-entity>
+            >
+            <a-entity id="soldierInentory" mixin="sprite spriteOrange" visible="false" class="inventory" position="-0.259 -0.131 0.163" scale="0.25 0.25 0.25"></a-entity>
+          </a-entity>
+          <!-- Track for Part One -->
           <a-curve id="trackSoldier">
             <a-curve-point mixin="curvePoint"
               position="4.429 0 3.171"
@@ -162,6 +165,16 @@
               class="path-soldier"
               id="path-soldier-end"
               event-to-action="events:alongpath-trigger-activated; actions:pieceLockSoldier"
+            ></a-curve-point>
+          </a-curve>
+          <!-- Track for Part Two -->
+          <a-curve id="trackSoldier2">
+            <a-curve-point mixin="curvePoint" position="-2.241 0 8.164"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-2.241 0 6.546"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-6.108 0 6.546"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-9.92 0 8.146"
+              class="path-soldier"
+              id="path-soldier2-end" event-to-action="events:alongpath-trigger-activated;actions:pieceLockTable"
             ></a-curve-point>
           </a-curve>
         </a-entity>

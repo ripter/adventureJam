@@ -23,7 +23,7 @@ export default function triggerAnimations(state, action) {
       break;
     case 'toggleDeliveryInventory':
       // console.log('updating Inventory');
-      updateInventory('deliveryInventory');
+      // updateInventory('deliveryInventory');
       break;
     case 'lockFailSoldier':
       // console.log('Resetting Soldier');
@@ -43,6 +43,14 @@ export default function triggerAnimations(state, action) {
       if (!puzzle.lockSoldier) {
         animations.soldier = 'failed'
         reversePlayPath('soldier');
+      }
+      else {
+        // Lock success, switch paths and play
+        switchPaths('soldier', '#trackSoldier2');
+        playPath('soldier');
+        // Have him 'pick up' the orange
+        toggleVisible('rollingOrange');
+        toggleVisible('soldierInentory');
       }
       break;
     default:
@@ -82,9 +90,19 @@ function resetPath(elmID) {
   elm.setAttribute('alongpath', alongpath);
 }
 
-function updateInventory(elmID) {
+function toggleVisible(elmID) {
   const elm = document.getElementById(elmID);
   const visible = elm.getAttribute('visible');
 
   elm.setAttribute('visible', !visible);
+}
+
+
+function switchPaths(elmID, newPath) {
+  const elm = document.getElementById(elmID);
+  const alongpath = elm.getAttribute('alongpath');
+
+  // start playing the path
+  alongpath.curve = newPath;
+  elm.setAttribute('alongpath', alongpath);
 }

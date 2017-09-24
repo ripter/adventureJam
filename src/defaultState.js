@@ -3,8 +3,9 @@ export default function defaultState() {
     activeCamera: 'intro',
     isOrangeInPlace: false,
     puzzle: {
-      lockOrange: false,
+      lockDelivery: false,
       lockSoldier: false,
+      lockOrange: false,
     },
     animations: {
       soldier: 'stopped',

@@ -4,15 +4,18 @@
 export default function puzzle(state, action, nextAction) {
   const { type } = action;
   const { puzzle } = state;
-  const { lockOrange, lockSoldier } = puzzle;
+  const { lockOrange, lockDelivery, lockSoldier } = puzzle;
 
   switch (type) {
+    case 'pieceLockDelivery':
+      puzzle.lockDelivery = true;
+      break;
     case 'pieceLockOrange':
       puzzle.lockOrange = true;
       break;
     case 'pieceLockSoldier':
-      // Soldier only locks if the orange has locked.
-      if (lockOrange) {
+      // Soldier only locks if the delivery has locked.
+      if (lockDelivery) {
         puzzle.lockSoldier = true;
       }
       break;
