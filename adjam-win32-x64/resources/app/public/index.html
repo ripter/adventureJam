@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Adventure Jam</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="bundle.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="spriteDeliveryGuy" src="sprites/deliveryGuy.svg"></img>
+        <img id="spriteOppenheimer" src="sprites/oppenheimer.svg"></img>
+        <img id="spriteSoldier" src="sprites/soldier.svg"></img>
+        <img id="spriteBox" src="sprites/box.svg"></img>
+        <img id="spriteBoxSideActive" src="sprites/box_active.svg"></img>
+        <img id="spriteOrange" src="sprites/orange.svg"></img>
+        <img id="spriteCurvepoint" src="sprites/curvePointRed.svg"></img>
+        <img id="imgOppie" src="images/Oppie.jpg"></img>
+        <img id="imgLose" src="images/Y12_Calutron_Operators.jpg"></img>
+        <img id="imgWin" src="images/win.jpg"></img>
+        <a-asset-item id="modelTruck" src="models/truck.dae"></a-asset-item>
+        <a-asset-item id="modelSet" src="models/level.dae"></a-asset-item>
+        <a-asset-item id="modelTable" src="models/table.dae"></a-asset-item>
+
+        <a-mixin id="npc" scale="2 2 2" material="transparent:true;flatShading:true;side:double;shader:flat;" geometry="primitive:plane;"></a-mixin>
+        <a-mixin id="npcDeliveryGuy" material="src:#spriteDeliveryGuy;"></a-mixin>
+        <a-mixin id="npcOppie" material="src:#spriteOppenheimer;"></a-mixin>
+        <a-mixin id="npcSoldier" material="src:#spriteSoldier;"></a-mixin>
+
+
+        <a-mixin id="sprite" material="transparent:true;flatShading:true;side:double;shader:flat;" geometry="primitive:plane;"></a-mixin>
+        <a-mixin id="spriteOrange" material="src: #spriteOrange;width: 134;height: 134;" scale=".5 .5 .5"></a-mixin>
+
+        <a-mixin id="itemBox" geometry="primitive: box; height: .75; width: .75; depth: .75;" material="src: #spriteBoxSideActive; shader: flat;"></a-mixin>
+        <a-mixin id="art" material="transparent:true;flatShading:true;" geometry="primitive:plane"></a-mixin>
+        <a-mixin id="curvePoint" visible="false" material="color: #ff5342;flatShading:true;" geometry="primitive: cone; radiusBottom: .75; radiusTop: 0.1;"></a-mixin>
+      </a-assets>
+
+      <!-- Level -->
+      <a-entity>
+        <a-camera active-camera="level"
+          position="-1.14 0 10.5"
+          active="false"
+          user-height="1.6"
+          rotation="1.6 -25 0"
+          look-controls>
+          <a-entity cursor="fuse: true; fuseTimeout: 1100"
+            objects=".clickable"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03; thetaLength: 360"
+            material="color: black; shader: flat"
+            animation="restartEvents: fusing; pauseEvents: mouseleave; property: geometry.thetaLength; dur: 1000; easing: easeInSine; from: 0; to: 360;"
+            animation__reset="startEvents: mouseleave; property: geometry.thetaLength; dur: 500; to: 360;"
+            >
+          </a-entity>
+
+        </a-camera>
+
+        <!-- Oppie aka the game timer
+          Time: 5min  (300000ms)
+                1min  (60000ms)
+                20sec (20000ms)
+        -->
+        <a-entity position="0 .5 0">
+          <a-entity id="oppie" position="-5.8 0 3.236" mixin="sprite npc npcOppie"
+            alongpath="curve: #trackOppie; dur: 35000; isPlaying: false; triggers:.path-oppie;"></a-entity>
+          <a-curve id="trackOppie" position="0 0 0">
+            <a-curve-point mixin="curvePoint" position="-5.8 0 3.236"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-7.832 0 5.415"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-5.006 0 6.679"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-2.21 0 6.76"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-2.21 0 8.342"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="0.906 0 8.38"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="0.951 0 6.583"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="4.384 0 6.583"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="4.384 0 3.469"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-0.307 0 3.469"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-5.358 0 3.469"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-9.79 0 3.469"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-9.79 0 9.073"
+              class="path-oppie" event-to-action="events:alongpath-trigger-activated;actions:endGame"
+            ></a-curve-point>
+          </a-curve>
+
+          <!-- Orange Table -->
+          <a-entity position="-10 -1 9" class="clickable" collada-model="#modelTable" event-to-action="actions:touchTable;">
+            <a-entity id="tableInventory" mixin="sprite spriteOrange" visible="false" class="inventory" position="0.022 1.137 -0.02" scale="1 1 1" rotation="0 90 0"></a-entity>
+          </a-entity>
+
+          <!-- Box Hiding Orange -->
+          <a-entity position="-0.056 -0.5 2.098" class="clickable" mixin="itemBox" event-to-action="actions:touchDelivery;"></a-entity>
+          <!-- Rolling Orange -->
+          <a-entity position="-0.5 0.5 2">
+            <a-entity id="rollingOrange" mixin="sprite spriteOrange"
+              position="0 -1.14 -0.32"
+              alongpath="curve:#trackOrangeDelivery; dur:2000; isPlaying:false;"></a-entity>
+            <a-curve id="trackOrangeDelivery">
+                <a-curve-point position="0 -1.14 -0.32" mixin="curvePoint"></a-curve-point>
+                <a-curve-point position="-0.32 -1.14 -0.32" mixin="curvePoint"></a-curve-point>
+                <a-curve-point position="-1.108 -1.14 1.114" mixin="curvePoint"></a-curve-point>
+                <a-curve-point position="-1.853 -1.14 3.677" mixin="curvePoint"></a-curve-point>
+                <a-curve-point position="-1.853 -1.14 5.811" mixin="curvePoint"
+                  class="a-curve-point" event-to-action="events:alongpath-trigger-activated;actions:pieceLockDelivery"
+                ></a-curve-point>
+              </a-curve>
+          </a-entity>
+        </a-entity>
+
+        <!-- Truck -->
+        <a-entity event-to-action="actions:touchTruck">
+          <a-entity collada-model="#modelTruck" position="4.5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
+          <a-entity mixin="itemBox" position="1.409 0.754 -2.387"></a-entity>
+          <a-entity mixin="itemBox" position="2.157 1.165 -2.396"></a-entity>
+          <a-entity mixin="itemBox" position="1.749 1.018 -3.147"></a-entity>
+        </a-entity>
+
+
+        <a-entity position="0 .5 0">
+          <!-- NPC and box being carried -->
+          <a-entity id="deliveryGuy"
+            actor-delivery-driver="events:alongpath-trigger-activated;"
+            alongpath="curve:#track1; dur:4000; loop:true; canReverse:true; isPlaying:false; triggers:.path-delivery">
+            <a-entity mixin="sprite npc npcDeliveryGuy"></a-entity>
+            <a-entity id="deliveryInventory"
+              class="inventory" mixin="itemBox"
+              position="0.429 -0.049 0.375"
+              visible="true"></a-entity>
+          </a-entity>
+          <!-- Path from Truck to boxes -->
+          <a-curve id="track1">
+            <a-curve-point mixin="curvePoint"
+              position="-0.158 0 -3"
+              class="path-delivery"
+              event-to-action="events:alongpath-trigger-activated;actions:toggleDeliveryInventory;"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-1.76 0.17 -1.275"></a-curve-point>
+            <a-curve-point mixin="curvePoint"
+              position="-0.056 0.17 2.098"
+              class="path-delivery"
+              event-to-action="events:alongpath-trigger-activated;actions:toggleDeliveryInventory;"
+              ></a-curve-point>
+          </a-curve>
+        </a-entity>
+
+
+        <!-- Solider Paths -->
+        <a-entity position="0 .5 0">
+          <a-entity id="soldier" mixin="sprite npc npcSoldier"
+            position="4.429 0 3.2"
+            alongpath="curve:#trackSoldier; dur:7000; canReverse:true; isPlaying:false; triggers:.path-soldier;"
+            class="clickable"
+            event-to-action="actions:touchSoldier"
+            >
+            <a-entity id="soldierInventory" mixin="sprite spriteOrange" visible="false" class="inventory" position="-0.259 -0.131 0.163" scale="0.25 0.25 0.25"></a-entity>
+          </a-entity>
+          <!-- Track for Part One -->
+          <a-curve id="trackSoldier">
+            <a-curve-point mixin="curvePoint"
+              position="4.429 0 3.171"
+              class="path-soldier"
+              id="path-soldier-start"
+              event-to-action="events:alongpath-trigger-activated; actions:pieceResetSoldier"
+            ></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="4.448 0 6.386"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="1.037 0 6.386"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="0.914 0 8.164"></a-curve-point>
+            <a-curve-point mixin="curvePoint"
+              position="-2.241 0 8.164"
+              class="path-soldier"
+              id="path-soldier-end"
+              event-to-action="events:alongpath-trigger-activated; actions:pieceLockSoldier"
+            ></a-curve-point>
+          </a-curve>
+          <!-- Track for Part Two -->
+          <a-curve id="trackSoldier2">
+            <a-curve-point mixin="curvePoint" position="-2.241 0 8.164"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-2.241 0 6.546"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-6.108 0 6.546"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-9.92 0 8.146"
+              class="path-soldier"
+              id="path-soldier2-end" event-to-action="events:alongpath-trigger-activated;actions:pieceLockTable"
+            ></a-curve-point>
+          </a-curve>
+        </a-entity>
+
+        <!-- Set: Static Items like Walls and tables -->
+        <a-entity collada-model="#modelSet" rotation="0 -90 0" position=".5 -1 2"></a-entity>
+        <a-entity position="0 -.5 0" material="color:#C2DB92;shader:flat;" geometry="primitive: plane; height: 40; width: 40;"  rotation="-90 0 0"></a-entity>
+      </a-enity>
+
+
+
+      <!-- Screens -->
+      <a-entity position="-4 -7 0" rotation="90 0 0" material="shader:flat;color:#000" geometry="primitive:plane;height:80;width:80"></a-entity>
+      <!-- Intro -->
+      <a-entity id="screenIntro" position="-23 -7 23" rotation="90 0 0">
+        <a-camera active-camera="intro" position="-2 0 8" active="true" user-height="1.6" rotation="-1 0 0">
+          <a-entity cursor="fuse: true; fuseTimeout: 1500"
+            objects=".clickable"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03; thetaLength: 360"
+            material="color:#FF00FC; shader:flat;"
+            animation="restartEvents: fusing; pauseEvents: mouseleave; property: geometry.thetaLength; dur: 1000; easing: easeInSine; from: 0; to: 360;"
+            animation__reset="startEvents: mouseleave; property: geometry.thetaLength; dur: 500; to: 360;"
+            >
+          </a-entity>
+        </a-camera>
+        <a-entity position="-7.388 1.31 1" mixin="art" material="src:#imgOppie; npot:true;" geometry="height:10;width:10" event-to-action="actions:completeIntro;"></a-entity>
+        <a-entity position="3 1 1" scale="10 10 10" text="value:The Los Alamos Laboratory, was a secret laboratory established by the Manhattan Project during World War II. Its mission was to design and build the first atomic bombs. Robert Oppenheimer was its first director, from 1943 to December 1945."></a-entity>
+        <a-entity position="3 -1 1" scale="10 10 10" text="value:In July 1944, Oppenheimer abandoned the gun design in favor of an implosion-type weapon."></a-entity>
+        <a-entity position="3 -2 1" scale="10 10 10" text="color:#fff;value:He was inspired by an orange."></a-entity>
+
+        <a-entity position="3 -3 1" scale="10 10 10" text="value:Long Look on Oppenheimer to start."></a-entity>
+        <a-entity position="3 -3.75 1" scale="10 10 10" text="value:CONTROLS: Long Look to interact, mouse drag to look around."></a-entity>
+
+        <a-entity position="2 4 1" mixin="art" material="src:#spriteOrange"></a-entity>
+        <a-entity position="0 4 1" scale="2 2 2" mixin="art" material="src:#spriteOppenheimer" event-to-action="actions:completeIntro;"></a-entity>
+      </a-entity>
+      <!-- Game Lose -->
+      <a-entity id="screenLose" position="4 -7 0" rotation="90 0 0">
+        <a-camera active-camera="lose" position="0 0 8" active="false" user-height="1.6" rotation="-1 0 0">
+          <a-entity
+            cursor="fuse: true; fuseTimeout: 1500;"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: #FF00FC; shader: flat">
+          </a-entity>
+        </a-camera>
+        <a-entity position="-6 1.5 1" mixin="art" material="src:#imgLose;" geometry="height:10;width:10"></a-entity>
+        <a-entity position="5 4.238 1" scale="10 10 10" text="value:Oh No! You changed history!"></a-entity>
+        <a-entity position="4.974 1.932 1" scale="10 10 10" text="value:Get an orange on the table before Oppenheimer reaches it."></a-entity>
+        <a-entity position="1.14 0.339 1" scale="10 10 10" text="value:How to play;align:center"></a-entity>
+        <a-entity position="4.865 -0.885 1" scale="10 10 10" text="value:CONTROLS: Long Look to interact, mouse drag to look around."></a-entity>
+      </a-entity>
+
+      <!-- Game Win -->
+      <a-entity id="screenWin" position="-16.218 -7 -23.988" rotation="90 0 0">
+        <a-camera active-camera="win" position="0 1.6 8" active="true" user-height="1.6" rotation="-1 0 0" camera="active:false" look-controls="" wasd-controls="">
+          <a-entity cursor="fuse:true" position="0 0 -1" geometry="primitive:ring;radiusInner:0.02;radiusOuter:0.03" material="shader:flat;color:#FF00FC" raycaster="">
+          </a-entity>
+        </a-camera>
+        <a-entity position="-6 3.5 1" mixin="art" material="src:#imgWin" geometry="height:10;width:10"></a-entity>
+        <a-entity position="3.494 7 1" scale="20 20 20" text="value:You Won!;align:center"></a-entity>
+        <a-entity position="5 5.137 1" scale="10 10 10" text="value:Created For https://itch.io/jam/101-adventure-challenge"></a-entity>
+        <a-entity position="5 3.597 1" scale="10 10 10" text="value:Created by Chris Richards"></a-entity>
+        <a-entity position="5 2.382 1" scale="10 10 10" text="value:Tech: a-frame, three.js, electron"></a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
