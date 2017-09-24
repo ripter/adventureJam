@@ -31,7 +31,7 @@
 
         <a-mixin id="item"  scale="0.5 0.5 0.5" material="transparent:true;flatShading:true;" geometry="primitive:plane"></a-mixin>
         <a-mixin id="itemBox" geometry="primitive: box; height: .75; width: .75; depth: .75;" material="src: #spriteBoxSideActive; shader: flat;"></a-mixin>
-        <a-mixin id="curvePoint" visible="true" material="color: #ff5342;flatShading:true;" geometry="primitive: cone; radiusBottom: .75; radiusTop: 0.1;"></a-mixin>
+        <a-mixin id="curvePoint" visible="false" material="color: #ff5342;flatShading:true;" geometry="primitive: cone; radiusBottom: .75; radiusTop: 0.1;"></a-mixin>
       </a-assets>
 
       <!-- Mess Hall -->
@@ -45,23 +45,24 @@
                 20sec (20000ms)
         -->
         <a-entity position="0 .5 0">
-          <a-entity id="oppie" position="-4 0 4" mixin="npc oppie"  alongpath="curve: #trackOppie; dur: 20000; delay: 0; loop: false;"></a-entity>
+          <a-entity id="oppie" position="-4 0 4" mixin="npc oppie"  alongpath="curve: #trackOppie; dur: 20000; delay: 0; autoplay: false;"></a-entity>
           <a-curve id="trackOppie">
-            <a-curve-point mixin="curvePoint" position="-5.8 0 4" id="timePoint0"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="-6 0 6.5" id="timePoint1"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="-2.5 0 6.5" id="timePoint2"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="-2.21 0 10.191" id="timePoint3"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="-0.639 0 8.38" id="timePoint4"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="0.951 0 6.583" id="timePoint5"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="4.384 0 6.583" id="timePoint6"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="4.384 0 3.469" id="timePoint7"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="-9.79 0 3.469" id="timePoint8"></a-curve-point>
-            <a-curve-point mixin="curvePoint" position="-9.79 0 9.073" id="timePoint9" class="a-curve-point" action-endgame></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-5.8 0 4"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-6 0 6.5"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-2.5 0 6.5"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-2.21 0 10.191"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-0.639 0 8.38"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="0.951 0 6.583"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="4.384 0 6.583"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="4.384 0 3.469"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-0.307 0 3.469"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-5.358 0 3.469"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-9.79 0 3.469"></a-curve-point>
+            <a-curve-point mixin="curvePoint" position="-9.79 0 9.073" class="a-curve-point" action-endgame></a-curve-point>
           </a-curve>
 
-
-          <a-entity collada-model="#modelTable" position="-9.79 0 9.073"></a-entity>
-
+          <!-- Orange Table -->
+          <a-entity collada-model="#modelTable" position="-9.79 -.5 9.073"></a-entity>
         </e-entity>
 
         <!-- Truck -->
