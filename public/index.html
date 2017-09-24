@@ -42,9 +42,9 @@
       <!-- Level -->
       <a-entity>
         <a-camera active-camera="level"
+          position="-1.5 0 10.5"
           active="false"
           user-height="1.6"
-          position="-6 0 9"
           rotation="1.6 -25 0"
           look-controls>
           <a-entity id="cursor"
@@ -106,7 +106,9 @@
           <a-entity mixin="itemBox" position="1.749 1.018 -3.147"></a-entity>
         </a-entity>
         <!-- NPC and box being carried -->
-        <a-entity id="deliveryGuy" actor-delivery-driver="events:alongpath-trigger-activated;" alongpath="curve: #track1; dur: 4000; delay: 1500; loop: true; isReversing: true;">
+        <a-entity id="deliveryGuy"
+          actor-delivery-driver="events:alongpath-trigger-activated;"
+          alongpath="curve:#track1; dur:4000; delay:1500; loop:true; isReversing:true;">
           <a-entity mixin="sprite npc npcDeliveryGuy"></a-entity>
           <a-entity class="inventory" mixin="itemBox" position="0.571 0.33 0.375" visible="false"></a-entity>
         </a-entity>
@@ -122,7 +124,9 @@
         <a-entity>
           <a-entity id="soldier" mixin="sprite npc npcSoldier"
             position="3.865 0.5 4.566"
-            alongpath="curve: #trackSoldier; dur: 7000; loop: true; isReversing: true;"
+            alongpath="curve:#trackSoldier; dur:7000; loop:true; canReverse:true; isPlaying:false;"
+            class="clickable"
+            event-to-action="actions:touchSoldier"
             ></a-entity>
           <a-curve id="trackSoldier" curve="">
             <a-curve-point mixin="curvePoint" position="4.429 0 3.171" curve-point=""></a-curve-point>

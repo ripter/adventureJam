@@ -9,13 +9,18 @@ export default function triggerAnimations(state, action) {
   // When the level starts
   // Start the Oppenheimer timer
   if (activeCamera === 'level') {
-    playerOppie();
+    playPath('oppie');
   }
 
-  console.log('type', type);
+  // Actions for starting animations
+  // This is needed because the alongpath component can not play on event yet.
+  // So we need to listen for the action, then trigger the play.
   switch (type) {
     case 'touchDelivery':
-      playRollingOrange();
+      playPath('rollingOrange');
+      break;
+    case 'touchSoldier':
+      playPath('soldier');
       break;
     default:
       // no default
@@ -24,18 +29,8 @@ export default function triggerAnimations(state, action) {
   return state;
 }
 
-function playRollingOrange() {
-  const elm = document.getElementById('rollingOrange');
-  const alongpath = elm.getAttribute('alongpath');
-
-  console.log('playRollingOrange', elm, alongpath);
-  // start playing the path
-  alongpath.isPlaying = true;
-  elm.setAttribute('alongpath', alongpath);
-}
-
-function playerOppie() {
-  const elm = document.getElementById('oppie');
+function playPath(elmID) {
+  const elm = document.getElementById(elmID);
   const alongpath = elm.getAttribute('alongpath');
 
   // start playing the path
