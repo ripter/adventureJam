@@ -20,21 +20,15 @@
         <img id="spriteCurvepoint" src="sprites/curvePointRed.svg"></img>
         <img id="imgOppie" src="images/Oppie.jpg"></img>
         <img id="imgLose" src="images/Y12_Calutron_Operators.jpg"></img>
-        <a-asset-item id="truck" src="models/truck.dae"></a-asset-item>
+        <a-asset-item id="modelTruck" src="models/truck.dae"></a-asset-item>
         <a-asset-item id="modelSet" src="models/level.dae"></a-asset-item>
-
-        <!-- Road Models -->
-        <a-asset-item id="road-grass-to-sidewalk-obj" src="models/road/grass_to_sidewalk.obj"></a-asset-item>
-        <a-asset-item id="road-grass-to-sidewalk-mtl" src="models/road/grass_to_sidewalk.mtl"></a-asset-item>
-        <a-asset-item id="road-thick-round-curb-obj" src="models/road/road-thick-round-curb.obj"></a-asset-item>
-        <a-asset-item id="road-thick-round-curb-mtl" src="models/road/road-thick-round-curb.mtl"></a-asset-item>
+        <a-asset-item id="modelTable" src="models/table.dae"></a-asset-item>
 
         <a-mixin id="npc" geometry="primitive: plane; width: 2; height: 2;" position="0 .5 0" material="transparent: true; shader: flat;"></a-mixin>
         <a-mixin id="deliveryGuy" material="src: #spriteDeliveryGuy; width: 68; height: 100;"></a-mixin>
         <a-mixin id="oppie" material="src: #spriteOppenheimer; width: 68; height: 100;"></a-mixin>
 
 
-        <!-- rotation="-24 0 0" -->
         <a-mixin id="item"  scale="0.5 0.5 0.5" material="transparent:true;flatShading:true;" geometry="primitive:plane"></a-mixin>
         <a-mixin id="itemBox" geometry="primitive: box; height: .75; width: .75; depth: .75;" material="src: #spriteBoxSideActive; shader: flat;"></a-mixin>
         <a-mixin id="curvePoint" visible="true" material="color: #ff5342;flatShading:true;" geometry="primitive: cone; radiusBottom: .75; radiusTop: 0.1;"></a-mixin>
@@ -66,11 +60,13 @@
           </a-curve>
 
 
+          <a-entity collada-model="#modelTable" position="-9.79 0 9.073"></a-entity>
+
         </e-entity>
 
         <!-- Truck -->
         <a-entity>
-          <a-entity collada-model="#truck" position="4.5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
+          <a-entity collada-model="#modelTruck" position="4.5 0 -5" scale=".5 .5 .5" rotation="0 90 0"></a-entity>
           <a-entity mixin="itemBox" position="1.409 0.754 -2.387"></a-entity>
           <a-entity mixin="itemBox" position="2.157 1.165 -2.396"></a-entity>
           <a-entity mixin="itemBox" position="1.749 1.018 -3.147"></a-entity>
