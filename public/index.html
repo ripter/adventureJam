@@ -108,15 +108,20 @@
         <!-- NPC and box being carried -->
         <a-entity id="deliveryGuy"
           actor-delivery-driver="events:alongpath-trigger-activated;"
-          alongpath="curve:#track1; dur:4000; delay:1500; loop:true; isReversing:true;">
+          alongpath="curve:#track1; dur:4000; delay:1500; loop:true; canReverse:true;">
           <a-entity mixin="sprite npc npcDeliveryGuy"></a-entity>
-          <a-entity class="inventory" mixin="itemBox" position="0.571 0.33 0.375" visible="false"></a-entity>
+          <a-entity id="deliveryInventory" class="inventory" mixin="itemBox"
+            position="0.571 0.33 0.375"
+            scale=".5 .5 .5"
+            visible="false"></a-entity>
         </a-entity>
         <!-- Path from Truck to boxes -->
         <a-curve id="track1">
-          <a-curve-point class="a-curve-point" mixin="curvePoint" position="-0.158 0 -3" event-to-action="events:alongpath-trigger-activated;actions:deliveryPickup"></a-curve-point>
+          <a-curve-point class="a-curve-point" mixin="curvePoint"
+            position="-0.158 0 -3"
+            event-to-action="events:alongpath-trigger-activated;actions:toggleDeliveryInventory,deliveryPickup"></a-curve-point>
           <a-curve-point mixin="curvePoint" position="-1.76 0.17 -1.275"></a-curve-point>
-          <a-curve-point class="a-curve-point" mixin="curvePoint" position="-0.056 0.17 2.098" class="a-curve-point" event-to-action="events:alongpath-trigger-activated;actions:deliveryDropoff;"></a-curve-point>
+          <a-curve-point class="a-curve-point" mixin="curvePoint" position="-0.056 0.17 2.098" class="a-curve-point" event-to-action="events:alongpath-trigger-activated;actions:toggleDeliveryInventory,deliveryDropoff;"></a-curve-point>
         </a-curve>
 
 
