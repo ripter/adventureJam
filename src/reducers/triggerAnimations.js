@@ -7,11 +7,13 @@
 export default function triggerAnimations(state, action) {
   const { type } = action;
   const { activeCamera } = state;
+  const { puzzle, animations } = state;
 
   // When the level starts
   // Start the Oppenheimer timer
   if (activeCamera === 'level') {
     playPath('oppie');
+    playPath('deliveryGuy');
   }
 
   // Actions for starting animations
@@ -19,17 +21,35 @@ export default function triggerAnimations(state, action) {
     case 'touchDelivery':
       playPath('rollingOrange');
       break;
+    case 'toggleDeliveryInventory':
+      // console.log('updating Inventory');
+      updateInventory('deliveryInventory');
+      break;
+    case 'lockFailSoldier':
+      // console.log('Resetting Soldier');
+      // reversePlayPath('soldier');
+      break;
     case 'touchSoldier':
       playPath('soldier');
       break;
-    case 'toggleDeliveryInventory':
-      console.log('updating Inventory');
-      updateInventory('deliveryInventory');
+    case 'pieceResetSoldier':
+      if (animations.soldier === 'failed') {
+        resetPath('soldier');
+        animations.soldier = 'stopped'
+      }
+      break;
+    case 'pieceLockSoldier':
+      // if the lock failed, reset
+      if (!puzzle.lockSoldier) {
+        animations.soldier = 'failed'
+        reversePlayPath('soldier');
+      }
       break;
     default:
       // no default
   }
 
+  state.animations = animations;
   return state;
 }
 
@@ -39,6 +59,26 @@ function playPath(elmID) {
 
   // start playing the path
   alongpath.isPlaying = true;
+  elm.setAttribute('alongpath', alongpath);
+}
+
+function reversePlayPath(elmID) {
+  const elm = document.getElementById(elmID);
+  const alongpath = elm.getAttribute('alongpath');
+
+  // start playing the path
+  alongpath.isPlaying = true;
+  alongpath.isReversing = true;
+  elm.setAttribute('alongpath', alongpath);
+}
+
+function resetPath(elmID) {
+  const elm = document.getElementById(elmID);
+  const alongpath = elm.getAttribute('alongpath');
+
+  // start playing the path
+  alongpath.isPlaying = false;
+  alongpath.isReversing = false;
   elm.setAttribute('alongpath', alongpath);
 }
 

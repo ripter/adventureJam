@@ -1,22 +1,26 @@
 /**
  * [Description]
  */
-export default function puzzle(state, action) {
+export default function puzzle(state, action, nextAction) {
   const { type } = action;
-  console.log('puzzle logic');
+  const { puzzle } = state;
+  const { lockOrange, lockSoldier } = puzzle;
 
   switch (type) {
-    case 'touchDelivery':
-      console.log('Puzzle Piece: Move Orange');
+    case 'pieceLockOrange':
+      puzzle.lockOrange = true;
       break;
-    case 'touchSoldier':
-      console.log('Puzzle Piece: Move Soldier');
-      break;
-    case 'touchTable':
-      console.log('Puzzle Piece: Move Table');
+    case 'pieceLockSoldier':
+      // Soldier only locks if the orange has locked.
+      if (lockOrange) {
+        puzzle.lockSoldier = true;
+      }
       break;
     default:
-
+      // ignore
   }
+
+  // Update the puzzle state
+  state.puzzle = puzzle;
   return state;
 }

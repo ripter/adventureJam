@@ -17,7 +17,7 @@ const store = new Store(defaultState(), [
   puzzle,
 
   // Dirty non-pure, side-effects in the reducers after this line.
-  log,
+  // log,
   triggerAnimations,
   deliveryInventory,
 ], function() {

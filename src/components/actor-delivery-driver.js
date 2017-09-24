@@ -34,7 +34,7 @@ AFRAME.registerComponent('actor-delivery-driver', eventToMethod({
   handleEvent(event) {
     const { actions } = this.data;
 
-    console.log('deliveryDriver', this, event);
+    // console.log('deliveryDriver', this, event);
     // Translate the event into an action
     actions.forEach((actionType) => {
       dispatchAction({
