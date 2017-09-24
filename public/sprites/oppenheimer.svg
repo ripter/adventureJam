@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg viewBox="0 0 68 100" width="64px" height="128px" preserveAspectRatio="xMinYMin" xmlns="http://www.w3.org/2000/svg">
-  <g id="legLeft_FL" transform="matrix(1, 0, 0, 1, 21.326687, 83.83773)" style="visibility: hidden;">
+<svg viewBox="0 0 68 100" width="64px" height="128px" preserveAspectRatio="xMinYMax" xmlns="http://www.w3.org/2000/svg">
+  <g id="legLeft_FL" transform="matrix(1.033837, 0, 0, 1.033837, 22.147879, 83.29702)" style="visibility: hidden;">
     <title>Blue Right Leg</title>
     <path fill="#B8824D" stroke="none" d="M 8.964 15.976 L 8.964 11.03 L -8.763 11.03 L -8.763 10.981 C -9.938 11.607 -11.012 12.563 -11.986 13.849 L -11.986 15.976 L 8.964 15.976 Z">
       <title>Shoe</title>
@@ -12,7 +12,7 @@
       <title>Pant</title>
     </path>
   </g>
-  <g id="g-4" transform="matrix(1, 0, 0, 1, 21.322695, 83.841736)">
+  <g id="g-4" transform="matrix(1.033837, 0, 0, 1.033837, 22.143751, 83.301163)">
     <title>Tan Right Leg</title>
     <path fill="#B8824D" stroke="none" d="M 8.964 15.976 L 8.964 11.03 L -8.763 11.03 L -8.763 10.981 C -9.938 11.607 -11.012 12.563 -11.986 13.849 L -11.986 15.976 L 8.964 15.976 Z">
       <title>Shoe</title>
@@ -24,7 +24,7 @@
       <title>Pant</title>
     </path>
   </g>
-  <g id="legRight_FL" transform="matrix(-1, 0, 0, 1, 42.476692, 83.83773)" style="visibility: hidden;">
+  <g id="legRight_FL" transform="matrix(-1.033837, 0, 0, 1.033837, 44.013527, 83.29702)" style="visibility: hidden;">
     <title>Blue Left Leg</title>
     <path fill="#B8824D" stroke="none" d="M 8.964 15.976 L 8.964 11.03 L -8.763 11.03 L -8.763 10.981 C -9.938 11.607 -11.012 12.563 -11.986 13.849 L -11.986 15.976 L 8.964 15.976 Z">
       <title>Shoe</title>
@@ -36,7 +36,7 @@
       <title>Pant</title>
     </path>
   </g>
-  <g id="g-5" transform="matrix(-1, 0, 0, 1, 42.480698, 83.841736)">
+  <g id="g-5" transform="matrix(-1.033837, 0, 0, 1.033837, 44.01767, 83.301163)">
     <title>Tan Left Leg</title>
     <path fill="#B8824D" stroke="none" d="M 8.964 15.976 L 8.964 11.03 L -8.763 11.03 L -8.763 10.981 C -9.938 11.607 -11.012 12.563 -11.986 13.849 L -11.986 15.976 L 8.964 15.976 Z">
       <title>Shoe</title>
@@ -48,7 +48,7 @@
       <title>Pant</title>
     </path>
   </g>
-  <g id="body_FL" transform="matrix(1, 0, 0, 1, 31.926689, 75.137733)" style="visibility: hidden;">
+  <g id="body_FL" transform="matrix(1.033837, 0, 0, 1.033837, 33.106548, 74.30265)" style="visibility: hidden;">
     <title>Green Shirt</title>
     <g transform="matrix( 1.0129852294921875, 0, 0, 1.0081329345703125, 0.5,0.5) ">
       <g id="" transform="matrix(1, 0, 0, 1, 0, 0)">
@@ -57,7 +57,7 @@
       </g>
     </g>
   </g>
-  <g id="g-1" transform="matrix(1, 0, 0, 1, 30.23188, 75.117729)">
+  <g id="g-1" transform="matrix(1.033837, 0, 0, 1.033837, 31.354393, 74.281967)">
     <title>Brown Shirt</title>
     <path fill="#D7BD93" stroke="none" d="M -6.205 -16.512 C -4.239 -15.212 -1.855 -14.562 0.945 -14.562 C 3.745 -14.562 6.128 -15.212 8.095 -16.512 C 9.261 -17.279 10.078 -18.145 10.545 -19.112 L -8.655 -19.112 C -8.189 -18.145 -7.372 -17.279 -6.205 -16.512 Z">
       <title>Neck</title>
@@ -84,7 +84,7 @@
       <title>Dirt</title>
     </path>
   </g>
-  <g id="armLeft_FL_FL" transform="matrix(0.965927, 0.258804, -0.233551, 0.871689, 14.126685, 60.337727)" style="visibility: hidden;">
+  <g id="armLeft_FL_FL" transform="matrix(0.998611, 0.267561, -0.241454, 0.901184, 14.704254, 59.001858)" style="visibility: hidden;">
     <title>Green Right Arm</title>
     <path fill="#FFE0B1" stroke="none" d="M -8.975 22.235 C -6.913 24.183 -4.387 25.441 -1.397 26.008 C 1.768 20.714 3.962 14.963 5.184 8.753 L -8.277 6.288 C -9.077 11.604 -9.309 16.92 -8.975 22.235 Z" transform="matrix(1, 0, 0, 1, -0.000001, 0)">
       <title>Arm</title>
@@ -96,7 +96,7 @@
       <title>Sleeve</title>
     </path>
   </g>
-  <g id="g-2" transform="matrix(0.965927, 0.258804, -0.233551, 0.871688, 14.125491, 60.341358)">
+  <g id="g-2" transform="matrix(0.998611, 0.267561, -0.241454, 0.901183, 14.703019, 59.005611)">
     <title>Brown Right Arm</title>
     <path fill="#FFE0B1" stroke="none" d="M -8.975 22.235 C -6.913 24.183 -4.387 25.441 -1.397 26.008 C 1.768 20.714 3.962 14.963 5.184 8.753 L -8.277 6.288 C -9.077 11.604 -9.309 16.92 -8.975 22.235 Z" transform="matrix(1, 0, 0, 1, -0.000001, 0)">
       <title>Arm</title>
@@ -108,7 +108,7 @@
       <title>Sleeve</title>
     </path>
   </g>
-  <g id="handLeft_FL_FL" transform="matrix(0.965927, 0.258804, -0.258804, 0.965927, 8.876686, 85.037735)">
+  <g id="handLeft_FL_FL" transform="matrix(0.998611, 0.267561, -0.267561, 0.998611, 9.276613, 84.537628)">
     <title>Right Hand</title>
     <g transform="matrix( 1, 0, 0, 1, 0,0) ">
       <g id="" transform="matrix(1, 0, 0, 1, 0, 0)">
@@ -117,7 +117,7 @@
       </g>
     </g>
   </g>
-  <g id="armRight_FL_FL_FL" transform="matrix(-0.965927, 0.258804, 0.233551, 0.871689, 48.176689, 59.337727)" style="visibility: hidden;">
+  <g id="armRight_FL_FL_FL" transform="matrix(-0.998611, 0.267561, 0.241454, 0.901184, 49.906395, 57.968021)" style="visibility: hidden;">
     <title>Green Left Arm</title>
     <g transform="matrix( 0.9970703125, 0, 0, 1.006103515625, -0.4,-0.05) ">
       <g id="" transform="matrix(1, 0, 0, 1, 0, 0)">
@@ -127,7 +127,7 @@
       </g>
     </g>
   </g>
-  <g id="g-3" transform="matrix(-0.965927, 0.258804, 0.233551, 0.871688, 48.175907, 59.335773)">
+  <g id="g-3" transform="matrix(-0.998611, 0.267561, 0.241454, 0.901183, 49.905586, 57.966003)">
     <title id="svg-4">Brown Left Arm</title>
     <path fill="#FFE0B1" stroke="none" d="M -8.975 22.235 C -6.913 24.183 -4.387 25.441 -1.397 26.008 C 1.768 20.714 3.962 14.963 5.184 8.753 L -8.277 6.288 C -9.077 11.604 -9.309 16.92 -8.975 22.235 Z" id="svg-4">
       <title>Arm</title>
@@ -139,7 +139,7 @@
       <title>Sleeve</title>
     </path>
   </g>
-  <g id="handRight_FL_FL_FL" transform="matrix(-0.965927, 0.258804, 0.258804, 0.965927, 53.476692, 84.487732)">
+  <g id="handRight_FL_FL_FL" transform="matrix(-0.998611, 0.267561, 0.267561, 0.998611, 55.385731, 83.969017)">
     <title>Left Hand</title>
     <g transform="matrix( 1, 0, 0, 1, 0,0) ">
       <g id="" transform="matrix(1, 0, 0, 1, 0, 0)">
@@ -148,7 +148,7 @@
       </g>
     </g>
   </g>
-  <g id="head_FL" transform="matrix(1, 0, 0, 1, 31.826691, 56.13773)">
+  <g id="head_FL" transform="matrix(1.033837, 0, 0, 1.033837, 33.003166, 54.659748)">
     <title>Head</title>
     <g id="">
       <title>Skin</title>
@@ -198,13 +198,13 @@
       </g>
     </g>
   </g>
-  <g id="svg-1" transform="matrix(1, 0, 0, 1, 30.973694, 57.106213)">
+  <g id="svg-1" transform="matrix(1.033837, 0, 0, 1.033837, 32.121307, 55.660999)">
     <title>Short Hair</title>
     <path fill="#717B83" stroke="none" d="&#10;M -12.65 -25&#10;L -10.2 -29.1 -15.7 -23.5 -14.3 -22.25 -12.65 -25&#10;M 16.45 -22.6&#10;L 16.45 -22.6 8.35 -21.15 8.95 -19.85 16.45 -22.6&#10;M 19.2 -11.3&#10;L 19.55 -9.85&#10;Q 27.615234375 -22.025390625 25.05 -37.1&#10;L 19.7 -37.1&#10;Q 23.43671875 -24.1875 19.2 -11.3&#10;M -7.7 -38.75&#10;L -4.8 -35.85&#10;Q 3.84609375 -41.0203125 14.15 -42.9 5.384765625 -44.227734375 -2.85 -41.85&#10;L 0 -45.75&#10;Q -9.221484375 -47.369921875 -14.9 -41.45&#10;L -18.55 -37.75 -21.45 -39 -26.2 -27.9&#10;Q -25.3431640625 -25.6625 -24.95 -23.6&#10;L -7.7 -38.75 Z" id="svg-1"/>
     <path fill="#000000" fill-opacity="0.10196078431372549" stroke="none" d="&#10;M 1.7 -22.15&#10;L 0 -26.85 -10.2 -29.1 -12.65 -25 1.7 -22.15 Z" id="svg-1"/>
     <path fill="#6B747B" stroke="none" d="&#10;M 19.7 -37.1&#10;L 17.2 -37.1 19.05 -41.85&#10;Q 16.5802734375 -42.5087890625 14.15 -42.9 3.84609375 -41.0203125 -4.8 -35.85&#10;L -7.7 -38.75 -24.95 -23.6&#10;Q -24.0095703125 -19.15390625 -25.1 -15.5 -26.638671875 -10.1310546875 -21.45 -5.85&#10;L -16.7 -13.85 -18.8 -20.35 -15.7 -23.5 -10.2 -29.1 0 -26.85 1.7 -22.15 2.45 -20.1 8.35 -21.15 16.45 -22.6 16.45 -22.6 19.2 -11.3&#10;Q 23.43671875 -24.1875 19.7 -37.1 Z" id="svg-1"/>
   </g>
-  <g transform="matrix(1, 0, 0, 1, 31.826691, 56.13773)" style="visibility: hidden;">
+  <g transform="matrix(1.033837, 0, 0, 1.033837, 33.003166, 54.659748)" style="visibility: hidden;">
     <title>Long Hair</title>
     <g id="" transform="matrix(1, 0, 0, 1, 0, 0)">
       <path fill="#B8824D" stroke="none" d="&#10;M -23.55 -31.75&#10;Q -25.95 -18.75 -22.3 -6.5 -17.35 -11.15 -16.7 -23 -11.95 -40.6 22.8 -52.25 -2.45 -46.9 -16.05 -40&#10;L -18.95 -35.25 -23.55 -31.75 Z"/>
