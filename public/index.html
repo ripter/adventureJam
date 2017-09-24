@@ -19,6 +19,7 @@
         <img id="spriteOrange" src="sprites/orange.svg"></img>
         <img id="spriteCurvepoint" src="sprites/curvePointRed.svg"></img>
         <img id="imgOppie" src="images/Oppie.jpg"></img>
+        <img id="imgLose" src="images/Y12_Calutron_Operators.jpg"></img>
         <a-asset-item id="truck" src="models/truck.dae"></a-asset-item>
         <a-asset-item id="modelSet" src="models/level.dae"></a-asset-item>
 
@@ -93,8 +94,11 @@
 
 
 
+      <!-- Screens -->
+      <a-entity position="-4 -7 0" rotation="90 0 0" material="shader:flat;color:#000" geometry="primitive:plane;height:80;width:80"></a-entity>
+
       <!-- Intro -->
-      <a-entity position="-4 -7 0" rotation="90 0 0" material="shader:flat;color:#000" geometry="primitive:plane;height:40;width:40">
+      <a-entity id="screenIntro" position="-23 -7 23" rotation="90 0 0">
         <a-camera active-camera="intro" position="0 0 8" active="true" user-height="1.6" rotation="-1 0 0"></a-camera>
         <a-entity position="3 1 1" scale="10 10 10" text="value:The Los Alamos Laboratory, was a secret laboratory established by the Manhattan Project during World War II. Its mission was to design and build the first atomic bombs. Robert Oppenheimer was its first director, from 1943 to December 1945."></a-entity>
         <a-entity position="3 -1 1" scale="10 10 10" text="value:In July 1944, Oppenheimer abandoned the gun design in favor of an implosion-type weapon."></a-entity>
@@ -103,6 +107,16 @@
         <a-entity position="-6 3 1" mixin="item" material="src:#spriteOrange"></a-entity>
         <a-entity position="-6 0 1" mixin="item" material="src:#imgOppie; npot:true;" geometry="height:10;width:10"></a-entity>
         <a-entity position="-7 4 1" mixin="npc" material="src:#spriteOppenheimer"></a-entity>
+      </a-entity>
+
+
+      <!-- Game Lose -->
+      <a-entity id="screenLose" position="4 -7 0" rotation="90 0 0">
+        <a-camera active-camera="lose" position="0 0 8" active="false" user-height="1.6" rotation="-1 0 0"></a-camera>
+        <a-entity position="-5 1.5 1" mixin="item" material="src:#imgLose;" geometry="height:10;width:10"></a-entity>
+
+        <a-entity position="3 2.5 1" scale="10 10 10" text="value:Oh No! You changed history!"></a-entity>
+        <a-entity position="3 1 1" scale="10 10 10" text="value:Hint: Get the orange to the pedistal before Oppenheimer gets there."></a-entity>
       </a-entity>
 
     </a-scene>

@@ -6,6 +6,6 @@ export default function endGame(state, action) {
   const { isOrangeInPlace, activeCamera } = state;
 
 
-  state.activeCamera = 'intro';
+  state.activeCamera = 'lose';
   return state;
 }
