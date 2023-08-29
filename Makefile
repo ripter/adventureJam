@@ -3,7 +3,7 @@
 all: build run
 
 build: node_modules/
-	npx webpack
+	npx vite
 
 run:
 	npm start
